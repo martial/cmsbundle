@@ -19,7 +19,7 @@
         }
     ],
     "autoload": {
-        "psr-0": { "scrclub\\cmsbundle": "" }
+        "psr-0": { "scrclub\\CMSBundle": "" }
     },
-    "target-dir": ""
+    "target-dir": "scrclub/CMSBundle"
 }
