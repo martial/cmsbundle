@@ -1,0 +1,34 @@
+{% extends "scrclubCMSBundle:cms:config.html.twig" %}
+
+{% block sub_body %}
+
+
+<fieldset>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">{% trans %}langs{% endtrans %}</a>
+        </div>
+    </div>
+    <div class=" well control-group">
+        <select class="input-xlarge populate placeholder" multiple="multiple" id="lang_combo">
+            {% for key, locale in locales %}
+
+            {% set selected = '' %}
+            {% for lang in langs %}
+            {% if key == lang.locale %}
+            {% set selected = 'selected="selected"' %}
+            {% endif %}
+
+            {% endfor %}
+
+            <option {{selected  | raw }} value="{{key}}">{{locale}}</option>
+            {% endfor %}
+        </select>
+
+        <div class="form-actions">
+            <button type="submit" class=" btn btn-primary pull-right" id="validate_lang">{% trans %}save.changes{% endtrans %}</button>
+        </div>
+    </div>
+</fieldset>
+
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends "scrclubCMSBundle:cms:layout.html.twig" %}
+
+{% block body %}
+
+<div class="container">
+
+
+    <div class="featurette">
+        <h2 class="featurette-heading">{{ 'categories'| trans }}
+            <div class="muted featurette-sub-heading">--</div>
+        </h2>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row-fluid page-header">
+        <div class="featurette">
+            <a href="{{path('scrclub_cms_categories_add')}}" ><button class="btn btn-large pull-right" type="button"><i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}category{% endtrans %}</button></a>
+        </div>
+    </div>
+
+    {% if categories|length > 0 %}
+
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>bla</th>
+            <th style="text-align:right;">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+
+
+            {% for category in categories %}
+        <tr id="{{category.id}}">
+            <td>{{category.name}}</td>
+            <td>-</td>
+            <td style="text-align:right;"><a href="{{path('scrclub_cms_categories_add', {id:category.id})}}" ><i class="icon-edit"> Edit</i></a> - <a href="#" class="remove-category"><i class="icon-trash"> Delete</i></a></td>
+        </tr>
+            {% endfor %}
+
+        </tbody>
+    </table>
+    {% endif %}
+
+</div>
+
+<script>
+
+    $(function () {
+
+
+        $('.remove-category').each(function() {
+
+            $(this).click(function(e) {
+
+
+
+
+                e.preventDefault();
+
+                var id = $($(this).parents().get()[1]).attr('id');
+
+                bootbox.confirm("{{ 'wannado.this' | trans }}", function(result) {
+
+                    if (result) {
+                        $.ajax({
+                            url: Routing.generate('scrclub_cms_removeCategory', {id: id }),
+                            type: "post",
+                            success: function(data) {
+                                // delete li !
+                                $("#"+id).remove();
+                                $($(this).parents().get()[1]).hide(300, function() {
+                                    $(this).remove();
+                                });
+
+                            }
+
+                        });
+                    }
+                });
+
+
+
+
+
+
+            });
+
+        });
+
+
+
+    })
+
+
+
+</script>
+
+
+{% endblock %}

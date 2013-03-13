@@ -1,0 +1,123 @@
+{% extends "scrclubCMSBundle:cms:layout.html.twig" %}
+
+
+
+{% block body %}
+
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/edit-post.js' filter='yui_js'  output='js/compiled/cms.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+
+<div class="container">
+
+    <!-- got to node -->
+    <div class="nav-collapse">
+        <ul class="nav">
+            <li class="dropdown">
+                <a data-toggle="dropdown" class="dropdown-toggle active" href="#">Go To <b class="caret"></b></a>
+                {% include 'scrclubCMSBundle:cms:nodeMenuChildren.html.twig' with {'tree':rootTree, 'level':0 } %}
+            </li>
+        </ul>
+    </div>
+
+    <div class="featurette">
+        <h2 class="featurette-heading">{{ 'section'| trans | capitalize }} {{ nodeParent.name }}</h2>
+        <div class="muted featurette-sub-heading">{{tree | length}} {{ 'post'| trans  }}</div>
+    </div>
+
+    <hr class="featurette-divider">
+
+
+
+    {% if form.get('errors') is not empty %}
+    <div class="row-fluid page-header">
+        <div class="featurette">
+            <div class="alert alert-error">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <strong>Error!</strong> {{form_errors(form)}}
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <hr class="featurette-divider">
+
+    <div class="row-fluid page-header">
+        <div class="featurette">
+            <a href="{{path('scrclub_cms_addpost', { 'parent_id': nodeParent.id })}}" ><button class="btn btn-large pull-right" type="button"><i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}post{% endtrans %}</button></a>
+        </div>
+    </div>
+
+    <div id="alert-area"></div>
+
+    {% include 'scrclubCMSBundle:cms:nodeChildren.html.twig' with {'tree':tree, 'level':0 } %}
+
+    <hr>
+
+
+
+
+</div>
+<!-- /container -->
+
+
+<script src="{{ asset('js/jquery.mjs.nestedSortable.js') }}"></script>
+
+<script>
+
+    $(document).ready(function () {
+
+
+        $('.sortable').nestedSortable({
+
+            handle              :   'div',
+            helper              :   'clone',
+            items               :   'li',
+            rootID              :   'root',
+            opacity             :   1,
+            tolerance           :   'pointer',
+            placeholder         :   "placeholder",
+            forcePlaceholderSize:   true,
+
+            update              :   function (event, ui) {
+
+                                    var arraied = $('.sortable').nestedSortable('toArray', {startDepthCount:0});
+                                        $.ajax({
+                                            type :'post',
+                                            cache:false,
+                                            url  :'{{ path('scrclub_cms_editnodetree') }}',
+                                            data :{data:arraied},
+                                            success: function(data){
+                                            }
+                                        });
+
+
+                                    }
+
+        });
+
+
+
+
+    });
+
+
+
+    jQuery('.submenu').hover(function () {
+        jQuery(this).children('ul').removeClass('submenu-hide').addClass('submenu-show');
+    },function () {
+        jQuery(this).children('ul').removeClass('.submenu-show').addClass('submenu-hide');
+    }).find("a:first").append(" &raquo; ");
+
+
+
+
+
+
+
+</script>
+
+
+
+{% endblock %}

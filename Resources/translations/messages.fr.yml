@@ -1,0 +1,56 @@
+sections: Sections
+categories: Catégories
+langs: Langues
+configuration: Configuration
+personal.data: Vos données personelles
+your.site: Votre site
+
+save.changes: Sauvegarder
+yes: Oui
+no: Non
+yes.doit: Oui, allons y !
+by.default: par défaut
+
+edit: Éditer
+add: Ajouter
+
+section: section
+users: utilisateurs
+user: utilisateur
+
+login: identifiant
+status: statut
+last.connected: Dernière connection
+actions: actions
+
+ROLE_ADMIN: Administrateurs
+ROLE_USER: Utilisateurs
+
+
+
+status: Statut
+update.success: Updaté avec succés !
+delete.success: Éffacé avec succés !
+itsyou: C'est vous !
+
+choose.lang: Choisir une langue
+alert.validate.lang: Attention ! Changer les langues peut effacer des articles que déja traduits !
+alert.minimum.lang: Il faut une langue minimum !
+alert.default.lang: Quelle est votre langue par défaut du coup ?
+wannado.this: Vous êtes bien sur ? Heing ?
+
+edit.section: Éditer section
+title: Titre
+url: url
+
+force.article: Forcer premier article
+layouts: Maquette visuelle
+template.settings: Configuration front end
+mediaset: Set de medias
+
+welcome: Bienvenue
+
+analytics: Statistiques
+connection.checking: Test de connection...
+connection.connected: La connection est ok !
+connection.error: Erreur de connection.

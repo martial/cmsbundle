@@ -1,0 +1,69 @@
+<div id="embeddoc-modal-container" >
+
+
+    {{ getEmbed(document)}}
+
+    <!-- <img src="{{ getThumbnail(document)}}"> -->
+    {% if document.id != "" %}
+    <hr>
+    {% endif %}
+
+    <!-- choose thumnails -->
+    <form id="embed-edit-form" action="{{ path('scrclub_cms_updateEmbedPopOver', {mediasetId:mediaset.id, id:document.id}) }}" method="post" {{ form_enctype(form) }} novalidate >
+    {{form_widget(form)}}
+        <button type="submit" class="btn btn-info">Send</button>
+
+        <script>
+
+            $('#media-form-submit').unbind('click');
+            $('#media-form-submit').on('click', function(e){
+
+                e.preventDefault();
+
+                var options = {
+                    success: function (responseText, statusText, xhr, $form) {
+
+
+                        $('#embeddoc-modal-container').parent().html(responseText.html);
+                        $('#media-form-submit').html("{% trans %}save.changes{% endtrans %}");
+
+
+
+
+                        var mediasetContainer = $('#mediaset-all-' + responseText.mediasetId).find('.media-scroll-container');
+
+                        var mediaContainer =  mediasetContainer.find("#media-" + responseText.documentId);
+
+                        // here we add or update a li element into mediaset
+
+                        if( mediaContainer.length == 0 ) {
+
+                            mediasetContainer.prepend(responseText.media_html);
+
+                        } else {
+
+                            mediaContainer.replaceWith(responseText.media_html);
+
+                        }
+
+                        updateMediasItems(responseText.documentId);
+
+                        // and there we updates
+
+
+
+                    },
+                    dataType:'json'
+                };
+
+
+                $('#embed-edit-form').ajaxSubmit(options);
+                $('#media-form-submit').html('{% trans %}save.changes{% endtrans %} <i class="icon-refresh icon-spin"></i></a>');
+
+            });
+
+        </script>
+
+</div>
+
+b

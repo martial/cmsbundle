@@ -1,0 +1,21 @@
+scrclub_cms_categories:
+    pattern:  /backend/{_locale}/categories/
+    defaults: { _controller: scrclubCMSBundle:Category:index}
+    requirements:
+                    _locale: en|fr|es
+    options:
+            expose: true
+
+scrclub_cms_categories_add:
+    pattern:  /backend/{_locale}/categories/update/{id}
+    defaults: { _controller: scrclubCMSBundle:Category:update, id:null}
+    requirements:
+                    _locale: en|fr|es
+    options:
+            expose: true
+
+scrclub_cms_removeCategory:
+    pattern:  /backend/categories/delete/{id}
+    defaults: { _controller: scrclubCMSBundle:Category:delete, id:null}
+    options:
+      expose: true

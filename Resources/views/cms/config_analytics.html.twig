@@ -1,0 +1,100 @@
+{% extends "scrclubCMSBundle:cms:config.html.twig" %}
+
+{% block sub_body %}
+
+
+{% if form.points.vars.errors|length %}
+<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ form_errors(form) }}
+    {{ error|trans({}, 'FOSUserBundle') }}
+</div>
+{% endif %}
+
+<fieldset>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">{{ 'analytics'| trans | capitalize }}</a>
+            <ul class="nav" id="usertab">
+
+
+                <li class="active" ><a href="#">{{ 'Google Analytics' | trans }}</a></li>
+                <li  ><a href="#">{{ 'Go Squared' | trans }}</a></li>
+
+            </ul>
+        </div>
+
+    </div>
+
+
+    <div class=" well control-group">
+
+            <img src="{{asset('img/google.png')}}" class="img-rounded">
+
+        <hr>
+
+        <form action="{{ path('scrclub_cms_analytics') }}" method="post" {{ form_enctype(form) }}>
+
+
+            {{ form_label   (form.gg_email , 'Google Email' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+            }}
+            {{ form_widget  (form.gg_email,  {'attr': {'class': 'input-xxlarge'}})}}
+
+            {{ form_label( form.gg_password , 'Google Password ' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+            }}
+            {{ form_widget(form.gg_password,  {'attr': {'class': 'input-xxlarge'}})}}
+
+            {{ form_label( form.gg_analyticsid , 'Analytics ID' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+            }}
+            {{ form_widget(form.gg_analyticsid,  {'attr': {'class': 'input-xxlarge'}})}}
+
+            {{ form_widget(form._token) }}
+
+
+
+            <hr>
+            <div id="connect-check">
+            <div class="alert alert-info" ><i class="icon-refresh icon-spin"></i> {{ 'connection.checking' | trans }}</div>
+            </div>
+
+    </div>
+
+
+</fieldset>
+<button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
+</form>
+
+
+        <script type="text/javascript">
+
+
+            $(function() {
+
+                $.ajax({
+                    url: "{{path("scrclub_cms_googlecheck")}}",
+                    success:function(data) {
+
+                        if(data == 'connected') {
+                        $("#connect-check").html('<div class="alert alert-success" ><i class="icon-ok"></i> {{ 'connection.connected' | trans }}</div>');
+
+                        } else {
+
+                            $("#connect-check").html('<div class="alert alert-error" ><i class="icon-remove"></i> {{ 'connection.error' | trans }}</div>');
+
+                        }
+
+
+                    }
+
+                })
+
+            })
+
+
+
+
+
+        </script>
+
+
+{% endblock %}

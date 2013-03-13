@@ -1,0 +1,70 @@
+{% extends "scrclubCMSBundle:cms:config.html.twig" %}
+
+{% block sub_body %}
+
+
+
+<div class="featurette">
+    <h2 class="featurette-heading">{{ 'add'| trans }} {{ 'template'| trans }}  /<div class="muted featurette-sub-heading">{{ template.name }}</div></h2>
+</div>
+
+<hr class="featurette-divider">
+
+{% for key, message in app.session.flashbag.all() %}
+<div class="{{ key }}">
+    {{ message }}
+</div>
+{% endfor %}
+
+{% if form.points.vars.errors|length %}
+<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ form_errors(form) }}
+    {{ error|trans({}, 'FOSUserBundle') }}
+</div>
+{% endif %}
+
+<div class="span9">&nbsp;</div>
+    <fieldset>
+        <div class=" well control-group">
+
+    <form action="{{ path('scrclub_cms_addtemplate', {'id' : user.id }) }}" method="post" {{ form_enctype(form) }}>
+
+
+        {{ form_label( form.name , 'name' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }}) }}
+        {{ form_widget(form.name,  {'attr': {'class': 'input-xxlarge'}})}}
+
+
+        {{ form_label( form.type , 'type' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }}) }}
+        {{ form_widget(form.type,  {'attr': {'class': 'input-xxlarge'}})}}
+
+
+        <!-- roles -->
+
+
+
+        {{ form_widget(form._token) }}
+
+            </div>
+        </fieldset>
+    <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
+    </form>
+
+
+
+<script type="text/javascript">
+
+
+    $(function() {
+
+        $("#type").select2({
+            placeholder: "{{ 'select.type' | trans }}",
+            allowClear: true
+        });
+
+    })
+
+</script>
+
+
+{% endblock %}

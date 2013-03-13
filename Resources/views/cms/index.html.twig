@@ -1,0 +1,100 @@
+{% extends "scrclubCMSBundle:cms:layout.html.twig" %}
+
+
+
+
+{% block body %}
+
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/index.js' filter='yui_js'  output='js/compiled/cms.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<div class="container">
+
+    <div class="featurette" style="min-height:150px">
+        <div style="position:absolute">
+        <h2 class="featurette-heading" >{% trans %}welcome{% endtrans %} {{ app.user.username }} !<span class="muted"><br>site.url</span></h2>
+        <p class="lead" id="counter">Vous pouvez accéder à vos articles ici.</p>
+        </div>
+        <div id="charts" class="pull-right" style="position: relative;  top:10px; z-index:-1;">
+            <i class="icon-refresh icon-spin"></i>
+        </div>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <div class="row-fluid page-header">
+        <div class="featurette">
+            <a href="{{  path('scrclub_cms_addnode')}}" ><button class="btn btn-large pull-right" type="button"><i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}section{% endtrans %}</button></a>
+        </div>
+    </div>
+
+    <div id="alert-area"></div>
+    {% include 'scrclubCMSBundle:cms:nodeChildren.html.twig' with {'tree':tree, 'level':0 } %}
+    <hr>
+
+</div>
+
+<script>
+
+    $(function () {
+
+        $('.delete_node' ).each(function() {
+
+            $(this).click(function () {
+
+                var li = $($(this).parents().get()[4]);
+                var id = li.attr('id').slice(5);
+
+                console.log("click");
+
+                bootbox.confirm("{{ 'wannado.this' | trans }}", function(result) {
+
+                    if (result) {
+                        $.ajax({
+                            type :'post',
+                            cache:false,
+                            url  :'{{ path('scrclub_cms_deletenode')}}',
+                            data :{data:id},
+                            success: function(data){
+                                newAlert("success", "{{ 'delete.success' | trans }}");
+                                li.remove();
+                            }
+                        });
+                    }
+                });
+            })
+        });
+
+        $('.switch-active' ).each(function() {
+
+            $(this).on('switch-change', function (e, data) {
+
+                var li = $($(this).parents().get()[1]);
+                var id = li.attr('id').slice(5);
+
+                var result = {
+                    id : id,
+                    active:data.value
+                }
+
+                $.ajax({
+                    type :'post',
+                    cache:false,
+                    url  :'{{ path('scrclub_cms_updateActiveNode')}}',
+                    data :result,
+                    success: function(data){
+                        //newAlert("success", "{{ 'update.success' | trans }}");
+                    }
+                });
+            })
+        });
+
+    })
+
+</script>
+
+
+
+
+{% endblock %}

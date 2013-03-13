@@ -1,0 +1,55 @@
+<h1>Post list</h1>
+
+<table class="records_list">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Type</th>
+            <th>Active</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Lft</th>
+            <th>Lvl</th>
+            <th>Rgt</th>
+            <th>Root</th>
+            <th>Slug</th>
+            <th>Fullslug</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+    {% for entity in entities %}
+        <tr>
+            <td><a href="{{ path('backend_post_show', { 'id': entity.id }) }}">{{ entity.id }}</a></td>
+            <td>{{ entity.type }}</td>
+            <td>{{ entity.active }}</td>
+            <td>{{ entity.name }}</td>
+            <td>{{ entity.description }}</td>
+            <td>{{ entity.lft }}</td>
+            <td>{{ entity.lvl }}</td>
+            <td>{{ entity.rgt }}</td>
+            <td>{{ entity.root }}</td>
+            <td>{{ entity.slug }}</td>
+            <td>{{ entity.fullslug }}</td>
+            <td>
+                <ul>
+                    <li>
+                        <a href="{{ path('backend_post_show', { 'id': entity.id }) }}">show</a>
+                    </li>
+                    <li>
+                        <a href="{{ path('backend_post_edit', { 'id': entity.id }) }}">edit</a>
+                    </li>
+                </ul>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+
+<ul>
+    <li>
+        <a href="{{ path('backend_post_new') }}">
+            Create a new entry
+        </a>
+    </li>
+</ul>

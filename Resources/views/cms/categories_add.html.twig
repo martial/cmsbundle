@@ -1,0 +1,118 @@
+{% extends "scrclubCMSBundle:cms:layout.html.twig" %}
+
+{% block body %}
+
+<div class="container">
+
+
+    <div class="featurette">
+        <h2 class="featurette-heading">{{ 'categories'| trans }}
+            <div class="muted featurette-sub-heading">--</div>
+        </h2>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <form action="{{ path('scrclub_cms_categories_add', { 'id': category.id }) }}" method="post" {{ form_enctype(form) }} novalidate>
+
+    {% set form_locales = form.translations.vars.locales %}
+    {% set fields = form.translations.fields %}
+
+    <div class="tabbable">
+        <ul class="nav nav-tabs" id="langTab">
+
+
+            {% for locale in form_locales %}
+
+
+            {% set icon = '' %}
+
+            {% if (form.translations.vars.default_locale[0] != locale)%}
+            {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
+
+            {% if (translationForm.name.get('value') == "") %}
+
+            {% set icon = '<i class="icon-warning-sign"></i>' %}
+
+            {% endif %}
+            {% endfor %}
+            {% endif %}
+
+
+            <li class="{% if (app.request.locale == locale) %} active {% endif %}">
+                <a href="#{{locale}}" data-toggle="tab">{{icon | raw}} {{getLocaleName(locale,  app.request.locale  ) | capitalize }}</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="tab-content">
+
+
+        {% for locale in form_locales %}
+
+
+        <div class="tab-pane x {% if (app.request.locale == locale) %} active {% endif %}" id="{{locale}}">
+
+            <fieldset>
+                <div class=" well control-group">
+                    <div class="row-fluid">
+
+                        {% if (form.translations.vars.default_locale[0] == locale) %}
+
+                        <div class="span9">
+
+                            {{ form_label( form.name , 'name' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                            }}
+                            {{ form_widget(form.name,  {'attr': {'class': 'input-xxlarge'}})}}
+
+
+                            {{ form_label( form.description , 'description' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                            }}
+                            {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge'}})}}
+
+
+                        </div>
+
+                        {% else %}
+
+                        {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
+
+                        <div class="span9">
+
+                            {% for f in translationForm.children %}
+
+                            {{ form_label( f , f.name | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                            }}
+                            {{ form_widget(f,  {'attr': {'class': 'input-xxlarge'}})}}
+
+                            {% endfor %}
+
+                        </div>
+
+                        {% endfor %}
+
+                        {% endif %}
+
+                    </div>
+                </div>
+            </fieldset>
+
+        </div>
+        {% endfor %}
+    </div>
+
+        {{ form_widget(form._token) }}
+        <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
+    </form>
+
+
+
+</div>
+
+
+
+
+
+
+{% endblock %}

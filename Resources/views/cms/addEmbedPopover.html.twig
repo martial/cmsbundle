@@ -1,0 +1,45 @@
+<div class="" id="embeddoc-modal-container">
+
+    {{ form_errors(form) }}
+
+    {{ getEmbed(document)}}
+
+    <!-- <img src="{{ getThumbnail(document)}}"> -->
+
+    <hr>
+
+    <form id="embed-edit-form" action="{{ path('scrclub_cms_updateEmbedPopOver', {mediasetId:mediaset.id , id:document.id}) }}" method="post" {{ form_enctype(form) }} novalidate >
+        {{form_widget(form)}}
+
+
+        <script>
+            $('#media-form-submit').unbind('click');
+            $('#media-form-submit').on('click', function(e){
+
+                e.preventDefault();
+
+                var options = {
+                    success: function (responseText, statusText, xhr, $form) {
+                        //$('#embed-edit-modal').modal('hide');
+
+                       // var data = jQuery.parseJSON(responseText);
+
+                        $('#embeddoc-modal-container').parent().html(responseText.html);
+                        $('#media-form-submit').html("{% trans %}save.changes{% endtrans %}");
+
+                    },
+                    dataType:'json'
+                };
+
+                $('#embed-edit-form').ajaxSubmit(options);
+
+                $('#media-form-submit').html('{% trans %}save.changes{% endtrans %} <i class="icon-refresh icon-spin"></i></a>');
+
+            });
+
+        </script>
+
+
+
+</div>
+

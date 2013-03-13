@@ -1,0 +1,61 @@
+<ol class="sortable clearfix">
+
+
+
+
+{% for node in tree %}
+    {% if node.type == type %}
+
+
+    {% if node.type == 'post' %}
+    {% set addPath = path('scrclub_cms_addpost', { 'id': node.id, 'parent_id': node.parent.id  }) %}
+    {% else %}
+    {% set addPath =  path('scrclub_cms_addnode', { 'id': node.id }) %}
+    {% endif %}
+
+
+    <li id="list_{{ node.id }}">
+
+
+
+
+        <div><i class="{{ type == 'post' ? "icon-file-alt" : "icon-folder-close-alt" }}"></i> {{ node.name }}
+
+            <div id="active_box_button_{{ node.id }}" class="switch switch-mini pull-right switch-active" style="padding:0px;" data-on="success" data-off="danger">
+                <input type="checkbox" {% if node.active %}checked="checked" {% endif %} style="padding:0px" >
+            </div>
+
+            <div class="btn-group pull-right" style="padding: 0; margin-top: -3px; padding-right: 10px;">
+                <button class="btn btn-mini  ">Action</button>
+                <button class="btn btn-mini  dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="{{  path('scrclub_cms_post', { 'parent_id': node.id }) }}"><i class="icon-zoom-in"></i> - {% trans %}See{% endtrans %}</a></li>
+                    <li><a href="{{ addPath }}"><i class="icon-wrench"></i> - {% trans %}Edit{% endtrans %}</a></li>
+                    <li><a class="delete_node" href="#"><i class="icon-trash"></i> - {% trans %}Delete{% endtrans %}</a></li>
+                </ul>
+            </div>
+
+            <div class="btn-group pull-right" style="padding: 0; margin-top: -3px; padding-right: 10px;">
+                <button class="btn btn-mini  ">Focus</button>
+                <button class="btn btn-mini  dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                <ul class="dropdown-menu">
+                    <li><a href="#">focus 1</a></li>
+                </ul>
+            </div>
+            {% if node.type == 'node' %}
+            <div class="btn-group pull-right" style="padding: 0; margin-top: -3px; padding-right: 10px;">
+                <a href="{{path('scrclub_cms_addpost', { 'parent_id': node.id })}}" ><button class="btn btn-mini pull-right" type="button"><i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}post{% endtrans %}</button></a>
+            </div>
+            {% endif %}
+
+
+
+        </div>{% if node.children | length > 0 %}{% include 'scrclubCMSBundle:cms:nodeChildren.html.twig' with {'tree':node.children, 'level':0 } %}{% endif %}</li>
+
+    {% endif %}
+{% endfor %}
+
+</ol>
+
+
+

@@ -1,0 +1,12 @@
+<ul class="dropdown-menu">
+{% for node in tree %}
+
+    <li class="dropdown submenu">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">{{node.name}}</a>
+        {% if node.children | length > 0 %}{% include 'scrclubCMSBundle:cms:nodeMenuChildren.html.twig' with {'tree':node.children, 'level':0 } %}{% endif %}
+    </li>
+
+{% endfor %}
+</ul>
+
+

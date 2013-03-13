@@ -1,0 +1,43 @@
+
+<li class="span2 media-{{mediaNode.getMedia().id}}"  id="{{mediaNode.id}}">
+
+
+    <div class="thumbnail"  href="#">
+
+        {% set media = mediaNode.getMedia() %}
+
+        {% set updatePath = path('scrclub_cms_updateMediaPopOver', {id:mediaNode.media.id}) %}
+        {% if (media.type =='image' )%}
+        {% set iconClass = 'icon-picture' %}
+        {% elseif (media.type =='document' )%}
+        {% set iconClass = 'icon-file-alt' %}
+        {% elseif (media.type =='embedded' )%}
+        {% set updatePath =  path('scrclub_cms_updateEmbedPopOver', {id:mediaNode.media.id, mediasetId:mediaset.id}) %}
+        {% set iconClass = 'icon-globe' %}
+        {% endif %}
+
+
+        <span class="label label-{{getSizeColor(media.fileSize)}}" style="position:absolute"><i class="{{iconClass}}"></i> {{media.extension}} {% if (media.type !='embedded' )%}- {{toMo(media.fileSize)}}{% endif %} </span>
+
+        {% if (media.type =='image' )%}
+        <img class="img-thumb-cms" style="height:140px" data-src="holder.js/160x140/text:{{media.name}}" {% if (media.getWebPath() != "" )%}src="{{asset(media.getWebPath()  | apply_filter('cms_user_thumb') )}}"{% endif %} alt="">
+
+        {% elseif (media.type =='embedded' ) %}
+
+        <img class="img-thumb-cms" style="height:140px" data-src="holder.js/160x140/text:{{media.name}}" src="{{ getThumbnail(media)  }}" alt="">
+        <i class="icon-play-circle layer-thumb icon-2x"></i>
+
+
+        {% else %}
+        <img class="img-thumb-cms" data-src="holder.js/160x140/text:{{media.name}}" alt="">
+
+        {% endif %}
+
+        <hr>
+
+        <p class="edit-media">
+            <a data-mediaid="{{mediaNode.media.id}}"  data-medianodeid="{{mediaNode.id}}"  href="{{updatePath}}" data-target="#media-edit-modal"><i class=" icon-edit"></i>
+                Edit</a></p>
+        <p class="remove-media"><a><i class=" icon-trash"></i> Remove</a></p>
+    </div>
+</li>

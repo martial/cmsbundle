@@ -1,0 +1,25 @@
+{
+    "name": "scrclub/CMSBundle",
+    "type": "symfony-bundle",
+    "require": {
+        "php": ">=5.3.2",
+        "symfony/framework-bundle": "2.1.*"
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Martial Geoffre Rouland",
+            "email": "martialou@gmail.com"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "git@bitbucket.org/martialou/cmsbundle.git"
+        }
+    ],
+    "autoload": {
+        "psr-0": { "scrclub\\CMSBundle": "" }
+    },
+    "target-dir": "scrclub/CMSBundle"
+}

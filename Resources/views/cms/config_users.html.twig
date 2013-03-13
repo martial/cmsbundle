@@ -1,0 +1,163 @@
+{% extends "scrclubCMSBundle:cms:config.html.twig" %}
+
+{% block sub_body %}
+
+<fieldset>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">{{ 'users'| trans | capitalize }}</a>
+            <ul class="nav" id="usertab">
+
+                {% for role in roles %}
+                <li {% if loop.first %}class="active" {% endif %}><a href="#{{role.role}}">{{ role.role| trans }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+
+    </div>
+
+    <div class="tab-content">
+    {% for role in roles %}
+
+        <div class="tab-pane {% if loop.first %}active{% endif %}" id="{{role.role}}">
+            <div class="control-group">
+            <ul class="thumbnails">
+
+                {% for user in users %}
+
+                {% if role.role in user.roles %}
+
+                <li class="span2">
+                    <div class="thumbnail">
+                        <a href="{{ path('scrclub_cms_adduser', { 'id': user.id }) }}">
+                            <img data-src="holder.js/170x150" {% if (user.image.getWebPath() != "" )%}src="{{ asset((user.image.getWebPath()) | apply_filter('cms_user_thumb')) }}" {% endif %}  alt="">
+                        </a>
+                            <hr>
+
+                        <div style="padding-left:10px" class="">
+                            <a {% if user.lastLogin %}class="user-name"{% endif %} data-toggle="tooltip" data-placement="right" title="{% if user.lastLogin %}Last connection: {{ user.lastLogin|date('Y-m-d H:i:s') }}{% endif %}" href="{{ path('scrclub_cms_adduser', { 'id': user.id }) }}">
+
+
+                                    {{ user.username }}
+
+                            </a>
+                            <hr>
+
+                            {% if user.id != app.user.id %}
+                            <p><a class="delete-user" id="{{user.id}}" href="#"><i class="icon-trash"></i> {{ 'delete'| trans | capitalize }}</a></p>
+                            {% else %}
+                            <p class="text-success"><i class=" icon-star"></i> {{ 'itsyou'| trans | capitalize }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </li>
+                {% endif %}
+                {% endfor %}
+            </ul>
+            </div>
+
+            <!--
+
+            <div class=" well control-group">
+                <div class="bs-docs-example">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>{{ 'login'| trans | capitalize }}</th>
+                            <th>{{ 'last.connected'| trans | capitalize }}</th>
+                            <th>{{ 'actions'| trans | capitalize }}</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+
+                        {% for user in users %}
+
+                        {% if role.role in user.roles %}
+
+                        <tr>
+                            <td>
+                                <a href="{{ path('scrclub_cms_adduser', { 'id': user.id }) }}">
+                                    <img class="img-polaroid" width="30" height="30" data-src="holder.js/30x30/text:?" {% if (user.image.getWebPath() != "" )%}src="{{asset(user.image.getWebPath())}}" {% endif %} alt="">
+                                {{ user.username }}</a>
+                            </td>
+                            <td>{% if user.lastLogin %}{{ user.lastLogin|date('Y-m-d H:i:s') }}{% endif %}</td>
+
+                            {% if user.id == app.user.id %}
+                            <td class="text-success"><i class=" icon-star"></i> {{ 'itsyou'| trans | capitalize }}</td>
+                            {% else %}
+                            <td><a class="delete-user" id="{{user.id}}" href="#"><i class="icon-trash"></i> {{ 'delete'| trans | capitalize }}</a></td>
+                            {% endif %}
+
+
+
+
+
+                        </tr>
+                        {% endif %}
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            -->
+            <div class="row-fluid page-header">
+                <div class="featurette">
+                    <a href="{{path('scrclub_cms_adduser', { 'id': user.id})}}" ><button class="btn pull-right" type="button"><i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}user{% endtrans %}</button></a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    </div>
+
+
+
+</fieldset>
+
+<script type="text/javascript">
+
+    $('.user-name').each(function () {
+
+        $(this).tooltip({
+
+        })
+
+
+    })
+
+
+
+    $('#usertab a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+    })
+
+    $('.delete-user' ).each(function() {
+        $(this).click(function () {
+
+            var id = $(this).attr('id');
+
+
+            bootbox.confirm("<i class='icon-warning-sign'></i> {{ 'wannado.this' | trans }}", function(result) {
+
+                if (result) {
+                    $.ajax({
+                        type :'post',
+                        cache:false,
+                        url  :'{{ path('scrclub_cms_deleteuser')}}',
+                        data :{data:id},
+                        success: function(data){
+
+                            location.reload();
+                            // should redirect
+                            //newAlert("success", "{{ 'delete.success' | trans }}");
+
+                        }
+                    });
+                }
+            });
+        })
+    });
+
+</script>
+
+{% endblock %}

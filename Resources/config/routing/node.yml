@@ -1,0 +1,30 @@
+backend_node:
+    pattern:  /
+    defaults: { _controller: "scrclubCMSBundle:Node:index" }
+
+backend_node_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "scrclubCMSBundle:Node:show" }
+
+backend_node_new:
+    pattern:  /new
+    defaults: { _controller: "scrclubCMSBundle:Node:new" }
+
+backend_node_create:
+    pattern:  /create
+    defaults: { _controller: "scrclubCMSBundle:Node:create" }
+    requirements: { _method: post }
+
+backend_node_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "scrclubCMSBundle:Node:edit" }
+
+backend_node_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "scrclubCMSBundle:Node:update" }
+    requirements: { _method: post }
+
+backend_node_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "scrclubCMSBundle:Node:delete" }
+    requirements: { _method: post }

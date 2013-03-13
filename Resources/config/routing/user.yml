@@ -1,0 +1,30 @@
+backend_user:
+    pattern:  /
+    defaults: { _controller: "scrclubCMSBundle:User:index" }
+
+backend_user_show:
+    pattern:  /{id}/show
+    defaults: { _controller: "scrclubCMSBundle:User:show" }
+
+backend_user_new:
+    pattern:  /new
+    defaults: { _controller: "scrclubCMSBundle:User:new" }
+
+backend_user_create:
+    pattern:  /create
+    defaults: { _controller: "scrclubCMSBundle:User:create" }
+    requirements: { _method: post }
+
+backend_user_edit:
+    pattern:  /{id}/edit
+    defaults: { _controller: "scrclubCMSBundle:User:edit" }
+
+backend_user_update:
+    pattern:  /{id}/update
+    defaults: { _controller: "scrclubCMSBundle:User:update" }
+    requirements: { _method: post }
+
+backend_user_delete:
+    pattern:  /{id}/delete
+    defaults: { _controller: "scrclubCMSBundle:User:delete" }
+    requirements: { _method: post }
