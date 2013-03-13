@@ -1,5 +1,5 @@
 {
-    "name": "scrclub/CMSBundle",
+    "name": "scrclub/cmsbundle",
     "type": "symfony-bundle",
     "require": {
         "php": ">=5.3.2",
@@ -14,12 +14,12 @@
     ],
     "repositories": [
         {
-            "type": "vcs",
+            "type": "git",
             "url": "git@bitbucket.org/martialou/cmsbundle.git"
         }
     ],
     "autoload": {
-        "psr-0": { "scrclub\\CMSBundle": "" }
+        "psr-0": { "scrclub\\cmsbundle": "" }
     },
-    "target-dir": "scrclub/CMSBundle"
+    "target-dir": "scrclub/cmsbundle"
 }
