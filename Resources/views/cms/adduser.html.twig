@@ -1,0 +1,109 @@
+{% extends "scrclubCMSBundle:cms:config.html.twig" %}
+
+{% block sub_body %}
+
+
+
+<div class="featurette">
+    <h2 class="featurette-heading">{{ 'user'| trans | capitalize }}  /<div class="muted featurette-sub-heading">{{ user.name }}</div></h2>
+</div>
+
+<hr class="featurette-divider">
+
+{% for key, message in app.session.flashbag.all() %}
+<div class="{{ key }}">
+    {{ message }}
+</div>
+{% endfor %}
+
+{% if form.points.vars.errors|length %}
+<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ form_errors(form) }}
+    {{ error|trans({}, 'FOSUserBundle') }}
+</div>
+{% endif %}
+
+<div class="span9">&nbsp;</div>
+    <fieldset>
+        <div class="well control-group">
+
+
+
+
+    <form action="{{ path('scrclub_cms_adduser', {'id' : user.id }) }}" method="post" {{ form_enctype(form) }}>
+
+
+        <div class="fileupload fileupload-new" data-provides="fileupload">
+            <div class="fileupload-preview thumbnail" style="width: 200px; height: 150px;">
+                <img  data-src="holder.js/200x150/text:Avatar" {% if (image.getWebPath() != "" )%}src="{{asset(image.getWebPath())}}" {% endif %}alt="">
+            </div>
+            <div>
+                <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>{{ form_widget(form.image.file)}}</span>
+            </div>
+        </div>
+
+        <hr>
+
+
+        {{ form_label( form.username , 'name' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }}) }}
+        {{ form_widget(form.username,  {'attr': {'class': 'input-xxlarge'}})}}
+
+        {{ form_label( form.email , 'email' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }}) }}
+        {{ form_widget(form.email,  {'attr': {'class': 'input-xxlarge'}})}}
+
+        <hr>
+
+        {{ form_widget(form.plainPassword,  {'attr': {'class': 'input-xxlarge'}})}}
+
+        <!-- roles -->
+
+        <hr>
+        <select id="roles" name="role" class="input-large">
+        {% for role in roles %}
+        <option value="{{role.role}}">{{role.role | trans  }}</option>
+        {% endfor %}
+        </select>
+
+
+
+
+
+        <hr>
+        <!--<div id="bootstrapped-fine-uploader"></div>-->
+
+
+      {{ form_widget(form._token) }}
+
+        </div>
+        </fieldset>
+
+    <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
+    </form>
+
+
+
+
+
+<script type="text/javascript">
+
+
+
+
+    $(function() {
+
+        //createUploader();
+
+        $("#roles").select2({
+            placeholder: "{{ 'select.user' | trans }}",
+            allowClear: true
+        });
+
+
+
+    })
+
+</script>
+
+
+{% endblock %}

@@ -1,0 +1,45 @@
+<h1>Config</h1>
+
+<table class="record_properties">
+    <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ entity.id }}</td>
+        </tr>
+        <tr>
+            <th>Sitename</th>
+            <td>{{ entity.sitename }}</td>
+        </tr>
+        <tr>
+            <th>Gg_email</th>
+            <td>{{ entity.ggemail }}</td>
+        </tr>
+        <tr>
+            <th>Gg_password</th>
+            <td>{{ entity.ggpassword }}</td>
+        </tr>
+        <tr>
+            <th>Gg_analyticsid</th>
+            <td>{{ entity.gganalyticsid }}</td>
+        </tr>
+    </tbody>
+</table>
+
+<ul class="record_actions">
+    <li>
+        <a href="{{ path('config') }}">
+            Back to the list
+        </a>
+    </li>
+    <li>
+        <a href="{{ path('config_edit', { 'id': entity.id }) }}">
+            Edit
+        </a>
+    </li>
+    <li>
+        <form action="{{ path('config_delete', { 'id': entity.id }) }}" method="post">
+            {{ form_widget(delete_form) }}
+            <button type="submit">Delete</button>
+        </form>
+    </li>
+</ul>

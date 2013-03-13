@@ -1,0 +1,61 @@
+scrclub_cms_addMediaToMediaset:
+    pattern:  /backend/addmedia/{mediasetId}/{mediaId}
+    defaults: { _controller: scrclubCMSBundle:MediaSet:addMedia, mediasetId:null, mediaId:null}
+    options:
+            expose: true
+
+scrclub_cms_addNodeToMedia:
+    pattern:  /backend/addNodeMedia/{nodeId}/{mediaId}
+    defaults: { _controller: scrclubCMSBundle:Media:addNodeToDocument, nodeId:null, mediaId:null}
+    options:
+            expose: true
+
+scrclub_cms_removeNodeToMedia:
+    pattern:  /backend/removeNodeMedia/{mediaNodeId}
+    defaults: { _controller: scrclubCMSBundle:Media:removeNodeToDocument, mediaNodeId:null}
+    options:
+            expose: true
+
+scrclub_cms_updateMediaOrder:
+    pattern:  /backend/updateMediaOrder
+    defaults: { _controller: scrclubCMSBundle:Media:updateMediaOrder}
+    options:
+            expose: true
+
+scrclub_cms_getMediaNodeAjax:
+    pattern:  /backend/getMediaNodeAjax/{mediaNodeId}
+    defaults: { _controller: scrclubCMSBundle:Media:getMediaNodeAjax, mediaNodeId:null}
+    options:
+            expose: true
+
+scrclub_cms_getMediaAjax:
+    pattern:  /backend/getMediaAjax/{mediaId}
+    defaults: { _controller: scrclubCMSBundle:Media:getMediaAjax, mediaId:null}
+    options:
+            expose: true
+
+scrclub_cms_updateEmbedPopOver:
+   pattern:  /backend/updateEmbedPop/{mediasetId}/{id}
+   defaults: { _controller: scrclubCMSBundle:EmbeddedDocument:update, mediasetId:null, id:null  }
+   options:
+               expose: true
+
+scrclub_cms_updateMediaPopOver:
+    pattern:  /backend/updateMediaPop/{id}
+    defaults: { _controller: scrclubCMSBundle:Image:update, id:null  }
+
+scrclub_cms_fineuploadhandle:
+    pattern:  /backend/fineupload/{mediaset_id}
+    defaults: { _controller: scrclubCMSBundle:Document:multiUpload, mediaset_id:null  }
+    options:
+            expose: true
+
+scrclub_cms_updateMediaPopOver:
+    pattern:  /backend/updateMediaPop/{id}
+    defaults: { _controller: scrclubCMSBundle:Media:update, id:null  }
+
+scrclub_cms_deletedocument:
+    pattern:  /backend/deletedocument/{id}
+    defaults: { _controller: scrclubCMSBundle:Document:delete, id:null }
+    options:
+            expose: true

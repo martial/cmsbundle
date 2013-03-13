@@ -1,0 +1,87 @@
+{% extends "scrclubCMSBundle:cms:layout.html.twig" %}
+
+{% block body %}
+
+
+<div class="container">
+    <div class="row">
+        <div class="span2 ">
+            <ul class="nav nav-list bs-docs-sidenav affix-top"  id="leftmenu">
+                <li {% if app.request.attributes.get('_route') == 'scrclub_cms_analytics' %}class="active"{% endif %}><a href="{{path('scrclub_cms_analytics')}}"><i class="icon-chevron-right"></i> {{ 'your.site'| trans | capitalize }}</a></li>
+                <li {% if app.request.attributes.get('_route') == 'scrclub_cms_langs' %}class="active"{% endif %}><a href="{{path('scrclub_cms_langs')}}"><i class="icon-chevron-right"></i> {{ 'langs'| trans | capitalize }}</a></li>
+                <li {% if app.request.attributes.get('_route') == 'scrclub_cms_users' %}class="active"{% endif %}><a href="{{path('scrclub_cms_users')}}"><i class="icon-chevron-right"></i> {{ 'users'| trans | capitalize }}</a></li>
+                <li {% if app.request.attributes.get('_route') == 'scrclub_cms_templates' %}class="active"{% endif %}><a href="{{path('scrclub_cms_templates')}}"><i class="icon-chevron-right"></i> {{ 'templates'| trans | capitalize }}</a></li>
+                <li {% if app.request.attributes.get('_route') == 'scrclub_cms_analytics' %}class="active"{% endif %}><a href="{{path('scrclub_cms_analytics')}}"><i class="icon-chevron-right"></i> {{ 'analytics'| trans | capitalize }}</a></li>
+
+
+            </ul>
+        </div>
+        <div class="span10">
+                <div class="tab-content">
+                    {% block sub_body %}{% endblock %}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /container -->
+
+<script>
+
+    $(document).ready(function () {
+
+        $("#lang_combo").select2({
+           placeholder :"{% trans %}choose.lang{% endtrans %}"
+           }
+        );
+
+        $('#validate_lang').avgrund({
+            height: 130,
+            holderClass: 'custom',
+            showClose: false,
+            showCloseText: 'Close',
+            enableStackAnimation: true,
+            onBlurContainer: '.container',
+            template: '{% include 'scrclubCMSBundle:cms:alert_lang_validate.html.twig'  %}'
+        });
+
+
+        $('#submit_lang').click(function() {
+            updateLangs();
+        })
+
+    });
+
+
+    function updateLangs() {
+
+        var langValues = $("#lang_combo").val() || [];
+
+        $.ajax({
+            type :'post',
+            cache:false,
+            url  :'{{ path('update_langs') }}',
+            data :{data:langValues},
+            success: function(data){
+
+                $('#validate_lang').popover({
+
+                    placement:"top",
+                    trigger: "manual",
+                    title:"{% trans %}status{% endtrans %}",
+                    content:"{% trans %}update.success{% endtrans %}"
+
+                });
+                $('#validate_lang').popover('show');
+                setTimeout(function() {$('#validate_lang').popover('hide');}, 4000);
+            }
+
+        });
+    }
+
+
+
+</script>
+
+
+{% endblock %}

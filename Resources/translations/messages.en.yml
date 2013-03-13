@@ -1,0 +1,56 @@
+sections: Sections
+categories: Categories
+langs: Langs
+configuration: Settings
+personal.data: Your personal data
+your.site: Your website
+
+save.changes: Save changes
+yes: Yes
+no: No
+yes.doit: Yes, do it !
+by.default: by default
+
+edit: Edit
+add: Add
+section: section
+
+login: login
+last.connected: Last connection
+actions: actions
+
+
+ROLE_ADMIN: Admin
+ROLE_USER: Users
+
+status: Status
+update.success: Updated with success
+delete.success: Deleted with success
+itsyou: It's you !
+
+choose.lang: Choose language
+alert.validate.lang: Careful ! Removing lang can erase all your existing translated posts.
+wannado.this: Are you very sure you wanna do this ?
+
+edit.section: Edit section
+title: Title
+url: url
+force.article: Force first article
+layouts: Layouts
+
+template: Template
+templates: Templates
+template.settings: Template settings
+mediaset: Media set
+
+welcome: Welcome
+
+
+
+analytics: Analytics
+connection.checking: Connection check...
+connection.connected: The connection is ok !
+connection.error: There was a connection error
+
+add.media.post: add Media to post
+validate.post.media.notice: You must validate yur media before adding posts !

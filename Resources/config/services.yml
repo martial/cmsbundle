@@ -1,0 +1,10 @@
+parameters:
+#    scrclub_cms.example.class: scrclub\CMSBundle\Example
+
+services:
+
+    cms_user.registration.form.type:
+        class: scrclub\CMSBundle\Form\RegistrationFormType
+        arguments: [%fos_user.model.user.class%]
+        tags:
+            - { name: form.type, alias: cms_user_registration }

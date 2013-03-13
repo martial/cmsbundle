@@ -1,0 +1,455 @@
+
+
+body {
+      padding-top: 60px;
+      padding-bottom: 0px;
+  }
+
+.accordion-heading {
+
+
+}
+
+.accordion-heading .accordion-toggle-cms {
+
+    display: block;
+    padding: 8px 15px;
+    height:20px;
+}
+
+.accordion-toggle-cms {
+    cursor: pointer;
+}
+
+.accordion-heading-link-cms {
+    float: left;
+    width: 100px;
+
+}
+
+
+
+
+/* Featurettes
+------------------------- */
+
+.featurette-divider {
+    margin: 0px 0; /* Space out the Bootstrap <hr> more */
+}
+.featurette {
+    padding-top: 0px; /* Vertically center images part 1: add padding above and below text. */
+    overflow: hidden; /* Vertically center images part 2: clear their floats. */
+    margin-bottom: 10px;
+}
+.featurette-image {
+    margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+}
+
+/* Give some space on the sides of the floated elements so text doesn't run right into it. */
+.featurette-image.pull-left {
+    margin-right: 40px;
+}
+.featurette-image.pull-right {
+    margin-left: 40px;
+}
+
+/* Thin out the marketing headings */
+.featurette-heading {
+    font-size: 50px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+}
+
+/* Thin out the marketing headings */
+.featurette-sub-heading {
+    font-size: 35px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+    font-style: italic;
+}
+
+
+.fieldset-heading {
+
+    font-size: 25px;
+    font-weight: 300;
+    line-height: 1;
+    letter-spacing: -1px;
+    padding-bottom: 10px;
+
+}
+
+
+
+.mjs-nestedSortable-error {
+    background: #fbe3e4;
+    border-color: transparent;
+}
+
+ol {
+    margin: 0;
+    padding: 0;
+    padding-left: 30px;
+}
+
+ol.sortable, ol.sortable ol {
+    margin: 0 0 0 25px;
+    padding: 0;
+    list-style-type: none;
+}
+
+ol.sortable {
+    margin: 4em 0;
+}
+
+.sortable li {
+
+    margin: 6px 0 0 0;
+    padding: 0;
+
+}
+
+.placeholder{
+    border: 1px dotted black; visibility: visible !important;
+}
+
+.sortable li div  {
+
+    padding: 6px;
+    margin: 0;
+
+    cursor: move;
+    background: #fefefe;
+    background: -moz-linear-gradient(top,  #ffffff 0%, #fefefe 47%, #ededed 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#fefefe), color-stop(100%,#ededed));
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#fefefe 47%,#ededed 100%);
+    background: -o-linear-gradient(top,  #ffffff 0%,#fefefe 47%,#ededed 100%);
+    background: -ms-linear-gradient(top,  #ffffff 0%,#fefefe 47%,#ededed 100%);
+    background: linear-gradient(to bottom,  #ffffff 0%,#fefefe 47%,#ededed 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 );
+    border: 1px solid #d4d4d4;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+
+}
+
+.sortable li.mjs-nestedSortable-branch div {
+    background: -moz-linear-gradient(top,  #ffffff 0%, #fefefe 47%, #f0ece9 100%);
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#fefefe 47%,#f0ece9 100%);
+
+}
+
+.sortable li.mjs-nestedSortable-leaf div {
+    background: -moz-linear-gradient(top,  #ffffff 0%, #fefefe 47%, #bcccbc 100%);
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#fefefe 47%,#bcccbc 100%);
+
+}
+
+li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
+    border-color: #999;
+    background: #fafafa;
+}
+
+.disclose {
+    cursor: pointer;
+    width: 10px;
+    display: none;
+}
+
+.sortable li.mjs-nestedSortable-collapsed > ol {
+    display: none;
+}
+
+.sortable li.mjs-nestedSortable-branch > div > .disclose {
+    display: inline-block;
+}
+
+.sortable li.mjs-nestedSortable-collapsed > div > .disclose > span:before {
+    content: '+ ';
+}
+
+.sortable li.mjs-nestedSortable-expanded > div > .disclose > span:before {
+    content: '- ';
+}
+
+.sortable li  div  .switch   {
+
+
+    background: #ffffff;
+    border: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+}
+
+.sortable li  div  .btn-group   {
+
+    padding:0px;
+    margin: 0px;
+    background: #ffffff;
+    border: none;
+
+}
+
+.sortable li  div  .btn-group  .dropdown-menu li  {
+
+   padding:0px;
+   margin: 0px;
+    background: #ffffff;
+    border: none;
+}
+
+.no-padding {
+
+    padding:0px;
+
+}
+
+
+
+.submenu-show
+{
+    border-radius: 3px;
+    display: block;
+    left: 100%;
+    margin-top: -25px !important;
+    moz-border-radius: 3px;
+    position: absolute;
+    webkit-border-radius: 3px;
+}
+.submenu-hide
+{
+    display: none !important;
+    float: right;
+    position: relative;
+    top: auto;
+}
+.navbar .submenu-show:before
+{
+    border-bottom: 7px solid transparent;
+    border-left: none;
+    border-right: 7px solid rgba(0, 0, 0, 0.2);
+    border-top: 7px solid transparent;
+    left: -7px;
+    top: 10px;
+}
+.navbar .submenu-show:after
+{
+    border-bottom: 6px solid transparent;
+    border-left: none;
+    border-right: 6px solid #fff;
+    border-top: 6px solid transparent;
+    left: 10px;
+    left: -6px;
+    top: 11px;
+}
+
+
+
+/* Sidenav for Left menu
+-------------------------- ------------------------ */
+
+.bs-docs-sidenav {
+    margin: 20px 0 0;
+    padding: 0;
+    background-color: #fff;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+    -moz-box-shadow: 0 1px 4px rgba(0,0,0,.065);
+    box-shadow: 0 1px 4px rgba(0,0,0,.065);
+}
+.bs-docs-sidenav > li > a {
+    display: block;
+    width: 190px \9;
+    margin: 0 0 -1px;
+    padding: 8px 14px;
+    border: 1px solid #e5e5e5;
+}
+.bs-docs-sidenav > li:first-child > a {
+    -webkit-border-radius: 6px 6px 0 0;
+    -moz-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+.bs-docs-sidenav > li:last-child > a {
+    -webkit-border-radius: 0 0 6px 6px;
+    -moz-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
+}
+.bs-docs-sidenav > .active > a {
+    position: relative;
+    z-index: 2;
+    border: 0;
+    text-shadow: 0 1px 0 rgba(0,0,0,.15);
+    -webkit-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+    -moz-box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+    box-shadow: inset 1px 0 0 rgba(0,0,0,.1), inset -1px 0 0 rgba(0,0,0,.1);
+}
+/* Chevrons */
+.bs-docs-sidenav .icon-chevron-right {
+    float: right;
+    margin-top: 2px;
+    margin-right: -6px;
+    opacity: .25;
+}
+.bs-docs-sidenav > li > a:hover {
+    background-color: #f5f5f5;
+}
+.bs-docs-sidenav a:hover .icon-chevron-right {
+    opacity: .5;
+}
+.bs-docs-sidenav .active .icon-chevron-right,
+.bs-docs-sidenav .active a:hover .icon-chevron-right {
+
+}
+.bs-docs-sidenav.affix {
+    top: 40px;
+}
+.bs-docs-sidenav.affix-bottom {
+    position: absolute;
+    top: auto;
+    bottom: 270px;
+}
+
+
+.thumbnail {
+
+    display: block;
+    line-height: 1;
+    position: relative;
+    z-index: 1; /* Added Lower Z-Index Value */
+
+    background: -moz-linear-gradient(top,  #ffffff 0%, #fefefe 47%, #ededed 100%);
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#ffffff), color-stop(47%,#fefefe), color-stop(100%,#ededed));
+    background: -webkit-linear-gradient(top,  #ffffff 0%,#fefefe 47%,#ededed 100%);
+    background: -o-linear-gradient(top,  #ffffff 0%,#fefefe 47%,#ededed 100%);
+    background: -ms-linear-gradient(top,  #ffffff 0%,#fefefe 47%,#ededed 100%);
+    background: linear-gradient(to bottom,  #ffffff 0%,#fefefe 47%,#ededed 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#ededed',GradientType=0 );
+
+}
+
+a.thumbnail.selected {
+    border-color: #0088cc;
+    -webkit-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+    -moz-box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+    box-shadow: 0 1px 4px rgba(0, 105, 214, 0.25);
+}
+
+.pin {
+
+    display: none;
+    background: -moz-linear-gradient(top,  rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,1)), color-stop(100%,rgba(255,255,255,0))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(255,255,255,1) 0%,rgba(255,255,255,0) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#00ffffff',GradientType=0 ); /* IE6-9 */
+
+    width:98%;
+    height:30%;
+    left:4px; /* Added Left Position */
+    position: absolute; /* Added Position */
+    top: 4px; /* Added Top Position */
+    z-index: 2; /* Added Higher Z-Index Value from thumbnail div */
+
+
+}
+
+
+
+.media-scroll-container {
+
+}
+
+.bottom {
+    margin-top: 0px;
+    padding: 1px;
+    text-align: left;
+    white-space: normal;
+    background-color: #ffffff;
+    border: 1px solid #ccc;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    border-radius: 6px;
+    -webkit-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+    -webkit-background-clip: padding-box;
+    -moz-background-clip: padding;
+    background-clip: padding-box;
+
+
+}
+
+.arrow,
+.arrow:after {
+    position: relative;
+    display: block;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.arrow {
+    border-width: 11px;
+}
+
+.arrow:after {
+    border-width: 10px;
+    content: "";
+}
+
+.bottom .arrow {
+    top: -12px;
+    left: 50%;
+    margin-left: -11px;
+    border-bottom-color: #999;
+    border-bottom-color: rgba(0, 0, 0, 0.25);
+    border-top-width: 0;
+}
+
+.bottom .arrow:after {
+    top: 1px;
+    margin-left: -10px;
+    border-bottom-color: #ffffff;
+    border-top-width: 0;
+}
+
+.popover-title {
+
+    top: -11px;
+    position: relative;
+}
+
+.layer-thumb {
+
+    position: absolute;
+    top: 60px;
+    text-align: center!important;
+    z-index: 99;
+    left: 50%;
+    margin-left: -18px;
+    color: white;
+
+
+
+}
+
+
+/* custom forms
+-------------------------- ------------------------ */
+
+.text-area-high {
+
+    height:200px !important;
+
+}

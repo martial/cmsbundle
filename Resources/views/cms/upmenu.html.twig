@@ -1,0 +1,56 @@
+
+
+
+
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="navbar-inner">
+        <div class="container">
+
+            <a class="brand" href="{{  path('scrclub_cms_homepage')}}""> Knob </a>
+
+            <div class="nav-collapse collapse">
+                <ul class="nav">
+                    <li class="active"><a href="{{  path('scrclub_cms_homepage')}}"><i class="icon-folder-close-alt"></i> {% trans %}sections{% endtrans %}</a></li>
+                    <li><a href="{{ path('scrclub_cms_categories') }}"><i class="icon-tags"></i> {% trans %}categories{% endtrans %}</a></li>
+                    <li><a href="#contact"><i class="icon-tasks"></i> {% trans %}analytics{% endtrans %}</a></li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown"><i class="icon-cogs"></i> {% trans %}configuration{% endtrans %}
+                            <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><i class="icon-user"></i>{% trans %}personal.data{% endtrans %}</a></li>
+                            <li><a href="#"><i class="icon-sitemap"></i>{% trans %}your.site{% endtrans %}</a> <span class="caret"></span></li>
+                        </ul>
+                    </li>
+                </ul>
+
+                <ul class="nav pull-right">
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown"><i class="icon-globe"></i> {% trans %}langs{% endtrans %}
+                            <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+
+                            <li><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'fr'})) }}">{% if (app.request.locale == 'fr') %}<i class="icon-ok"></i>{%endif%} {{getLocaleName('fr',  app.request.locale)}}</a></li>
+                            <li><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'en'})) }}">{% if (app.request.locale == 'en') %}<i class="icon-ok"></i>{%endif%} {{getLocaleName('en',  app.request.locale)}}</a></li>
+                            <li><a href="{{ path(app.request.get('_route'), app.request.get('_route_params')|merge({'_locale': 'es'})) }}">{% if (app.request.locale == 'es') %}<i class="icon-ok"></i>{%endif%} {{getLocaleName('es',  app.request.locale)}}</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown">
+                            <img class="" width="30" height="30" data-src="holder.js/30x30/text:?" {% if (app.user.image.getWebPath() != "" )%}src="{{asset(app.user.image.getWebPath() | apply_filter('cms_user_minithumb') ) }}" {% endif %}alt="">
+                            {{ app.user.username }}
+                            <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="{{ path('scrclub_cms_adduser', { 'id': app.user.id }) }}"><i class="icon-user"></i>{% trans %}personal.data{% endtrans %}</a></li>
+                            <li><a href="{{ path('fos_user_security_logout')}}"><i class="icon-off"></i>{% trans %}logout{% endtrans %}</a></li>
+
+
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </div>
+</div>

@@ -1,0 +1,63 @@
+<div class="container">
+    {% if (image.getType() == "image" )%}
+    <img class="thumbnail" data-src="holder.js/300x200" {% if (image.getWebPath() != "" )%}src="{{asset(image.getWebPath()  | apply_filter('cms_user_thumb') )}}"{% endif %} alt="">
+    <hr>
+    {% endif %}
+
+    {% if (image.getType() == "document" )%}
+    <a href="{{asset(image.getWebPath() )}}" alt="">ahou</a>
+    <hr>
+    {% endif %}
+
+    <form id="media-edit-form" action="{{ path('scrclub_cms_updateMediaPopOver', {id:image.id}) }}" method="post" {{ form_enctype(form) }} novalidate >
+    {{form_widget(form)}}
+        <button type="submit" class="btn btn-info">Send</button>
+
+</div>
+
+<script>
+$('#media-form-submit').on('click', function(e){
+// We don't want this to act as a link so cancel the link action
+e.preventDefault();
+
+
+    var options = {
+
+        success: function (responseText, statusText, xhr, $form) {
+
+            // check if errors
+
+            if(responseText.status == "success") {
+
+                $('#media-edit-modal').modal('hide');
+                updateMediasItems(responseText.mediaId);
+
+            } else {
+
+                $('#media-edit-modal .modal-body').html(responseText.html);
+
+
+            }
+
+            //console.log(responseText);
+
+        }  // post-submit callback
+
+        // other available options:
+        //url:       url         // override for form's 'action' attribute
+        //type:      type        // 'get' or 'post', override for form's 'method' attribute
+        //dataType:  null        // 'xml', 'script', or 'json' (expected server response type)
+        //clearForm: true        // clear all form fields after successful submit
+        //resetForm: true        // reset the form after successful submit
+
+        // $.ajax options can be used here too, for example:
+        //timeout:   3000
+    };
+
+    $('#media-edit-form').ajaxSubmit(options);
+
+
+
+});
+
+</script>

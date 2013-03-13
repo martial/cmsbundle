@@ -1,0 +1,135 @@
+scrclub_cms_homepage:
+    pattern:  /backend/{_locale}
+    defaults: { _controller: scrclubCMSBundle:Nodes:index, _locale: en }
+    requirements:
+                _locale: en|fr|es
+
+scrclub_cms_addnode:
+    pattern:  /backend/{_locale}/addnode/{id}
+    defaults: { _controller: scrclubCMSBundle:Nodes:addNode, id:null }
+    requirements:
+                _locale: en|fr|es
+
+scrclub_cms_editnodetree:
+    pattern:  /backend/{_locale}/update_tree
+    defaults: { _controller: scrclubCMSBundle:Nodes:updateTree }
+
+scrclub_cms_deletenode:
+    pattern:  /backend/{_locale}/deletenode
+    defaults: { _controller: scrclubCMSBundle:Nodes:delete }
+
+scrclub_cms_updateActiveNode:
+    pattern:  /backend/{_locale}/updateactivenode
+    defaults: { _controller: scrclubCMSBundle:Nodes:updateActive }
+
+
+scrclub_cms_post:
+    pattern:  /backend/{_locale}/post/{parent_id}
+    defaults: { _controller: scrclubCMSBundle:Post:show }
+    requirements:
+                _locale: en|fr|es
+
+scrclub_cms_addpost:
+    pattern:  /{_locale}/addpost/{parent_id}/{id}
+    defaults: { _controller: scrclubCMSBundle:Nodes:addPost, id:null }
+    requirements:
+                _locale: en|fr|es
+edit_langs:
+    pattern:  /backend/{_locale}/edit_langs
+    defaults: { _controller: scrclubCMSBundle:CMSConfig:index }
+
+update_langs:
+    pattern:  /backend/{_locale}/update_langs
+    defaults: { _controller: scrclubCMSBundle:CMSConfig:updateLangs }
+
+
+config_page:
+    pattern:  /backend/{_locale}/settings
+    defaults: { _controller: scrclubCMSBundle:CMSConfig:index }
+
+scrclub_cms_langs:
+    pattern:  /backend/{_locale}/settings/langs
+    defaults: { _controller: scrclubCMSBundle:CMSConfig:showLangs}
+    requirements:
+                _locale: en|fr|es
+
+scrclub_cms_users:
+    pattern:  /backend/{_locale}/settings/users
+    defaults: { _controller: scrclubCMSBundle:CMSConfig:showUsers}
+    requirements:
+                _locale: en|fr|es
+
+scrclub_cms_templates:
+    pattern:  /backend/{_locale}/settings/templates
+    defaults: { _controller: scrclubCMSBundle:Template:show}
+    requirements:
+                _locale: en|fr|es
+
+scrclub_cms_addtemplate:
+    pattern:  /backend/{_locale}/addtemplate/{id}
+    defaults: { _controller: scrclubCMSBundle:Template:add,  id:null }
+    requirements:
+                _locale: en|fr|es
+
+scrclub_cms_adduser:
+    pattern:  /backend/{_locale}/adduser/{id}
+    defaults: { _controller: scrclubCMSBundle:Registration:register,  id:null }
+    requirements:
+                _locale: en|fr|es
+
+scrclub_cms_deleteuser:
+    pattern:  /backend/{_locale}/deleteuser/{id}
+    defaults: { _controller: scrclubCMSBundle:Registration:delete, id:null }
+    requirements:
+                _locale: en|fr|es
+
+scrclub_cms_analytics:
+    pattern:  /backend/{_locale}/settings/config
+    defaults: { _controller: scrclubCMSBundle:Config:edit }
+    requirements:
+                _locale: en|fr|es
+
+scrclub_cms_googlecheck:
+    pattern:  /backend/googlecheck
+    defaults: { _controller: scrclubCMSBundle:Analytics:loginGoogle }
+    requirements:
+                _locale: en|fr|es
+
+
+
+scrclub_cms_charts:
+    pattern:  /backend/charts
+    defaults: { _controller: scrclubCMSBundle:Analytics:index  }
+    options:
+            expose: true
+
+
+
+
+
+scrclubCMSBundle_backend_node:
+        resource: "@scrclubCMSBundle/Resources/config/routing/node.yml"
+        prefix:   /backend/node
+
+
+#scrclubCMSBundle_backend_post:
+       #resource: "@scrclubCMSBundle/Resources/config/routing/post.yml"
+        #prefix:   /backend/post
+
+#scrclubCMSBundle_backend_user:
+       # resource: "@scrclubCMSBundle/Resources/config/routing/user.yml"
+        #prefix:   /backend/user
+
+scrclubCMSBundle_backend_media:
+        resource: "@scrclubCMSBundle/Resources/config/routing/media.yml"
+
+scrclubCMSBundle_backend_category:
+        resource: "@scrclubCMSBundle/Resources/config/routing/categories.yml"
+
+
+
+
+#tests
+scrclub_cms_test:
+    pattern:  /test
+    defaults: { _controller: scrclubCMSBundle:EmbeddedDocument:test}

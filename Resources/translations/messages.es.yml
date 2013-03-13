@@ -1,0 +1,53 @@
+sections: Section
+categories: Categorias
+langs: Idiomas
+configuration: Configuracion
+personal.data: Tus datos
+your.site: Su pagina web
+
+save.changes: Guardar
+yes: Si
+no: No
+yes.doit: Venga, dale !
+by.default: por defecto
+
+edit: Editar
+add: Añadir
+section: seccion
+
+login: nombre
+status: estato
+last.connected: ultima connecion
+actions: acciones
+
+ROLE_ADMIN: Administradores
+ROLE_USER: Utilizadores
+
+status: Estado
+update.success: Cambiado correctamente !
+delete.success: Borrado correctamente !
+itsyou: Este eres tu !
+
+choose.lang: Elegir una lengua
+alert.validate.lang: Cuidado ! Cambiar las idiomas puede borrar todos los articulos vinculados !
+alert.minimum.lang: Se necesita un idioma como minimo ( si no, como lo harias ? ) !
+alert.default.lang: Cual es el idioma por defecto ?
+wannado.this: Seguro ?
+
+
+edit.section: Editar seccion
+title: Titulo
+url: url
+
+force.article: Forzar primer articulo
+layouts: layout
+template.settings: Configuracion front end
+mediaset: Set de medias
+
+welcome: Bienvenido
+
+
+analytics: Estadisticas
+connection.checking: Comprobando conneccion
+connection.connected: Conneccion correcta !
+connection.error: Ha habido un error de conneccion

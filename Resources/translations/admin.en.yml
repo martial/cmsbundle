@@ -1,0 +1,34 @@
+sections: Sections
+categories: Categories
+langs: Langs
+configuration: Settings
+personal.data: Your personal data
+your.site: Your website
+
+save.changes: Save changes
+yes: Yes
+no: No
+yes.doit: Yes, do it !
+by.default: by default
+
+edit: Edit
+add: Add
+section: section
+
+status: Status
+update.success: Updated with success
+delete.success: Deleted with success
+
+choose.lang: Choose language
+alert.validate.lang: Careful ! Removing lang can erase all your existing translated posts.
+wannado.this: Are you very sure you wanna do this ?
+
+edit.section: Edit section
+title: Title
+url: url
+force.article: Force first article
+layouts: Layouts
+template.settings: Template settings
+mediaset: Media set
+
+welcome: Welcome
