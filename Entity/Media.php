@@ -51,12 +51,12 @@
         public $type;
 
         /**
-         * @ORM\OneToMany(targetEntity="scrClub\CMSBundle\Entity\MediaNode", mappedBy="media", cascade={"remove"} )
+         * @ORM\OneToMany(targetEntity="scrclub\CMSBundle\Entity\MediaNode", mappedBy="media", cascade={"remove"} )
          */
         protected $mediaNodes;
 
         /**
-         * @ORM\ManyToMany(targetEntity="scrClub\CMSBundle\Entity\MediaSet", mappedBy="medias" , cascade={"persist"} )
+         * @ORM\ManyToMany(targetEntity="scrclub\CMSBundle\Entity\MediaSet", mappedBy="medias" , cascade={"persist"} )
          */
         protected $mediaSets;
 
@@ -72,7 +72,7 @@
         }
 
 
-        public function addNode(\scrClub\CMSBundle\Entity\Node $node) {
+        public function addNode(\scrclub\CMSBundle\Entity\Node $node) {
             $this->nodes[] = $node;
         }
 
@@ -81,7 +81,7 @@
          *
          * @param scrClub\CMSBundle\Entity\Node $node
          */
-        public function removeNode(\scrClub\CMSBundle\Entity\Node $node) {
+        public function removeNode(\scrclub\CMSBundle\Entity\Node $node) {
             $this->nodes->removeElement($node);
         }
 
@@ -93,7 +93,7 @@
             return $this->nodes;
         }
 
-        public function addMediaNode(\scrClub\CMSBundle\Entity\MediaNode $mediaNode) {
+        public function addMediaNode(\scrclub\CMSBundle\Entity\MediaNode $mediaNode) {
             // Ici, on utilise l'ArrayCollection vraiment comme un tableau, avec la syntaxe []
             $this->mediaNodes[] = $mediaNode;
         }
@@ -103,7 +103,7 @@
          *
          * @param scrClub\CMSBundle\Entity\MediaSet $categories
          */
-        public function removemediaNode(\scrClub\CMSBundle\Entity\MediaNode $mediaNode) {
+        public function removemediaNode(\scrclub\CMSBundle\Entity\MediaNode $mediaNode) {
             // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
             $this->mediaNodes->removeElement($mediaNode);
         }
@@ -117,7 +117,7 @@
         }
 
 
-        public function addMediaSet(\scrClub\CMSBundle\Entity\MediaSet $mediaSet) {
+        public function addMediaSet(\scrclub\CMSBundle\Entity\MediaSet $mediaSet) {
             // Ici, on utilise l'ArrayCollection vraiment comme un tableau, avec la syntaxe []
             $this->mediaSets[] = $mediaSet;
         }
@@ -127,7 +127,7 @@
          *
          * @param scrClub\CMSBundle\Entity\MediaSet $categories
          */
-        public function removeMediaSet(\scrClub\CMSBundle\Entity\MediaSet $mediaSet) {
+        public function removeMediaSet(\scrclub\CMSBundle\Entity\MediaSet $mediaSet) {
             // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
             $this->mediaSets->removeElement($mediaSet);
         }

@@ -16,7 +16,8 @@
     <link rel="stylesheet" href="{{ asset_url }}" />
     {% endstylesheets %}
 
-    <link rel="stylesheet" type="text/css" href="{{ asset('css/fonts/awesome/font-awesome.css') }}">
+
+    <link rel="stylesheet" href="{{  asset('bundles/scrclubcms/css/awesome/font-awesome.min.css') }}" />
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
     <!--[if lt IE 9]>
@@ -33,11 +34,6 @@
     {% javascripts '@scrclubCMSBundle/Resources/public/js/*' filter='yui_js'  output='js/compiled/main.js' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
-
-
-
-
-
 
     {% javascripts '@scrclubCMSBundle/Resources/public/js/fineuploader/*' filter='yui_js' output='js/compiled/fineuploader.js'  %}
     <script src="{{ asset_url }}"></script>
@@ -56,9 +52,8 @@
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    {% javascripts '@scrclubCMSBundle/Resources/public/js/wysiwig/*' %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+
+
 
     {% javascripts '@scrclubCMSBundle/Resources/public/js/avgrund/*' %}
     <script src="{{ asset_url }}"></script>
@@ -72,9 +67,11 @@
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
 
-    {% javascripts '@scrclubCMSBundle/Resources/public/js/select/*' %}
-    <script src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+
+
+
+
+    <script src="{{ asset('bundles/scrclubcms/js/select/select2.js') }}"></script>
 
 
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
