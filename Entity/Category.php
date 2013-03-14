@@ -75,7 +75,7 @@ class Category implements Translatable
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="scrClub\CMSBundle\Entity\Node", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="scrclub\CMSBundle\Entity\Node", cascade={"persist"})
      */
     private $nodes;
 
@@ -188,7 +188,7 @@ class Category implements Translatable
     }
 
 
-    public function addNode(\scrClub\CMSBundle\Entity\Node $node)
+    public function addNode(\scrclub\CMSBundle\Entity\Node $node)
     {
         // Ici, on utilise l'ArrayCollection vraiment comme un tableau, avec la syntaxe []
         $this->nodes[] = $node;
@@ -199,7 +199,7 @@ class Category implements Translatable
      *
      * @param scrClub\CMSBundle\Entity\Node $node
      */
-    public function removeNode(\scrClub\CMSBundle\Entity\Node $node)
+    public function removeNode(\scrclub\CMSBundle\Entity\Node $node)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
         $this->nodes->removeElement($node);

@@ -132,7 +132,7 @@ class Node
     /**
 
      * @Gedmo\Slug(fields={"name"})
-     * @ORM\Column(length=128, unique=true)
+     * @ORM\Column(length=128, nullable=true, unique=true)
      */
 
     protected $slug;

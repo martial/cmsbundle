@@ -86,6 +86,7 @@
 
                 if ($form->isValid()) {
 
+
                     $node->setSlug('');
 
                     $em->persist($node);
