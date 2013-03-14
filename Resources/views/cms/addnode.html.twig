@@ -126,7 +126,7 @@
         <script type="text/javascript">
             $(function () {
 
-                $('#form_translations_{{locale}}_description').wysihtml5();
+                $('#scrclub_cmsbundle_nodetype_translations_{{locale}}_description').wysihtml5();
 
             })
         </script>
@@ -233,12 +233,19 @@
 
 <script type="text/javascript">
 
+    $(function() {
+
+
+        $('#scrclub_cmsbundle_nodetype_description').wysihtml5();
+
 
     $('#langTab a').click(function (e) {
         e.preventDefault();
         $(this).tab('show');
     })
 
+
+    })
     /*
      $('#active_box_button').toggleButtons();
      $('#auto_content_button').toggleButtons({
@@ -257,7 +264,7 @@
 
      */
 
-    $('#form_description').wysihtml5();
+
 
     var collectionHolder = $('div.mediasets');
 

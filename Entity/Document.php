@@ -54,7 +54,7 @@
 
         protected function getUploadRootDir() {
             // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
-            return __DIR__ . '/../../../../web/' . $this->getUploadDir();
+            return __DIR__ . '/../../../../../../web/' . $this->getUploadDir();
         }
 
         protected function getUploadDir() {
@@ -72,7 +72,7 @@
 
             if (null !== $this->file) {
 
-                $this->path = sha1(uniqid(mt_rand(), true)) . 'ahou.' . $this->file->guessExtension();
+                $this->path = sha1(uniqid(mt_rand(), true)) .'.'. $this->file->guessExtension();
             }
         }
 
