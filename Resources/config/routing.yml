@@ -13,6 +13,8 @@ scrclub_cms_addnode:
 scrclub_cms_editnodetree:
     pattern:  /backend/{_locale}/update_tree
     defaults: { _controller: scrclubCMSBundle:Nodes:updateTree }
+    options:
+                expose: true
 
 scrclub_cms_deletenode:
     pattern:  /backend/{_locale}/deletenode
