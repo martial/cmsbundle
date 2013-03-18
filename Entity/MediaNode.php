@@ -26,6 +26,7 @@ class MediaNode
 
     /**
      * @ORM\ManyToOne(targetEntity="scrclub\CMSBundle\Entity\Node")
+     * @ORM\JoinColumn(name="node_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $node;
 

@@ -91,6 +91,8 @@
                     $em->persist($node);
                     $em->flush();
 
+                    // we must re-update to get correct slug. wtf ?
+
                     $node->setFullSlug( $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node')->generateFullSlug($node));
                     $em->persist($node);
                     $em->flush();

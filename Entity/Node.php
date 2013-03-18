@@ -164,7 +164,7 @@ class Node
 
 
     /**
-     * @ORM\OneToMany(targetEntity="scrclub\CMSBundle\Entity\MediaNode", mappedBy="node")
+     * @ORM\OneToMany(targetEntity="scrclub\CMSBundle\Entity\MediaNode", mappedBy="node", cascade={"persist", "merge"})
      * @ORM\OrderBy({"level" = "ASC"})
      */
     protected $mediaNodes;

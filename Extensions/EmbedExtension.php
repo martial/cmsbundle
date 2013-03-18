@@ -60,7 +60,7 @@
 
         public function getThumbnail (EmbeddedDocument $doc, $quality = 100) {
 
-            $embedUtils = new \scrClub\CMSBundle\Service\EmbeddedUtils();
+            $embedUtils = new \scrclub\CMSBundle\Service\EmbeddedUtils();
             $thumb = $embedUtils->getEmbedThumbnail($doc, $quality);
             unset($service);
 

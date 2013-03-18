@@ -48,9 +48,15 @@ class PostController extends Controller
         }
 
 
-        $query = $repo->getChildrenQueryBuilder($node);
+        $query = $repo->getChildrenQueryBuilder($node, true);
         //$query->andWhere("node.type = 'post'");
         $result = $query->getQuery()->getResult();
+
+        //echo count($result);
+
+        // wtf
+
+
 
         $rootTree = $repo->getRootNodes();
 
