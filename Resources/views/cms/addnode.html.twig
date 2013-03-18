@@ -29,13 +29,19 @@
 <form action="{{ path('scrclub_cms_addnode', {'id': node.id }) }}" method="post" {{ form_enctype(form) }} novalidate>
     <div class="row-fluid page-header">
         <div class="featurette pull-right">
-            <label><strong>ONLINE</strong></label>
 
-            <div id="active_box_button" class="switch switch-small">
-                {{ form_widget(form.active, { 'attr': {'id': 'active_box'} }) }}
-            </div>
+
+
+                <div id="active_box_button" class="switch switch-small">
+                    {{ form_widget(form.active, { 'attr': {'id': 'active_box'} }) }}
+                </div>
+
+                <span class="right-caret-btn"></span>
+                <a alt="{{node.slug}}" href="#"><button class="btn"><i class="icon-search"> {{node.slug}}</i></button></a>
+
         </div>
     </div>
+
 
 
     {% set form_locales = form.translations.vars.locales %}
