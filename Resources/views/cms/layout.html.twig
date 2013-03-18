@@ -26,7 +26,11 @@
     <![endif]-->
 
 
-    <script> var assetPath = "{{asset("")}}"; </script>
+    <script>
+        var assetPath = "{{asset("")}}";
+        var locale = "{{app.request.locale}}";
+
+    </script>
 
     <script src="{{ asset('bundles/scrclubcms/js/wysiwig/wysihtml5-0.3.0.js') }}"></script>
     {% javascripts '@scrclubCMSBundle/Resources/public/js/jquery/*' %}

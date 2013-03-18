@@ -83,7 +83,7 @@ $(document).ready(function() {
             $.ajax({
                 type: 'post',
                 cache: false,
-                url: Routing.generate('scrclub_cms_editnodetree'),
+                url: Routing.generate('scrclub_cms_editnodetree', {_locale:locale}),
                 data: {data: arraied},
                 success: function(data) {
 
