@@ -48,8 +48,9 @@
             <a href="{{path('scrclub_cms_addpost', { 'parent_id': nodeParent.id })}}" ><button class="btn btn-large pull-right" type="button"><i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}post{% endtrans %}</button></a>
         </div>
     </div>
-
     <div id="alert-area"></div>
+
+
 
     {% include 'scrclubCMSBundle:cms:nodeChildren.html.twig' with {'tree':tree, 'level':0 } %}
 
@@ -111,7 +112,62 @@
     }).find("a:first").append(" &raquo; ");
 
 
+    $(function () {
 
+        $('.delete_node' ).each(function() {
+
+            $(this).click(function () {
+
+                var li = $($(this).parents().get()[4]);
+                var id = li.attr('id').slice(5);
+
+
+
+                bootbox.confirm("{{ 'wannado.this' | trans }}", function(result) {
+
+                    if (result) {
+                        $.ajax({
+                            type :'post',
+                            cache:false,
+                            url  :'{{ path('scrclub_cms_deletenode')}}',
+                            data :{data:id},
+                            success: function(data){
+                                newAlert("success", "{{ 'delete.success' | trans }}");
+                                li.remove();
+                            }
+                        });
+                    }
+                });
+            })
+        });
+
+        $('.switch-active' ).each(function() {
+
+            $(this).on('switch-change', function (e, data) {
+
+                var li = $($(this).parents().get()[1]);
+                var id = li.attr('id').slice(5);
+
+                var result = {
+                    id : id,
+                    active:data.value
+                }
+
+                $.ajax({
+                    type :'post',
+                    cache:false,
+                    url  :'{{ path('scrclub_cms_updateActiveNode')}}',
+                    data :result,
+                    success: function(data){
+                        //newAlert("success", "{{ 'update.success' | trans }}");
+                    }
+                });
+            })
+        });
+
+    })
+
+</script>
 
 
 

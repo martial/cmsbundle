@@ -117,9 +117,12 @@
 
         public function getEmbedThumbnail ($doc, $quality) {
 
+
+
             // if that's an image always return the URL
             if($doc->getEmbedType() == 'image')
                 return $doc->getUrl();
+
 
 
 
@@ -129,6 +132,9 @@
                 return "";
 
             $index = round($quality * ( count($thumbs) -1 ) / 100);
+
+
+
             return $thumbs[$index];
 
         }
