@@ -37,7 +37,7 @@
                 </div>
 
                 <span class="right-caret-btn"></span>
-                <a alt="{{node.slug}}" href="#"><button class="btn"><i class="icon-search"> {{node.slug}}</i></button></a>
+                <a alt="{{node.fullslug}}" href="#"><button class="btn"><i class="icon-search"> {{node.fullslug}}</i></button></a>
 
         </div>
     </div>
@@ -175,6 +175,14 @@
         </div>
 
 
+    </fieldset>
+
+    <fieldset>
+        <div class=" well control-group">
+
+            {{ form_widget(form.categories, { 'attr': {'class': 'input-xlarge populate placeholder category-select'}, 'empty_value': '' }) }}
+
+        </div>
     </fieldset>
 
 
@@ -353,6 +361,12 @@
     }
 
     setDeleteAction();
+
+
+    $(".category-select").select2({
+                placeholder :"{% trans %}choose.category{% endtrans %}"
+            }
+    );
 
 
 </script>

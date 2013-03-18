@@ -88,10 +88,12 @@
 
 
                     $node->setSlug('');
-
                     $em->persist($node);
                     $em->flush();
 
+                    $node->setFullSlug( $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node')->generateFullSlug($node));
+                    $em->persist($node);
+                    $em->flush();
 
                     return $this->redirect($this->generateUrl('scrclub_cms_addnode', array('id' => $node->getId())));
                 }
