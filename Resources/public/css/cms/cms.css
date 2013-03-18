@@ -453,3 +453,18 @@ a.thumbnail.selected {
     height:200px !important;
 
 }
+
+.right-caret-btn {
+    border-bottom: 12px solid #000000;
+    border-top: 12px solid #000000;
+    border-left: 1px solid #000000;
+    border-right: 1px solid #000000;
+    display: inline-block;
+    height: 0;
+    opacity: 0.3;
+    vertical-align: top;
+    width: 0;
+    margin-top:4px;
+    margin-left:5px;
+    margin-right: 5px;
+}

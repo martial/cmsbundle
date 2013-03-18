@@ -17,6 +17,7 @@
     {% endstylesheets %}
 
 
+    <link rel="stylesheet" href="{{  asset('bundles/scrclubcms/css/wysiwig/wysiwyg-color.css') }}" />
     <link rel="stylesheet" href="{{  asset('bundles/scrclubcms/css/awesome/font-awesome.min.css') }}" />
 
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
@@ -27,9 +28,13 @@
 
     <script> var assetPath = "{{asset("")}}"; </script>
 
+    <script src="{{ asset('bundles/scrclubcms/js/wysiwig/wysihtml5-0.3.0.js') }}"></script>
     {% javascripts '@scrclubCMSBundle/Resources/public/js/jquery/*' %}
     <script src="{{ asset_url }}"></script>
     {% endjavascripts %}
+
+
+    <script src="{{ asset('bundles/scrclubcms/js/wysiwig/bootstrap-wysihtml5.js') }}"></script>
 
     {% javascripts '@scrclubCMSBundle/Resources/public/js/*' filter='yui_js'  output='js/compiled/main.js' %}
     <script src="{{ asset_url }}"></script>
