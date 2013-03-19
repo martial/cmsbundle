@@ -1,0 +1,68 @@
+{% extends "scrclubCMSBundle:cms:layout.html.twig" %}
+
+
+
+{% block fos_user_content %}
+
+<div class="featurette">
+    <h2 class="featurette-heading">{% trans %}welcome{% endtrans %}!<span class="muted"><br>Back Office Access</span></h2>
+</div>
+
+<hr class="featurette-divider">
+
+<div class="row-fluid page-header"></div>
+
+{% if error %}
+<div class="alert alert-error">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    {{ error|trans({}, 'FOSUserBundle') }}
+</div>
+{% endif %}
+
+
+<div class="well container-fluid">
+    <form class='form-stacked' id='sign-in-form' action="{{ path("fos_user_security_check") }}" method="post">
+
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+
+
+        <div class='cleaner_h20'></div>
+
+        <div class="span3">
+
+
+            <label for="username">Email / {{ 'security.login.username'|trans({}, 'FOSUserBundle') }}</label>
+            <input type="text" id="username" name="_username" value="{{ last_username }}" required="required"   />
+            <!--
+                <span class="help-block">
+                  <span class='label important'>Warning</span> the username already exists
+                </span>
+             -->
+        </div>
+
+        <div class="span3">
+            <label for="password">{{ 'security.login.password'|trans({}, 'FOSUserBundle') }}</label>
+            <input type="password" id="password" name="_password" required="required"  />
+            <!--
+                <span class="help-block">
+                  <span class='label important'>Warning</span> too easy - even I can guess it
+               </span>
+              -->
+        </div>
+
+        <div class="span12">
+
+            <label class="checkbox" for="remember_me">{{ 'security.login.remember_me'|trans({}, 'FOSUserBundle') }}
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+            </label>
+
+            <input class="btn " type="submit" id="_submit" name="_submit" value="{{ 'security.login.submit'|trans({}, 'FOSUserBundle') }}" />
+
+        </div>
+
+        <div class='cleaner_h20'></div>
+
+    </form>
+</div>
+{% endblock fos_user_content %}

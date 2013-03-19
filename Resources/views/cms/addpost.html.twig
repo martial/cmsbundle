@@ -82,7 +82,7 @@
         {% endif %}
 
 
-        <li class="{% if (app.request.locale == locale) %} active {% endif %}">
+        <li class="{% if (form.translations.vars.default_locale[0] == locale) %} active {% endif %}">
             <a href="#{{locale}}" data-toggle="tab">{{icon | raw}} {{getLocaleName(locale,  app.request.locale  ) | capitalize }}</a>
         </li>
         {% endfor %}
@@ -95,7 +95,7 @@
     {% for locale in form_locales %}
 
 
-    <div class="tab-pane x {% if (app.request.locale == locale) %} active {% endif %}" id="{{locale}}">
+    <div class="tab-pane x {% if (form.translations.vars.default_locale[0] == locale) %} active {% endif %}" id="{{locale}}">
 
         <fieldset>
             <div class=" well control-group">

@@ -106,6 +106,8 @@ class TemplateController extends Controller
                 $em->persist($template);
                 $em->flush();
 
+               // echo $template->getFilename();
+
                 return $this->redirect($this->generateUrl('scrclub_cms_templates'));
             }
 

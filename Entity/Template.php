@@ -35,6 +35,14 @@ class Template
      */
     private $url;
 
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="filename", type="string", length=255)
+     */
+    private $filename;
+
     /**
      * @var string
      *
@@ -85,14 +93,14 @@ class Template
     public function setUrl($url)
     {
         $this->url = $url;
-    
+
         return $this;
     }
 
     /**
      * Get url
      *
-     * @return string 
+     * @return string
      */
     public function getUrl()
     {
@@ -125,6 +133,20 @@ class Template
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * @param string $filename
+     */
+    public function setFilename($filename) {
+        $this->filename = $filename;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFilename() {
+        return $this->filename;
     }
 
 }

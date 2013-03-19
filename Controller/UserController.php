@@ -10,7 +10,8 @@ use scrclub\CMSBundle\Form\UserType;
 
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\Role\RoleHierarchy;
-
+use Symfony\Component\DependencyInjection\ContainerAware;
+use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * User controller.
@@ -19,8 +20,42 @@ use Symfony\Component\Security\Core\Role\RoleHierarchy;
 class UserController extends Controller
 {
 
+    public function loginAction(Request $request)
+    {
+        $session = $request->getSession();
 
+        // get the error if any (works with forward and redirect -- see below)
+        if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
+        } elseif (null !== $session && $session->has(SecurityContext::AUTHENTICATION_ERROR)) {
+            $error = $session->get(SecurityContext::AUTHENTICATION_ERROR);
+            $session->remove(SecurityContext::AUTHENTICATION_ERROR);
+        } else {
+            $error = '';
+        }
 
+        if ($error) {
+            // TODO: this is a potential security risk (see http://trac.symfony-project.org/ticket/9523)
+            $error = $error->getMessage();
+        }
+        // last username entered by the user
+        $lastUsername = (null === $session) ? '' : $session->get(SecurityContext::LAST_USERNAME);
+
+        $csrfToken = $this->container->has('form.csrf_provider')
+            ? $this->container->get('form.csrf_provider')->generateCsrfToken('authenticate')
+            : null;
+
+        return $this->renderLogin(array(
+            'last_username' => $lastUsername,
+            'error'         => $error,
+            'csrf_token' => $csrfToken,
+        ));
+    }
+
+    protected function renderLogin(array $data)
+    {
+        return $this->container->get('templating')->renderResponse("scrclubCMSBundle:cms:login.html.twig", $data);
+    }
 
     public function addUserAction ($id) {
 

@@ -22,14 +22,7 @@ jQuery('.submenu').hover(function() {
     jQuery(this).children('ul').removeClass('.submenu-show').addClass('submenu-hide');
 }).find('a:first').append(' &raquo; ');
 
-// function for adding pin to media and media to post
-$('.add-media-post').each(function() {
 
-    $(this).click(function() {
-        addMedia($(this));
-    });
-
-});
 
 
 // go sortable and update database on the fly
@@ -65,7 +58,7 @@ $('#mediaset-tab a').click(function(e) {
 
 assignModalLinks();
 assignRemoveAction();
-
+assignNodeToMedia();
 
 
 
@@ -121,6 +114,7 @@ function createUploader(id) {
                 assignRemoveAction();
                 assignModalLinks();
                 setPlaceHolders();
+                assignNodeToMedia();
 
             }
         }
@@ -129,7 +123,18 @@ function createUploader(id) {
 }
 
 
+function assignNodeToMedia () {
 
+    // function for adding pin to media and media to post
+    $('.add-media-post').each(function() {
+
+        $(this).click(function() {
+            addMedia($(this));
+        });
+
+    });
+
+}
 
 function addMedia(el) {
 

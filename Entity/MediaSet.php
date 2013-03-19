@@ -50,7 +50,7 @@ class MediaSet
     private $required;
 
     /**
-     * @ORM\ManyToMany(targetEntity="scrClub\CMSBundle\Entity\Media", cascade={"persist"})
+     * @ORM\ManyToMany(targetEntity="scrclub\CMSBundle\Entity\Media", cascade={"persist"})
      */
     private $medias;
 
@@ -161,7 +161,7 @@ class MediaSet
     }
 
 
-    public function addMedia(\scrClub\CMSBundle\Entity\Media $medias)
+    public function addMedia(\scrclub\CMSBundle\Entity\Media $medias)
     {
         // Ici, on utilise l'ArrayCollection vraiment comme un tableau, avec la syntaxe []
         $this->medias[] = $medias;
@@ -172,7 +172,7 @@ class MediaSet
      *
      * @param scrClub\CMSBundle\Entity\MediaSet $categories
      */
-    public function removeMedia(\scrClub\CMSBundle\Entity\Media $media)
+    public function removeMedia(\scrclub\CMSBundle\Entity\Media $media)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
         $this->medias->removeElement($media);
