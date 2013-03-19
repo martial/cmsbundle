@@ -39,7 +39,7 @@ class Template
     /**
      * @var string
      *
-     * @ORM\Column(name="filename", type="string", length=255)
+     * @ORM\Column(name="filename", type="string", length=255, nullable=true)
      */
     private $filename;
 
@@ -150,3 +150,4 @@ class Template
     }
 
 }
+
