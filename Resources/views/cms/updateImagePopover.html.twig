@@ -31,7 +31,7 @@ e.preventDefault();
 
                 $('#media-edit-modal').modal('hide');
                 updateMediasItems(responseText.mediaId);
-
+                assignNodeToMedia();
             } else {
 
                 $('#media-edit-modal .modal-body').html(responseText.html);

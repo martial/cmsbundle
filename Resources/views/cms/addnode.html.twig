@@ -2,8 +2,11 @@
 
 {% block body %}
 
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/edit-post.js' filter='yui_js'  output='js/compiled/cms.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 
-<div class="container">
+<div class="container post" id="{{node.id}}">
 
 
 <div class="featurette">
@@ -47,6 +50,8 @@
     {% set form_locales = form.translations.vars.locales %}
     {% set fields = form.translations.fields %}
 
+
+
     <div class="tabbable">
         <ul class="nav nav-tabs" id="langTab">
 
@@ -68,7 +73,7 @@
             {% endif %}
 
 
-            <li class="{% if (app.request.locale == locale) %} active {% endif %}">
+            <li class="{% if (form.translations.vars.default_locale[0] == locale) %} active {% endif %}">
                 <a href="#{{locale}}" data-toggle="tab">{{icon | raw}} {{getLocaleName(locale,  app.request.locale  ) | capitalize }}</a>
             </li>
             {% endfor %}
@@ -81,7 +86,7 @@
         {% for locale in form_locales %}
 
 
-        <div class="tab-pane x {% if (app.request.locale == locale) %} active {% endif %}" id="{{locale}}">
+        <div class="tab-pane x {% if (form.translations.vars.default_locale[0]  == locale) %} active {% endif %}" id="{{locale}}">
 
             <fieldset>
                 <div class=" well control-group">
@@ -236,16 +241,118 @@
             <i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}mediaset{% endtrans %}</button>
 
 
-        <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
+
     </fieldset>
+
+    <hr>
+
+    {% if node.id %}
+
+    <fieldset>
+        <div class="navbar">
+            <div class="navbar-inner">
+                <a class="brand" href="#">{{ 'mediasets'| trans | capitalize }}</a>
+                <ul class="nav" id="mediaset-tab">
+                    {% for mediaset in node.mediasets %}
+                    <li {% if loop.first %}class="active" {% endif %}>
+                        <a href="#mediaset-{{mediaset.id}}">{{ mediaset.name }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+        </div>
+
+        <div class="tab-content">
+            {% for mediaset in node.mediasets %}
+
+            <div class="tab-pane {% if loop.first %}active{% endif %}" id="mediaset-{{mediaset.id}}">
+
+                <ul class="nav nav-tabs">
+                    <li {% if loop.first %} class="active" {% endif %} >
+                        <a href="#mediaset-node-{{mediaset.id}}" data-toggle="tab">Your post</a></li>
+                    <li><a href="#mediaset-all-{{mediaset.id}}" data-toggle="tab">All</a></li>
+                </ul>
+
+                <div class="tab-content">
+
+                    <div class="tab-pane active" id="mediaset-node-{{mediaset.id}}">
+
+                        <ul class="media-post-container sortable-thumb thumbnails ">
+
+                            {% for mediaNode in node.getMediaNodes() %}
+                            {% if contains(mediaset, mediaNode.media.getMediaSets() ) %}
+                            {% include 'scrclubCMSBundle:cms:list_image.html.twig' with {'mediaNode':mediaNode, 'mediaset':mediaset} %}
+                            {% endif %}
+                            {% endfor %}
+
+                        </ul>
+                    </div>
+
+
+                    <div class="tab-pane " id="mediaset-all-{{mediaset.id}}">
+                        <div class="row">
+                            <div id="mediaset-upload-{{mediaset.id}}" class="span12"></div>
+
+                        </div>
+                        <hr>
+
+
+                        <ul class="media-scroll-container thumbnails ">
+
+                            {% for media in mediaset.medias %}
+
+                            {% include 'scrclubCMSBundle:cms:list_image_mediaset.html.twig' with {'media':media, 'mediaset':mediaset} %}
+
+                            {% endfor %}
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+
+    </fieldset>
+
+    {%  else %}
+
+    <div class="alert alert-info"><i class=" icon-exclamation-sign"></i>{{ 'validate.post.media.notice'| trans | capitalize }}
+    </div>
+
+    {%  endif %}
+
+    <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
     {{ form_widget(form._token) }}
 </form>
+
+
+
+<div id="media-edit-modal" class="modal hide fade ">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+        <h3>Edit Image </h3>
+    </div>
+    <div class="modal-body">
+
+    </div>
+    <div class="modal-footer">
+        <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
+        <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{% trans %}save.changes{% endtrans %}</button>
+
+    </div>
+</div>
 
 </div>
 <!-- /container -->
 
 
 <script type="text/javascript">
+
+    {% for mediaset in node.mediasets %}
+    createUploader({{mediaset.id}});
+    {% endfor %}
 
     $(function() {
 
@@ -260,24 +367,6 @@
 
 
     })
-    /*
-     $('#active_box_button').toggleButtons();
-     $('#auto_content_button').toggleButtons({
-
-     onChange: function ($el, status, e) {
-
-     //console.log("hello")
-
-     if (status)
-     $('#scrclub_cmsbundle_nodetype_template').attr('disabled', 'disabled');
-     else
-     $('#scrclub_cmsbundle_nodetype_template').removeAttr('disabled');
-     }
-
-     });
-
-     */
-
 
 
     var collectionHolder = $('div.mediasets');

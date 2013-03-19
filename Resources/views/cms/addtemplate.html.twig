@@ -28,11 +28,14 @@
     <fieldset>
         <div class=" well control-group">
 
-    <form action="{{ path('scrclub_cms_addtemplate', {'id' : user.id }) }}" method="post" {{ form_enctype(form) }}>
+    <form action="{{ path('scrclub_cms_addtemplate', {'id' : template.id }) }}" method="post" {{ form_enctype(form) }}>
 
 
         {{ form_label( form.name , 'name' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }}) }}
         {{ form_widget(form.name,  {'attr': {'class': 'input-xxlarge'}})}}
+
+        {{ form_label( form.url , 'url' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }}) }}
+        {{ form_widget(form.url,  {'attr': {'class': 'input-xxlarge'}})}}
 
 
         {{ form_label( form.type , 'type' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }}) }}
@@ -40,8 +43,6 @@
 
 
         <!-- roles -->
-
-
 
         {{ form_widget(form._token) }}
 

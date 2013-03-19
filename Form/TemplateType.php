@@ -24,7 +24,7 @@ class TemplateType extends AbstractType
 
         $builder
             ->add('name')
-            //->add('url')
+            ->add('url')
             ->add('type','choice', array(
                 'choices'   => $typesDefault,
                 'required'  => true,

@@ -55,6 +55,7 @@
             $request = $this->getRequest();
             $locale = $request->getLocale();
 
+
             // get templates
 
             $templates = $em->getRepository('scrclubCMSBundle:Template')->findAll();
@@ -70,7 +71,7 @@
 
                 if (!$node) throw $this->createNotFoundException('Unable to find Node entity.');
 
-                $node->setTranslatableLocale($locale);
+                //$node->setTranslatableLocale($locale);
 
             }
 
@@ -240,7 +241,7 @@
             if (isset($id)) {
 
                 $post = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Post')->find($id);
-                $post->setTranslatableLocale($locale);
+                //$post->setTranslatableLocale($locale);
 
             }
 
