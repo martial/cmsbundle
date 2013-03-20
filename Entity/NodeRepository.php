@@ -57,8 +57,12 @@ class NodeRepository extends NestedTreeRepository
         if(isset($currentNode)) {
             $mediasets = $currentNode->getMediasets();
 
-            foreach($mediasets as $mediaset )
-                $node->addMediaSet($mediaset);
+            foreach($mediasets as $mediaset ) {
+
+                if(!$node->getMediasets()->contains($mediaset))
+                    $node->addMediaSet($mediaset);
+
+            }
         }
 
 

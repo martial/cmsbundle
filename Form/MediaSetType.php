@@ -12,11 +12,7 @@ class MediaSetType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('type', 'choice', array(
-                                    'choices' => array('image' => 'Image', 'document' => 'Document')
-                                    ))
             ->add('max', 'integer', array('data' => 0))
-            ->add('required', 'checkbox')
         ;
     }
 

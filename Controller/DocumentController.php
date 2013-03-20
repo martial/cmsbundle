@@ -181,6 +181,8 @@ class DocumentController extends Controller
     /**
      * Deletes a Document entity.
      *
+*/
+
 
     public function deleteAction( $id)
     {
@@ -207,7 +209,7 @@ class DocumentController extends Controller
         return new \Symfony\Component\HttpFoundation\Response('');
     }
 
-    */
+
 
 
 

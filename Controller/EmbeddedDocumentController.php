@@ -9,7 +9,7 @@
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
     use scrclub\CMSBundle\Entity\EmbeddedDocument;
     use scrclub\CMSBundle\Form\EmbeddedDocumentType;
-    use scrClub\CMSBundle\Service\EmbeddedUtils;
+    use scrclub\CMSBundle\Service\EmbeddedUtils;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\Form\FormError;
 

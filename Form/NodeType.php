@@ -47,14 +47,11 @@ class NodeType extends AbstractType
         'label' => 'Category'
 
         ))
-        ->add('mediasets', 'collection',  array(
-        'type' => new MediaSetType(),
-        'allow_add' => true,
-        'allow_delete' => true,
-        'by_reference' => false,
+        ->add('mediasets', 'entity',  array(
+            'class' => 'scrclubCMSBundle:MediaSet',
+            'multiple' => true,
+
         ))
-
-
 
         ->add('type', 'hidden', array(
                 'data' => 'node',

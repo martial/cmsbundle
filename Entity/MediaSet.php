@@ -28,12 +28,6 @@ class MediaSet
      */
     private $name;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="type", type="string", length=255)
-     */
-    private $type;
 
     /**
      * @var string
@@ -42,12 +36,6 @@ class MediaSet
      */
     private $max;
 
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="required",  type="boolean")
-     */
-    private $required;
 
     /**
      * @ORM\ManyToMany(targetEntity="scrclub\CMSBundle\Entity\Media", cascade={"persist"})
@@ -91,28 +79,7 @@ class MediaSet
         return $this->name;
     }
 
-    /**
-     * Set type
-     *
-     * @param string $type
-     * @return MediaSet
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
-    
-        return $this;
-    }
 
-    /**
-     * Get type
-     *
-     * @return string 
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
 
     /**
      * Set max
@@ -137,28 +104,6 @@ class MediaSet
         return $this->max;
     }
 
-    /**
-     * Set required
-     *
-     * @param string $required
-     * @return MediaSet
-     */
-    public function setRequired($required)
-    {
-        $this->required = $required;
-    
-        return $this;
-    }
-
-    /**
-     * Get required
-     *
-     * @return string 
-     */
-    public function getRequired()
-    {
-        return $this->required;
-    }
 
 
     public function addMedia(\scrclub\CMSBundle\Entity\Media $medias)
@@ -192,6 +137,11 @@ class MediaSet
     public function __construct()
     {
         $this->medias = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    public function __toString() {
+
+        return $this->getName();
     }
     
 }

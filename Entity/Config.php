@@ -49,6 +49,20 @@ class Config
      */
     private $gg_analyticsid;
 
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gs_apikey", type="string", length=255, nullable=true)
+     */
+    private $gs_apikey;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="gs_sitetoken", type="string", length=255, nullable=true)
+     */
+    private $gs_sitetoken;
+
 
     /**
      * Get id
@@ -150,5 +164,33 @@ class Config
     public function getGgAnalyticsid()
     {
         return $this->gg_analyticsid;
+    }
+
+    /**
+     * @param string $gs_apikey
+     */
+    public function setGsApikey($gs_apikey) {
+        $this->gs_apikey = $gs_apikey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGsApikey() {
+        return $this->gs_apikey;
+    }
+
+    /**
+     * @param string $gs_sitetoken
+     */
+    public function setGsSitetoken($gs_sitetoken) {
+        $this->gs_sitetoken = $gs_sitetoken;
+    }
+
+    /**
+     * @return string
+     */
+    public function getGsSitetoken() {
+        return $this->gs_sitetoken;
     }
 }

@@ -13,49 +13,66 @@
 
 <fieldset>
     <div class="navbar">
-        <div class="navbar-inner">
+        <div class="navbar-inner" id='menu-analytics'>
             <a class="brand" href="#">{{ 'analytics'| trans | capitalize }}</a>
             <ul class="nav" id="usertab">
 
-
-                <li class="active" ><a href="#">{{ 'Google Analytics' | trans }}</a></li>
-                <li  ><a href="#">{{ 'Go Squared' | trans }}</a></li>
+                <li class="active"><a href="#google-config">{{ 'Google Analytics' | trans }}</a></li>
+                <li><a href="#gosquared-config">{{ 'Go Squared' | trans }}</a></li>
 
             </ul>
         </div>
 
     </div>
 
+    <div class="tab-content">
 
-    <div class=" well control-group">
+        <div class="tab-pane active" id="google-config">
 
-            <img src="{{asset('img/google.png')}}" class="img-rounded">
+            <div class=" well control-group">
 
-        <hr>
+                <img src="{{asset('img/google.png')}}" class="img-rounded">
 
-        <form action="{{ path('scrclub_cms_analytics') }}" method="post" {{ form_enctype(form) }}>
+                <hr>
 
-
-            {{ form_label   (form.gg_email , 'Google Email' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
-            }}
-            {{ form_widget  (form.gg_email,  {'attr': {'class': 'input-xxlarge'}})}}
-
-            {{ form_label( form.gg_password , 'Google Password ' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
-            }}
-            {{ form_widget(form.gg_password,  {'attr': {'class': 'input-xxlarge'}})}}
-
-            {{ form_label( form.gg_analyticsid , 'Analytics ID' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
-            }}
-            {{ form_widget(form.gg_analyticsid,  {'attr': {'class': 'input-xxlarge'}})}}
-
-            {{ form_widget(form._token) }}
+                <form action="{{ path('scrclub_cms_analytics') }}" method="post" {{ form_enctype(form) }}>
 
 
+                    {{ form_label   (form.gg_email , 'Google Email' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                    }}
+                    {{ form_widget  (form.gg_email,  {'attr': {'class': 'input-xxlarge'}})}}
 
-            <hr>
-            <div id="connect-check">
-            <div class="alert alert-info" ><i class="icon-refresh icon-spin"></i> {{ 'connection.checking' | trans }}</div>
+                    {{ form_label( form.gg_password , 'Google Password ' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                    }}
+                    {{ form_widget(form.gg_password,  {'attr': {'class': 'input-xxlarge'}})}}
+
+                    {{ form_label( form.gg_analyticsid , 'Analytics ID' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                    }}
+                    {{ form_widget(form.gg_analyticsid,  {'attr': {'class': 'input-xxlarge'}})}}
+
+                    {{ form_widget(form._token) }}
+
+                    {% if config.getGgAnalyticsid() | length > 0  %}}
+                    <hr>
+                    <div id="connect-check">
+                        <div class="alert alert-info">
+                            <i class="icon-refresh icon-spin"></i> {{ 'connection.checking' | trans }}
+                        </div>
+                    </div>
+                    {% endif %}
+
             </div>
+        </div>
+
+        <div class="tab-pane" id="gosquared-config">
+            {{ form_label   (form.gs_apikey , 'GoSquared API Key' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+            }}
+            {{ form_widget  (form.gs_apikey,  {'attr': {'class': 'input-xxlarge'}})}}
+
+            {{ form_label( form.gs_sitetoken , 'GoSquared Site token ' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+            }}
+            {{ form_widget(form.gs_sitetoken,  {'attr': {'class': 'input-xxlarge'}})}}
+        </div>
 
     </div>
 
@@ -65,36 +82,42 @@
 </form>
 
 
-        <script type="text/javascript">
+<script type="text/javascript">
 
 
-            $(function() {
-
-                $.ajax({
-                    url: "{{path("scrclub_cms_googlecheck")}}",
-                    success:function(data) {
-
-                        if(data == 'connected') {
-                        $("#connect-check").html('<div class="alert alert-success" ><i class="icon-ok"></i> {{ 'connection.connected' | trans }}</div>');
-
-                        } else {
-
-                            $("#connect-check").html('<div class="alert alert-error" ><i class="icon-remove"></i> {{ 'connection.error' | trans }}</div>');
-
-                        }
+    $('#menu-analytics a').click(function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
 
 
-                    }
+    $(function () {
 
-                })
+        {% if config.getGgAnalyticsid() | length > 0  %}
 
-            })
+        $.ajax({
+            url    :"{{path("scrclub_cms_googlecheck")}}",
+            success:function (data) {
+
+                if (data == 'connected') {
+                    $("#connect-check").html('<div class="alert alert-success" ><i class="icon-ok"></i> {{ 'connection.connected' | trans }}</div>');
+
+                } else {
+
+                    $("#connect-check").html('<div class="alert alert-error" ><i class="icon-remove"></i> {{ 'connection.error' | trans }}</div>');
+
+                }
+
+            }
+
+        })
+
+    {% endif %}
+
+    })
 
 
-
-
-
-        </script>
+</script>
 
 
 {% endblock %}

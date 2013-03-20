@@ -62,7 +62,7 @@ class ConfigController extends Controller
 
 
         return $this->render('scrclubCMSBundle:cms:config_analytics.html.twig', array(
-
+            'config' => $config,
             'form'   => $form->createView(),
         ));
 
