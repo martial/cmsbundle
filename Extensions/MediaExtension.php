@@ -7,11 +7,7 @@
     use scrclub\CMSBundle\Entity\Node;
     use scrclub\CMSBundle\Entity\MediaNode;
 
-    /**
-     * Translate locales using intl extension
-     * Usages:
-     *  {{ getLocaleName('fr', 'es') }}
-     */
+
     class MediaExtension extends \Twig_Extension
     {
         /**

@@ -112,12 +112,8 @@ if (gs_token.length > 0) {
     function hitCounter() {
         $.getJSON("https://api.gosquared.com/latest/concurrents?callback=?&api_key=" + gs_api + "&site_token=" + gs_token + "", function (data) {
             newnum = data.visitors;
-            if (newnum != oldnum) {
-                var diff = newnum - oldnum;
-                var j = 1;
-                updatey(oldnum, j, diff);
-            }
-            $('#counter').text('Currently ' + newnum + ' visitors online.');
+
+            $('#counter').text(translations['currently']+ ' ' + newnum + ' ' + translations['visitors.online']);
             oldnum = newnum;
         });
     }

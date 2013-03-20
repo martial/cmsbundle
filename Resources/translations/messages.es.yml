@@ -56,6 +56,9 @@ connection.checking: Comprobando conneccion
 connection.connected: Conneccion correcta !
 connection.error: Ha habido un error de conneccion
 
+validate.post.media.notice: Debe validar une primera vez su post para añadir medias !
+
+
 title: titulo
 content: contenido
 type: tipo
@@ -74,3 +77,6 @@ category: categoria
 add.media.post: Añadir al post
 
 categories.mediaset: Extra
+
+currently: Ahora hay
+visitors.online: usuarios online.
