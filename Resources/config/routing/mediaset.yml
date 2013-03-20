@@ -1,11 +1,11 @@
 scrclub_cms_mediaset:
-    pattern:  /backend/mediasets/
+    pattern:  /backend/{_locale}/mediasets/
     defaults: { _controller: scrclubCMSBundle:MediaSet:index}
     options:
             expose: true
 
 scrclub_cms_mediasetadd:
-    pattern:  /backend/mediasets/add/{id}
+    pattern:  /backend/{_locale}/mediasets/add/{id}
     defaults: { _controller: scrclubCMSBundle:MediaSet:add, id:null}
     options:
             expose: true
