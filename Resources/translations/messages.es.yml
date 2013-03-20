@@ -1,4 +1,5 @@
 sections: Section
+post: articulo
 categories: Categorias
 langs: Idiomas
 configuration: Configuracion
@@ -13,6 +14,7 @@ by.default: por defecto
 
 edit: Editar
 add: Añadir
+delete: Borrar
 section: seccion
 
 login: nombre
@@ -51,3 +53,20 @@ analytics: Estadisticas
 connection.checking: Comprobando conneccion
 connection.connected: Conneccion correcta !
 connection.error: Ha habido un error de conneccion
+
+title: titulo
+content: contenido
+type: tipo
+name: titulo
+description : contenido
+your.post: Tu articulo
+mediaset.all: Todos
+
+upload.drag: Subir / Drag archivos
+embed.files: Elegir documento online
+
+actions: Acciones
+
+category: categoria
+
+add.media.post: Añadir al post

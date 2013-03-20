@@ -22,13 +22,13 @@ function createUploader(id) {
             endpoint: Routing.generate('scrclub_cms_fineuploadhandle', {mediaset_id: id })
         },
         text: {
-            uploadButton: '<i class="icon-upload icon-white"></i> Upload / Drag files'
+            uploadButton: '<i class="icon-upload icon-white"></i> '+ translations['upload.drag']
         },
         template: '<div class="qq-uploader row ">' +
             '<span class="qq-drop-processing span12"><span>{dropProcessingText}</span><i class="icon-spinner icon-spin"></i></span>' +
             '<div class="qq-upload-drop-area btn span3">{dragZoneText}</div>' +
             '<div class="qq-upload-button btn span3" >{uploadButtonText}</div>' +
-            '<div class="qq-upload-button btn span3"><a  href="'+Routing.generate('scrclub_cms_updateEmbedPopOver', {mediasetId: id })+'" data-target="#embed-edit-modal" ><i class="icon-globe"></i> Embed document</a></div>' +
+            '<div class="qq-upload-button btn span3"><a  href="'+Routing.generate('scrclub_cms_updateEmbedPopOver', {mediasetId: id })+'" data-target="#embed-edit-modal" ><i class="icon-globe"></i> '+translations['embed.files']+'</a></div>' +
             '<ul class="qq-upload-list span12 row-fluid" style="margin-top: 10px; text-align: center;"></ul>' +
             '</div>',
         fileTemplate: '<li class="alert span2"><a class="close qq-upload-cancel" data-dismiss="alert" href="#">&times;</a>' +

@@ -25,7 +25,7 @@
                        // var data = jQuery.parseJSON(responseText);
 
                         $('#embeddoc-modal-container').parent().html(responseText.html);
-                        $('#media-form-submit').html("{% trans %}save.changes{% endtrans %}");
+                        $('#media-form-submit').html("{{ 'save.changes'| trans  }}");
 
                     },
                     dataType:'json'

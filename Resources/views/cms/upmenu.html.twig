@@ -10,9 +10,9 @@
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
-                    <li class="active"><a href="{{  path('scrclub_cms_homepage')}}"><i class="icon-folder-close-alt"></i> {% trans %}sections{% endtrans %}</a></li>
-                    <li><a href="{{ path('scrclub_cms_categories') }}"><i class="icon-tags"></i> {% trans %}categories{% endtrans %}</a></li>
-                    <li><a href="{{ path('scrclub_cms_mediaset') }}"><i class="icon-tags"></i> {% trans %}mediasets{% endtrans %}</a></li>
+                    <li class="active"><a href="{{  path('scrclub_cms_homepage')}}"><i class="icon-folder-close-alt"></i> {{ 'sections'| trans | capitalize }}</a></li>
+                    <li><a href="{{ path('scrclub_cms_categories') }}"><i class="icon-tags"></i> {{ 'categories'| trans | capitalize }}</a></li>
+                    <li><a href="{{ path('scrclub_cms_mediaset') }}"><i class="icon-tags"></i> {{ 'mediasets'| trans | capitalize }}</a></li>
 
 
                 </ul>
@@ -20,23 +20,23 @@
                 <ul class="nav pull-right">
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle " data-toggle="dropdown"><i class="icon-cogs"></i> {% trans %}configuration{% endtrans %}
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown"><i class="icon-cogs"></i> {{ 'configuration'| trans | capitalize }}
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu">
 
 
-                            <li><a href="{{path('scrclub_cms_analytics')}}"><i class="icon-sitemap"></i> {% trans %}your.site{% endtrans %}</a></li>
-                            <li><a href="{{path('scrclub_cms_langs')}}"><i class="icon-globe"></i> {% trans %}langs{% endtrans %}</a>
-                            <li><a href="{{path('scrclub_cms_users')}}"><i class="icon-user"></i> {% trans %}users{% endtrans %}</a></li>
-                            <li><a href="{{path('scrclub_cms_templates')}}"><i class="icon-paste"></i> {% trans %}templates{% endtrans %}</a></li>
-                            <li><a href="{{path('scrclub_cms_analytics')}}"><i class="icon-tasks"></i> {% trans %}analytics{% endtrans %}</a></li>
+                            <li><a href="{{path('scrclub_cms_analytics')}}"><i class="icon-sitemap"></i> {{ 'your.site'| trans | capitalize }}</a></li>
+                            <li><a href="{{path('scrclub_cms_langs')}}"><i class="icon-globe"></i> {{ 'langs'| trans | capitalize }}</a>
+                            <li><a href="{{path('scrclub_cms_users')}}"><i class="icon-user"></i> {{ 'users'| trans | capitalize }}</a></li>
+                            <li><a href="{{path('scrclub_cms_templates')}}"><i class="icon-paste"></i> {{ 'templates'| trans | capitalize }}</a></li>
+                            <li><a href="{{path('scrclub_cms_analytics')}}"><i class="icon-tasks"></i> {{ 'analytics'| trans | capitalize }}</a></li>
 
 
                         </ul>
                     </li>
 
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle " data-toggle="dropdown"><i class="icon-globe"></i> {% trans %}langs{% endtrans %}
+                        <a href="#" class="dropdown-toggle " data-toggle="dropdown"><i class="icon-globe"></i> {{ 'langs'| trans | capitalize }}
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu">
 
@@ -52,8 +52,8 @@
                             {{ app.user.username }}
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{ path('scrclub_cms_adduser', { 'id': app.user.id }) }}"><i class="icon-user"></i>{% trans %}personal.data{% endtrans %}</a></li>
-                            <li><a href="{{ path('fos_user_security_logout')}}"><i class="icon-off"></i>{% trans %}logout{% endtrans %}</a></li>
+                            <li><a href="{{ path('scrclub_cms_adduser', { 'id': app.user.id }) }}"><i class="icon-user"></i>{{ 'personal.data'| trans | capitalize }}</a></li>
+                            <li><a href="{{ path('fos_user_security_logout')}}"><i class="icon-off"></i>{{ 'logout'| trans | capitalize }}</a></li>
 
 
                         </ul>

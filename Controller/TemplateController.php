@@ -125,4 +125,27 @@ class TemplateController extends Controller
     }
 
 
+    function deleteAction($id) {
+
+        $request = $this->get('request');
+        if ($request->getMethod() == 'POST') {
+
+            $tree = $request->request->all();
+
+            $em = $this->getDoctrine()->getManager();
+            $repo = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Template');
+
+            $template = $repo->find($id);
+
+
+            $em->remove($template);
+            $em->flush();
+
+        }
+
+        return new Response('');
+
+    }
+
+
 }
