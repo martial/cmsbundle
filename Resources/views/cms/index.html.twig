@@ -37,65 +37,14 @@
 
 <script>
 
-    $(function () {
+    var translations = {
+        "wannadoo.this": "{{ 'wannadoo.this'| trans }}",
+        "delete.success": "{{ 'delete.success'| trans }}",
+        "update.success": "{{ 'delete.success'| trans }}"
 
-        $('.delete_node' ).each(function() {
-
-            $(this).click(function () {
-
-                var li = $($(this).parents().get()[4]);
-                var id = li.attr('id').slice(5);
-
-
-
-                bootbox.confirm("{{ 'wannado.this' | trans }}", function(result) {
-
-                    if (result) {
-                        $.ajax({
-                            type :'post',
-                            cache:false,
-                            url  :'{{ path('scrclub_cms_deletenode')}}',
-                            data :{data:id},
-                            success: function(data){
-                                newAlert("success", "{{ 'delete.success' | trans }}");
-                                li.remove();
-                            }
-                        });
-                    }
-                });
-            })
-        });
-
-        $('.switch-active' ).each(function() {
-
-            $(this).on('switch-change', function (e, data) {
-
-                var li = $($(this).parents().get()[1]);
-                var id = li.attr('id').slice(5);
-
-                var result = {
-                    id : id,
-                    active:data.value
-                }
-
-                $.ajax({
-                    type :'post',
-                    cache:false,
-                    url  :'{{ path('scrclub_cms_updateActiveNode')}}',
-                    data :result,
-                    success: function(data){
-                        //newAlert("success", "{{ 'update.success' | trans }}");
-                    }
-                });
-            })
-        });
-
-    })
-
-</script>
-
-<script>
-
+    }
+    var deleteNodePath = "{{ path('scrclub_cms_deletenode') }}";
+    var updateActiveNodePath = "{{ path('scrclub_cms_updateActiveNode') }}";
     var gg_id = "{{config.getGgAnalyticsid()}}";
     var gs_api = "{{config.getGsApikey()}}";
     var gs_token = "{{config.getGsSitetoken()}}";

@@ -2,7 +2,7 @@
 <li class="span2 media-{{mediaNode.getMedia().id}}"  id="{{mediaNode.id}}">
 
 
-    <div class="thumbnail"  href="#">
+    <div class="thumbnail">
 
         {% set media = mediaNode.getMedia() %}
 
@@ -37,7 +37,7 @@
 
         <p class="edit-media">
             <a data-mediaid="{{mediaNode.media.id}}"  data-medianodeid="{{mediaNode.id}}"  href="{{updatePath}}" data-target="#media-edit-modal"><i class=" icon-edit"></i>
-                Edit</a></p>
+                {{ 'edit'| trans | capitalize }}</a></p>
         <p class="remove-media"><a><i class=" icon-trash"></i> Remove</a></p>
     </div>
 </li>
