@@ -13,8 +13,10 @@ class ConfigType extends AbstractType
         $builder
             ->add('sitename')
             ->add('gg_email', 'email')
-            ->add('gg_password', 'password')
+            ->add('gg_password', 'password',array("required" => false))
             ->add('gg_analyticsid')
+            ->add('gs_apikey')
+            ->add('gs_sitetoken')
         ;
     }
 

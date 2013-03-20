@@ -5,9 +5,9 @@
 
 {% block body %}
 
-{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/index.js' filter='yui_js'  output='js/compiled/cms.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
+
+
+
 
 <div class="container">
 
@@ -93,6 +93,17 @@
     })
 
 </script>
+
+<script>
+
+    var gg_id = "{{config.getGgAnalyticsid()}}";
+    var gs_api = "{{config.getGsApikey()}}";
+    var gs_token = "{{config.getGsSitetoken()}}";
+
+</script>
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/index.js' filter='yui_js'  output='js/compiled/cms.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 
 
 

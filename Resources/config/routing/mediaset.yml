@@ -1,0 +1,18 @@
+scrclub_cms_mediaset:
+    pattern:  /backend/mediasets/
+    defaults: { _controller: scrclubCMSBundle:MediaSet:index}
+    options:
+            expose: true
+
+scrclub_cms_mediasetadd:
+    pattern:  /backend/mediasets/add/{id}
+    defaults: { _controller: scrclubCMSBundle:MediaSet:add, id:null}
+    options:
+            expose: true
+
+
+scrclub_cms_mediasetdelete:
+    pattern:  /backend/mediasets/delete/{id}
+    defaults: { _controller: scrclubCMSBundle:MediaSet:delete, id:null}
+    options:
+            expose: true

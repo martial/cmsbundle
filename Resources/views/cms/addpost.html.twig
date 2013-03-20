@@ -2,9 +2,15 @@
 
 {% block body %}
 
+
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/mediaset.js' filter='yui_js'  output='js/compiled/mediaset.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
 {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/edit-post.js' filter='yui_js'  output='js/compiled/cms.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+
 
 
 <div class="container post" id="{{node.id}}" xmlns="http://www.w3.org/1999/html">
@@ -190,6 +196,8 @@
     </div>
 </div>
 
+
+
 <fieldset>
 <div class=" well control-group">
 
@@ -197,6 +205,8 @@
 
 </div>
 </fieldset>
+
+
 
 
 

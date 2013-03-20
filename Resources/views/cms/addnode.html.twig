@@ -2,9 +2,15 @@
 
 {% block body %}
 
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/mediaset.js' filter='yui_js'  output='js/compiled/mediaset.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
 {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/edit-post.js' filter='yui_js'  output='js/compiled/cms.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+
+
 
 <div class="container post" id="{{node.id}}">
 
@@ -17,6 +23,7 @@
 
 <hr class="featurette-divider">
 
+<!------------- Errors --------------->
 
 {% if form.get('errors') is not empty %}
 <div class="row-fluid page-header">
@@ -29,304 +36,305 @@
 </div>
 {% endif %}
 
-<form action="{{ path('scrclub_cms_addnode', {'id': node.id }) }}" method="post" {{ form_enctype(form) }} novalidate>
-    <div class="row-fluid page-header">
-        <div class="featurette pull-right">
+<!------------- Global properties --------------->
 
 
 
-                <div id="active_box_button" class="switch switch-small">
-                    {{ form_widget(form.active, { 'attr': {'id': 'active_box'} }) }}
-                </div>
+{% if node.type =='node' %}
+{% set formPath = path('scrclub_cms_addnode', {'id': node.id }) %}
+{% elseif node.type =='post' %}
+{% set formPath = path('scrclub_cms_addpost', { 'parent_id' : parent_id, 'id': node.id }) %}
+{% endif %}
 
-                <span class="right-caret-btn"></span>
-                <a alt="{{node.fullslug}}" href="#"><button class="btn"><i class="icon-search"> {{node.fullslug}}</i></button></a>
+<form action="{{ formPath }}" method="post" {{ form_enctype(form) }} novalidate>
+{{ form_widget(form.type)}}
 
+<div class="row-fluid page-header">
+    <div class="featurette pull-right">
+
+
+        <div id="active_box_button" class="switch switch-small">
+            {{ form_widget(form.active, { 'attr': {'id': 'active_box'} }) }}
         </div>
+
+        <span class="right-caret-btn"></span>
+        <a alt="{{node.fullslug}}" href="#">
+            <button class="btn"><i class="icon-search"> {{node.fullslug}}</i></button>
+        </a>
+
     </div>
+</div>
+
+<!------------- Translatable  --------------->
+
+{% set form_locales = form.translations.vars.locales %}
+{% set fields = form.translations.fields %}
 
 
-
-    {% set form_locales = form.translations.vars.locales %}
-    {% set fields = form.translations.fields %}
-
-
-
-    <div class="tabbable">
-        <ul class="nav nav-tabs" id="langTab">
-
-
-            {% for locale in form_locales %}
-
-
-            {% set icon = '' %}
-
-            {% if (form.translations.vars.default_locale[0] != locale)%}
-            {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
-
-            {% if (translationForm.name.get('value') == "") %}
-
-            {% set icon = '<i class="icon-warning-sign"></i>' %}
-
-            {% endif %}
-            {% endfor %}
-            {% endif %}
-
-
-            <li class="{% if (form.translations.vars.default_locale[0] == locale) %} active {% endif %}">
-                <a href="#{{locale}}" data-toggle="tab">{{icon | raw}} {{getLocaleName(locale,  app.request.locale  ) | capitalize }}</a>
-            </li>
-            {% endfor %}
-        </ul>
-    </div>
-
-    <div class="tab-content">
+<div class="tabbable">
+    <ul class="nav nav-tabs" id="langTab">
 
 
         {% for locale in form_locales %}
 
 
-        <div class="tab-pane x {% if (form.translations.vars.default_locale[0]  == locale) %} active {% endif %}" id="{{locale}}">
+        {% set icon = '' %}
 
-            <fieldset>
-                <div class=" well control-group">
-                    <div class="row-fluid">
+        {% if (form.translations.vars.default_locale[0] != locale)%}
+        {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
 
-                        {% if (form.translations.vars.default_locale[0] == locale) %}
+        {% if (translationForm.name.get('value') == "") %}
 
-                        <div class="span9">
+        {% set icon = '<i class="icon-warning-sign"></i>' %}
 
-                            {{ form_label( form.name , 'name' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
-                            }}
-                            {{ form_widget(form.name,  {'attr': {'class': 'input-xxlarge'}})}}
-
-
-                            {{ form_label( form.description , 'description' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
-                            }}
-                            {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge'}})}}
+        {% endif %}
+        {% endfor %}
+        {% endif %}
 
 
-                        </div>
+        <li class="{% if (form.translations.vars.default_locale[0] == locale) %} active {% endif %}">
+            <a href="#{{locale}}" data-toggle="tab">{{icon | raw}} {{getLocaleName(locale,  app.request.locale  ) | capitalize }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+</div>
 
-                        {% else %}
+<div class="tab-content">
 
-                        {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
 
-                        <div class="span9">
+    {% for locale in form_locales %}
 
-                            {% for f in translationForm.children %}
 
-                            {{ form_label( f , f.name | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
-                            }}
-                            {{ form_widget(f,  {'attr': {'class': 'input-xxlarge'}})}}
+    <div class="tab-pane x {% if (form.translations.vars.default_locale[0]  == locale) %} active {% endif %}" id="{{locale}}">
 
-                            {% endfor %}
+        <fieldset>
+            <div class=" well control-group">
+                <div class="row-fluid">
 
-                        </div>
+                    {% if (form.translations.vars.default_locale[0] == locale) %}
 
+                    <div class="span9">
+
+                        {{ form_label( form.name , 'name' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                        }}
+                        {{ form_widget(form.name,  {'attr': {'class': 'input-xxlarge'}})}}
+
+
+                        {{ form_label( form.description , 'description' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                        }}
+                        {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge'}})}}
+
+
+                    </div>
+
+                    {% else %}
+
+                    {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
+
+                    <div class="span9">
+
+                        {% for f in translationForm.children %}
+
+                        {{ form_label( f , f.name | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                        }}
+                        {{ form_widget(f,  {'attr': {'class': 'input-xxlarge'}})}}
 
                         {% endfor %}
 
-                        {% endif %}
-
                     </div>
+
+
+                    {% endfor %}
+
+                    {% endif %}
+
                 </div>
-            </fieldset>
+            </div>
+        </fieldset>
+
+    </div>
+    <script type="text/javascript">
+        $(function () {
+
+            $('#scrclub_cmsbundle_{{node.type}}type_translations_{{locale}}_description').wysihtml5();
+
+
+        })
+    </script>
+
+    {% endfor %}
+</div>
+
+<!------------- Template  --------------->
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <a class="brand" href="#">{{ 'template.settings'| trans  }}</a>
+    </div>
+</div>
+
+<fieldset>
+    <div class=" well control-group">
+        <div class="row-fluid">
+
+            <div class="span3">
+                <label>{{ 'force.article'| trans  }}</label>
+
+                <div id="auto_content_button" class="switch switch-small">
+                    <input id="auto_content" type="checkbox" value="value1" checked="checked">
+                </div>
+            </div>
+
+            <div class="span4">
+
+
+                <label>{{ 'layouts'| trans  }}</label>
+                {{ form_widget(form.template)}}
+            </div>
+
+            <div class="span3">
+                <label>&nbsp;</label>
+                <button type="submit" class="btn btn-primary">Preview</button>
+            </div>
+
 
         </div>
-        <script type="text/javascript">
-            $(function () {
+    </div>
 
-                $('#scrclub_cmsbundle_nodetype_translations_{{locale}}_description').wysihtml5();
 
-            })
-        </script>
+</fieldset>
 
+<!------------- Categories and media sets  --------------->
+
+
+<div class="navbar">
+    <div class="navbar-inner">
+        <a class="brand" href="#">{{ 'Categories et médiasets'| trans | capitalize }}</a>
+        <ul class="nav" id="mediaset-add-tab">
+            <li class="active" ><a href="#category-menu">{{ 'categories'| trans  }}</a></li>
+            <li><a href="#mediaset-menu">{{ 'mediasets'| trans | capitalize }}</a></li>
+        </ul>
+    </div>
+</div>
+<div class="tab-content">
+
+    <div class="tab-pane active" id="category-menu">
+
+        <fieldset>
+            <div class=" well control-group">
+
+                {{ form_widget(form.categories, { 'attr': {'class': 'input-xlarge populate placeholder category-select'}, 'empty_value': '' }) }}
+
+            </div>
+        </fieldset>
+
+    </div>
+
+    <div class="tab-pane" id="mediaset-menu">
+
+        <fieldset>
+            <div class=" well control-group">
+                {{ form_widget(form.mediasets, { 'attr': {'class': 'input-xlarge populate placeholder mediaset-select'}, 'empty_value': '' }) }}
+            </div>
+        </fieldset>
+
+    </div>
+</div>
+
+
+<hr>
+
+<!------------- Medias  --------------->
+
+{{ node.mediasets | length }}
+
+{% if  node.id and node.mediasets | length > 0 %}
+
+
+<fieldset>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">{{ 'mediasets'| trans | capitalize }}</a>
+            <ul class="nav" id="mediaset-tab">
+                {% for mediaset in node.mediasets %}
+                <li {% if loop.first %}class="active" {% endif %}>
+                    <a href="#mediaset-{{mediaset.id}}">{{ mediaset.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="tab-content">
+        {% for mediaset in node.mediasets %}
+
+        <div class="tab-pane {% if loop.first %}active{% endif %}" id="mediaset-{{mediaset.id}}">
+
+            <ul class="nav nav-tabs">
+                <li {% if loop.first %} class="active" {% endif %} >
+                    <a href="#mediaset-node-{{mediaset.id}}" data-toggle="tab">Your post</a></li>
+                <li><a href="#mediaset-all-{{mediaset.id}}" data-toggle="tab">All</a></li>
+            </ul>
+
+            <div class="tab-content">
+
+                <div class="tab-pane active" id="mediaset-node-{{mediaset.id}}">
+
+                    <ul class="media-post-container sortable-thumb thumbnails ">
+
+                        {% for mediaNode in node.getMediaNodes() %}
+                        {% if contains(mediaset, mediaNode.media.getMediaSets() ) %}
+                        {% include 'scrclubCMSBundle:cms:list_image.html.twig' with {'mediaNode':mediaNode, 'mediaset':mediaset} %}
+                        {% endif %}
+                        {% endfor %}
+
+                    </ul>
+                </div>
+
+
+                <div class="tab-pane " id="mediaset-all-{{mediaset.id}}">
+                    <div class="row">
+                        <div id="mediaset-upload-{{mediaset.id}}" class="span12"></div>
+
+                    </div>
+                    <hr>
+
+
+                    <ul class="media-scroll-container thumbnails ">
+
+                        {% for media in mediaset.medias %}
+
+                        {% include 'scrclubCMSBundle:cms:list_image_mediaset.html.twig' with {'media':media, 'mediaset':mediaset} %}
+
+                        {% endfor %}
+
+
+                    </ul>
+                </div>
+            </div>
+        </div>
         {% endfor %}
     </div>
 
-    <div class="navbar">
-        <div class="navbar-inner">
-            <a class="brand" href="#">{{ 'template.settings'| trans  }}</a>
-        </div>
-    </div>
 
-    <fieldset>
-        <div class=" well control-group">
-            <div class="row-fluid">
+</fieldset>
 
-                <div class="span3">
-                    <label>{{ 'force.article'| trans  }}</label>
-
-                    <div id="auto_content_button" class="switch switch-small">
-                        <input id="auto_content" type="checkbox" value="value1" checked="checked">
-                    </div>
-                </div>
-
-                <div class="span4">
+{%  else %}
 
 
-                    <label>{{ 'layouts'| trans  }}</label>
-                    {{ form_widget(form.template)}}
-                </div>
+<div class="alert alert-info">
+    <i class=" icon-exclamation-sign"></i> {{ 'validate.post.media.notice'| trans  }}
+</div>
 
-                <div class="span3">
-                    <label>&nbsp;</label>
-                    <button type="submit" class="btn btn-primary">Preview</button>
-                </div>
+{%  endif %}
 
-
-            </div>
-        </div>
-
-
-    </fieldset>
-
-    <fieldset>
-        <div class=" well control-group">
-
-            {{ form_widget(form.categories, { 'attr': {'class': 'input-xlarge populate placeholder category-select'}, 'empty_value': '' }) }}
-
-        </div>
-    </fieldset>
-
-
-    <fieldset>
-        <div class="navbar">
-            <div class="navbar-inner">
-                <a class="brand" href="#">{% trans %}mediaset{% endtrans %}</a>
-            </div>
-        </div>
-
-
-        {{ form_widget(form.type)}}
-        <div class="">
-            <div class="accordion mediasets" id="accordion2" data-prototype="{{ form_widget(form.mediasets.vars.prototype)|e }}">
-
-
-                {% for mediaform in form.mediasets %}
-
-
-                <div class="accordion-group">
-                    <div class="accordion-heading" style="background-color: rgb(243, 243, 243)">
-                        <div class="accordion-toggle-cms">
-                            <a class="accordion-heading-link-cms" data-toggle="collapse" data-parent="#accordion2" href="#c{{mediaform.get('value').id}}">
-                                {{mediaform.get('value').name}}
-                            </a>
-
-                            <div class="accordion-heading-link-cms">
-                                | {{mediaform.get('value').type}}
-                            </div>
-
-                            | max : {{mediaform.get('value').max}}
-                            <div class="pull-right delete-mediaset">
-                                <i class="icon-trash"></i> Delete
-                            </div>
-
-                        </div>
-                    </div>
-                    <div id="c{{mediaform.get('value').id}}" class="accordion-body collapse">
-                        <div class="accordion-inner" style="background-color: rgb(253, 253, 253)">
-                            {{form_widget(mediaform)}}
-                        </div>
-                    </div>
-                </div>
-
-                {% endfor %}
-
-            </div>
-        </div>
-
-        <button id="mediaset-button" class="btn" type="button">
-            <i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}mediaset{% endtrans %}</button>
-
-
-
-    </fieldset>
-
-    <hr>
-
-    {% if node.id %}
-
-    <fieldset>
-        <div class="navbar">
-            <div class="navbar-inner">
-                <a class="brand" href="#">{{ 'mediasets'| trans | capitalize }}</a>
-                <ul class="nav" id="mediaset-tab">
-                    {% for mediaset in node.mediasets %}
-                    <li {% if loop.first %}class="active" {% endif %}>
-                        <a href="#mediaset-{{mediaset.id}}">{{ mediaset.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-
-        </div>
-
-        <div class="tab-content">
-            {% for mediaset in node.mediasets %}
-
-            <div class="tab-pane {% if loop.first %}active{% endif %}" id="mediaset-{{mediaset.id}}">
-
-                <ul class="nav nav-tabs">
-                    <li {% if loop.first %} class="active" {% endif %} >
-                        <a href="#mediaset-node-{{mediaset.id}}" data-toggle="tab">Your post</a></li>
-                    <li><a href="#mediaset-all-{{mediaset.id}}" data-toggle="tab">All</a></li>
-                </ul>
-
-                <div class="tab-content">
-
-                    <div class="tab-pane active" id="mediaset-node-{{mediaset.id}}">
-
-                        <ul class="media-post-container sortable-thumb thumbnails ">
-
-                            {% for mediaNode in node.getMediaNodes() %}
-                            {% if contains(mediaset, mediaNode.media.getMediaSets() ) %}
-                            {% include 'scrclubCMSBundle:cms:list_image.html.twig' with {'mediaNode':mediaNode, 'mediaset':mediaset} %}
-                            {% endif %}
-                            {% endfor %}
-
-                        </ul>
-                    </div>
-
-
-                    <div class="tab-pane " id="mediaset-all-{{mediaset.id}}">
-                        <div class="row">
-                            <div id="mediaset-upload-{{mediaset.id}}" class="span12"></div>
-
-                        </div>
-                        <hr>
-
-
-                        <ul class="media-scroll-container thumbnails ">
-
-                            {% for media in mediaset.medias %}
-
-                            {% include 'scrclubCMSBundle:cms:list_image_mediaset.html.twig' with {'media':media, 'mediaset':mediaset} %}
-
-                            {% endfor %}
-
-
-                        </ul>
-                    </div>
-                </div>
-            </div>
-            {% endfor %}
-        </div>
-
-
-    </fieldset>
-
-    {%  else %}
-
-    <div class="alert alert-info"><i class=" icon-exclamation-sign"></i>{{ 'validate.post.media.notice'| trans | capitalize }}
-    </div>
-
-    {%  endif %}
-
-    <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
-    {{ form_widget(form._token) }}
+<button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
+{{ form_widget(form._token) }}
 </form>
 
+
+<!------------- Modal --------------->
 
 
 <div id="media-edit-modal" class="modal hide fade ">
@@ -348,26 +356,30 @@
 <!-- /container -->
 
 
+
 <script type="text/javascript">
 
+    {% if  node.id %}
     {% for mediaset in node.mediasets %}
     createUploader({{mediaset.id}});
     {% endfor %}
+    {% endif %}
 
-    $(function() {
+    $(function () {
 
+        $('#scrclub_cmsbundle_{{node.type}}type_description').wysihtml5();
 
-        $('#scrclub_cmsbundle_nodetype_description').wysihtml5();
-
-
-    $('#langTab a').click(function (e) {
-        e.preventDefault();
-        $(this).tab('show');
-    })
-
+        $('#langTab a').click(function (e) {
+            e.preventDefault();
+            $(this).tab('show');
+        })
 
     })
 
+
+    /*
+
+    // add mediaset
 
     var collectionHolder = $('div.mediasets');
 
@@ -402,38 +414,35 @@
         var $newFormLi = $('<div></div>').append('' +
                 '<div class="accordion-group">' +
 
-                    '<div class="accordion-heading" style="background-color: rgb(212, 232, 241)">' +
-                        '<div class="accordion-toggle-cms">' +
-                            '<a  class="accordion-heading-link-cms" data-toggle="collapse" data-parent="#accordion2" href="#cnew' + (index + 1) + '">' +
-                            'New' +
-                            '</a>' +
-                            '<div class="pull-right delete-mediaset">' +
-                                '<i class="icon-trash"></i> Delete' +
-                            '</div>' +
-                        ' </div>' +
-                    '</div>' +
-                    '<div id="cnew' + (index + 1) + '" class="accordion-body collapse">' +
-                        '<div class="accordion-inner" style="background-color: rgb(253, 253, 253)">' +
-                        newForm +
+                '<div class="accordion-heading" style="background-color: rgb(212, 232, 241)">' +
+                '<div class="accordion-toggle-cms">' +
+                '<a  class="accordion-heading-link-cms" data-toggle="collapse" data-parent="#accordion2" href="#cnew' + (index + 1) + '">' +
+                'New' +
+                '</a>' +
+                '<div class="pull-right delete-mediaset">' +
+                '<i class="icon-trash"></i> Delete' +
+                '</div>' +
+                ' </div>' +
+                '</div>' +
+                '<div id="cnew' + (index + 1) + '" class="accordion-body collapse">' +
+                '<div class="accordion-inner" style="background-color: rgb(253, 253, 253)">' +
+                newForm +
 
-                        '</div>' +
-                    '</div>' +
+                '</div>' +
+                '</div>' +
 
                 '</div>'
         );
-
 
         setNiceCheckBox(collectionHolder.append($newFormLi));
         setDeleteAction();
         //setNiceChechBox();
     }
 
-    function setNiceCheckBox (el) {
+    function setNiceCheckBox(el) {
 
         el.find(":input[type=checkbox]").wrap('<div class="switch switch-small" />');
         el.find('.switch')['switch']();
-
-
 
     }
 
@@ -451,11 +460,24 @@
 
     setDeleteAction();
 
+    */
 
     $(".category-select").select2({
-                placeholder :"{% trans %}choose.category{% endtrans %}"
+                placeholder:"{% trans %}choose.category{% endtrans %}"
             }
     );
+
+    $(".mediaset-select").select2({
+                placeholder:"{% trans %}add.mediaset{% endtrans %}"
+            }
+    );
+
+    $('#mediaset-add-tab a').click(function(e) {
+        e.preventDefault();
+        $(this).tab('show');
+    });
+
+
 
 
 </script>

@@ -1,5 +1,10 @@
+
+if(gg_id.length > 0 ) {
+
 google.load('visualization', '1', {packages: ['corechart']});
 google.setOnLoadCallback(loadCharts);
+
+}
 
 function loadCharts() {
 
@@ -104,9 +109,12 @@ $(document).ready(function() {
 
 });
 
+if(gs_token.length > 0 ) {
+
+
 var oldnum = 0, newnum = 0;
 function hitCounter() {
-    $.getJSON('https://api.gosquared.com/latest/concurrents?callback=?&api_key=7KUCQ3H1LPFC4AD0&site_token=GSN-013598-E', function(data) {
+    $.getJSON("https://api.gosquared.com/latest/concurrents?callback=?&api_key="+gs_api+"&site_token="+gs_token+"", function(data) {
         newnum = data.visitors;
         if (newnum != oldnum) {
             var diff = newnum - oldnum;
@@ -121,3 +129,7 @@ setInterval(function() {
     hitCounter();
 }, 3000);
 hitCounter();
+
+}
+
+

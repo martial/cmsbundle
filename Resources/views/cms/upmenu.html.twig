@@ -12,6 +12,8 @@
                 <ul class="nav">
                     <li class="active"><a href="{{  path('scrclub_cms_homepage')}}"><i class="icon-folder-close-alt"></i> {% trans %}sections{% endtrans %}</a></li>
                     <li><a href="{{ path('scrclub_cms_categories') }}"><i class="icon-tags"></i> {% trans %}categories{% endtrans %}</a></li>
+                    <li><a href="{{ path('scrclub_cms_mediaset') }}"><i class="icon-tags"></i> {% trans %}mediasets{% endtrans %}</a></li>
+
 
                 </ul>
 
@@ -23,11 +25,11 @@
                         <ul class="dropdown-menu">
 
 
-                            <li><a href="#"><i class="icon-sitemap"></i> {% trans %}your.site{% endtrans %}</a></li>
-                            <li><a href="#"><i class="icon-globe"></i> {% trans %}langs{% endtrans %}</a>
-                            <li><a href="#"><i class="icon-user"></i> {% trans %}users{% endtrans %}</a></li>
-                            <li><a href="#"><i class="icon-paste"></i> {% trans %}templates{% endtrans %}</a></li>
-                            <li><a href="#"><i class="icon-tasks"></i> {% trans %}analytics{% endtrans %}</a></li>
+                            <li><a href="{{path('scrclub_cms_analytics')}}"><i class="icon-sitemap"></i> {% trans %}your.site{% endtrans %}</a></li>
+                            <li><a href="{{path('scrclub_cms_langs')}}"><i class="icon-globe"></i> {% trans %}langs{% endtrans %}</a>
+                            <li><a href="{{path('scrclub_cms_users')}}"><i class="icon-user"></i> {% trans %}users{% endtrans %}</a></li>
+                            <li><a href="{{path('scrclub_cms_templates')}}"><i class="icon-paste"></i> {% trans %}templates{% endtrans %}</a></li>
+                            <li><a href="{{path('scrclub_cms_analytics')}}"><i class="icon-tasks"></i> {% trans %}analytics{% endtrans %}</a></li>
 
 
                         </ul>

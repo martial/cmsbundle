@@ -1,0 +1,92 @@
+{% extends "scrclubCMSBundle:cms:layout.html.twig" %}
+
+{% block body %}
+
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/mediaset.js' filter='yui_js'  output='js/compiled/mediaset.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+
+<div class="container">
+
+
+    <div class="featurette">
+        <h2 class="featurette-heading">{{ 'mediasets'| trans }}
+            <div class="muted featurette-sub-heading">--</div>
+        </h2>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <form action="{{ path('scrclub_cms_mediasetadd', { 'id': mediaset.id }) }}" method="post" {{ form_enctype(form) }} novalidate>
+        {{ form_widget(form) }}
+        {{ form_widget(form._token) }}
+        <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
+    </form>
+
+</div>
+
+
+
+{% if mediaset.id %}
+<div class="container" id="mediaset-all-{{mediaset.id}}">
+
+    <hr>
+    <!-- show all images ! -->
+
+    <div class="row">
+        <div id="mediaset-upload-{{mediaset.id}}" class="span12"></div>
+    </div>
+    <hr>
+
+    <ul class="media-scroll-container thumbnails ">
+
+        {% for media in mediaset.medias %}
+
+        {% include 'scrclubCMSBundle:cms:list_image_mediaset.html.twig' with {'media':media, 'mediaset':mediaset} %}
+
+        {% endfor %}
+
+    </ul>
+
+
+
+    <div id="media-edit-modal" class="modal hide fade ">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Edit Image </h3>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
+            <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{% trans %}save.changes{% endtrans %}</button>
+
+        </div>
+    </div>
+
+
+</div>
+
+{% endif %}
+
+<script type="text/javascript">
+
+
+    $(function () {
+
+
+        createUploader({{mediaset.id}});
+
+
+
+
+    })
+
+
+</script>
+
+
+
+{% endblock %}

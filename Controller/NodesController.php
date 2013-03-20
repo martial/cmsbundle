@@ -36,7 +36,15 @@
             $query->andWhere("node.type = 'node'");
             $result = $query->getQuery()->getResult();
 
-            return $this->render('scrclubCMSBundle:cms:index.html.twig', array("type" => "node", "tree" => $result));
+            // add config
+
+            $config = NULL;
+            $configs = $em->getRepository('scrclubCMSBundle:Config')->findAll();
+            if (isset($configs[0])) {
+                $config = $configs[0];
+            }
+
+            return $this->render('scrclubCMSBundle:cms:index.html.twig', array("type" => "node", "tree" => $result, "config" => $config));
 
         }
 
@@ -51,6 +59,7 @@
             $langs = $lang_repo->findAll();
 
             $node = new Node();
+            $node->setType('node');
 
             $request = $this->getRequest();
             $locale = $request->getLocale();
@@ -74,6 +83,9 @@
                 //$node->setTranslatableLocale($locale);
 
             }
+
+            //echo "ahou";
+            $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node')->getMediaSetsRecursive($node);
 
             $form = $this->createForm(new NodeType($lang_repo, $templates), $node);
 
@@ -228,6 +240,7 @@
             $langs = $lang_repo->findAll();
 
             $post = new Post();
+            $post->setType('post');
 
             $noderepo = $em->getRepository('scrclub\CMSBundle\Entity\Node');
             $node_parent = $noderepo->find($parent_id);
@@ -247,6 +260,8 @@
 
 
             $noderepo->getMediaSetsRecursive($post);
+
+
 
 
             $form = $this->createForm(new PostType($lang_repo), $post);
@@ -276,7 +291,7 @@
             $result = $repo->getRootNodes();
 
 
-            return $this->render('scrclubCMSBundle:cms:addpost.html.twig', array('node' => $post, 'form'=> $form->createView(), 'langs' => $langs, 'locale' => $locale, 'parent_id' => $parent_id, 'tree' => $result));
+            return $this->render('scrclubCMSBundle:cms:addnode.html.twig', array('node' => $post, 'form'=> $form->createView(), 'langs' => $langs, 'locale' => $locale, 'parent_id' => $parent_id, 'tree' => $result));
 
         }
 

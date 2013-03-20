@@ -130,6 +130,8 @@ scrclubCMSBundle_backend_media:
 scrclubCMSBundle_backend_category:
         resource: "@scrclubCMSBundle/Resources/config/routing/categories.yml"
 
+scrclubCMSBundle_backend_mediaset:
+        resource: "@scrclubCMSBundle/Resources/config/routing/mediaset.yml"
 
 
 
