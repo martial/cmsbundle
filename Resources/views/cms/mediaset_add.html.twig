@@ -2,6 +2,19 @@
 
 {% block body %}
 
+<script>
+
+    var translations = {
+
+        "upload.drag": "{{ 'upload.drag'| trans }} ",
+        "embed.files": "{{ 'embed.files'| trans }} ",
+        "choose.category": "{{ 'choose.category'| trans }} ",
+        "add.mediaset": "{{ 'add.mediaset'| trans }} "
+
+    }
+
+</script>
+
 {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/mediaset.js' filter='yui_js'  output='js/compiled/mediaset.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
