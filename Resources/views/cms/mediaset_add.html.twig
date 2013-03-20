@@ -21,7 +21,7 @@
     <form action="{{ path('scrclub_cms_mediasetadd', { 'id': mediaset.id }) }}" method="post" {{ form_enctype(form) }} novalidate>
         {{ form_widget(form) }}
         {{ form_widget(form._token) }}
-        <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
+        <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{{ 'save.changes'| trans }}</button>
     </form>
 
 </div>
@@ -61,7 +61,7 @@
         </div>
         <div class="modal-footer">
             <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
-            <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{% trans %}save.changes{% endtrans %}</button>
+            <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{{ 'save.changes'| trans }}</button>
 
         </div>
     </div>
@@ -75,12 +75,7 @@
 
 
     $(function () {
-
-
         createUploader({{mediaset.id}});
-
-
-
 
     })
 

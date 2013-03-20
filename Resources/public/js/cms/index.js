@@ -1,16 +1,17 @@
+/****************** Google Analytics  *******************/
 
-if(gg_id.length > 0 ) {
+if (gg_id.length > 0) {
 
-google.load('visualization', '1', {packages: ['corechart']});
-google.setOnLoadCallback(loadCharts);
+    google.load('visualization', '1', {packages:['corechart']});
+    google.setOnLoadCallback(loadCharts);
 
 }
 
 function loadCharts() {
 
     $.ajax({
-        url: Routing.generate('scrclub_cms_charts'),
-        success: function(data) {
+        url    :Routing.generate('scrclub_cms_charts'),
+        success:function (data) {
 
             if (data == 'Error') {
                 $('#charts').html('{% trans %}error.google.identification{% endtrans %}');
@@ -28,36 +29,36 @@ function loadCharts() {
 function displayCharts(data) {
 
     var data = google.visualization.arrayToDataTable(data);
-    data.addColumn({type: 'string', role: 'tooltip'});
+    data.addColumn({type:'string', role:'tooltip'});
 
     var options = {
-        colors: ['#D6D6D6'],
-        title: '',
-        animation: {
-            duration: 1000,
-            easing: 'out'
+        colors   :['#D6D6D6'],
+        title    :'',
+        animation:{
+            duration:1000,
+            easing  :'out'
         },
-        vAxis: {baselineColor: '#FFFFFF',
-            gridlines: {
-                count: 0
+        vAxis    :{baselineColor:'#FFFFFF',
+            gridlines           :{
+                count:0
             }},
-        hAxis: {baselineColor: '#FFFFFF',
-            gridlines: {
-                count: 0
+        hAxis    :{baselineColor:'#FFFFFF',
+            gridlines           :{
+                count:0
             }},
-        vAxes: [
+        vAxes    :[
             {}
         ],
-        hAxes: [
+        hAxes    :[
             {}
         ],
 
-        min: 0,
-        height: 126,
-        width: 850,
-        fontName: 'Helvetica Neue',
-        legend: {position: 'right'},
-        tooltip: {isHtml: true}
+        min     :0,
+        height  :126,
+        width   :850,
+        fontName:'Helvetica Neue',
+        legend  :{position:'right'},
+        tooltip :{isHtml:true}
     };
 
     var chart = new google.visualization.LineChart(document.getElementById('charts'));
@@ -68,29 +69,29 @@ function displayCharts(data) {
 
 }
 
-$(document).ready(function() {
+$(document).ready(function () {
 
     $('.sortable').nestedSortable({
 
-        handle: 'div',
-        helper: 'clone',
-        items: 'li',
-        rootID: 'root',
-        opacity: 1,
-        tolerance: 'pointer',
-        placeholder: 'placeholder',
-        forcePlaceholderSize: true,
+        handle              :'div',
+        helper              :'clone',
+        items               :'li',
+        rootID              :'root',
+        opacity             :1,
+        tolerance           :'pointer',
+        placeholder         :'placeholder',
+        forcePlaceholderSize:true,
 
-        update: function(event, ui) {
+        update:function (event, ui) {
 
-            var arraied = $('.sortable').nestedSortable('toArray', {startDepthCount: 0});
+            var arraied = $('.sortable').nestedSortable('toArray', {startDepthCount:0});
 
             $.ajax({
-                type: 'post',
-                cache: false,
-                url: Routing.generate('scrclub_cms_editnodetree', {_locale:locale}),
-                data: {data: arraied},
-                success: function(data) {
+                type   :'post',
+                cache  :false,
+                url    :Routing.generate('scrclub_cms_editnodetree', {_locale:locale}),
+                data   :{data:arraied},
+                success:function (data) {
 
                 }
 
@@ -100,36 +101,88 @@ $(document).ready(function() {
 
     });
 
-
-
-       
-
-
-
-
 });
 
-if(gs_token.length > 0 ) {
+/****************** GoSquared  *******************/
 
+if (gs_token.length > 0) {
 
-var oldnum = 0, newnum = 0;
-function hitCounter() {
-    $.getJSON("https://api.gosquared.com/latest/concurrents?callback=?&api_key="+gs_api+"&site_token="+gs_token+"", function(data) {
-        newnum = data.visitors;
-        if (newnum != oldnum) {
-            var diff = newnum - oldnum;
-            var j = 1;
-            updatey(oldnum, j, diff);
-        }
-        $('#counter').text('Currently ' + newnum + ' visitors online.');
-        oldnum = newnum;
-    });
-}
-setInterval(function() {
+    var oldnum = 0, newnum = 0;
+
+    function hitCounter() {
+        $.getJSON("https://api.gosquared.com/latest/concurrents?callback=?&api_key=" + gs_api + "&site_token=" + gs_token + "", function (data) {
+            newnum = data.visitors;
+            if (newnum != oldnum) {
+                var diff = newnum - oldnum;
+                var j = 1;
+                updatey(oldnum, j, diff);
+            }
+            $('#counter').text('Currently ' + newnum + ' visitors online.');
+            oldnum = newnum;
+        });
+    }
+
+    setInterval(function () {
+        hitCounter();
+    }, 3000);
     hitCounter();
-}, 3000);
-hitCounter();
 
 }
+
+/****************** Main page Jquery  *******************/
+
+
+$(function () {
+
+    $('.delete_node').each(function () {
+
+        $(this).click(function () {
+
+            var li = $($(this).parents().get()[4]);
+            var id = li.attr('id').slice(5);
+
+            bootbox.confirm(translations['wanadoo.this'], function (result) {
+
+                if (result) {
+                    $.ajax({
+                        type   :'post',
+                        cache  :false,
+                        url    :deleteNodePath,
+                        data   :{data:id},
+                        success:function (data) {
+                            newAlert("success", translations['delete.success']);
+                            li.remove();
+                        }
+                    });
+                }
+            });
+        })
+    });
+
+    $('.switch-active').each(function () {
+
+        $(this).on('switch-change', function (e, data) {
+
+            var li = $($(this).parents().get()[1]);
+            var id = li.attr('id').slice(5);
+
+            var result = {
+                id    :id,
+                active:data.value
+            }
+
+            $.ajax({
+                type   :'post',
+                cache  :false,
+                url    :updateActiveNodePath,
+                data   :result,
+                success:function (data) {
+                    //newAlert("success", "{{ 'update.success' | trans }}");
+                }
+            });
+        })
+    });
+
+})
 
 

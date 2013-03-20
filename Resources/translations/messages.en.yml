@@ -31,6 +31,8 @@ delete.success: Deleted with success
 itsyou: It's you !
 
 choose.lang: Choose language
+choose.category: Choose category
+add.mediaset: Add mediaset
 alert.validate.lang: Careful ! Removing lang can erase all your existing translated posts.
 wannado.this: Are you very sure you wanna do this ?
 
@@ -72,3 +74,5 @@ actions: Actions
 category: category
 
 add.media.post: Add to post
+
+categories.mediaset: Extra

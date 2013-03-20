@@ -5,7 +5,6 @@
     {{ getEmbed(document)}}
 
     <!-- <img src="{{ getThumbnail(document)}}"> -->
-
     <hr>
 
     <form id="embed-edit-form" action="{{ path('scrclub_cms_updateEmbedPopOver', {mediasetId:mediaset.id , id:document.id}) }}" method="post" {{ form_enctype(form) }} novalidate >
@@ -20,9 +19,6 @@
 
                 var options = {
                     success: function (responseText, statusText, xhr, $form) {
-                        //$('#embed-edit-modal').modal('hide');
-
-                       // var data = jQuery.parseJSON(responseText);
 
                         $('#embeddoc-modal-container').parent().html(responseText.html);
                         $('#media-form-submit').html("{{ 'save.changes'| trans  }}");
@@ -33,7 +29,7 @@
 
                 $('#embed-edit-form').ajaxSubmit(options);
 
-                $('#media-form-submit').html('{% trans %}save.changes{% endtrans %} <i class="icon-refresh icon-spin"></i></a>');
+                $('#media-form-submit').html('{{ 'save.changes'| trans  }} <i class="icon-refresh icon-spin"></i></a>');
 
             });
 

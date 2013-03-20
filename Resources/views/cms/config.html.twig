@@ -28,60 +28,19 @@
 
 <script>
 
-    $(document).ready(function () {
-
-        $("#lang_combo").select2({
-           placeholder :"{% trans %}choose.lang{% endtrans %}"
-           }
-        );
-
-        $('#validate_lang').avgrund({
-            height: 130,
-            holderClass: 'custom',
-            showClose: false,
-            showCloseText: 'Close',
-            enableStackAnimation: true,
-            onBlurContainer: '.container',
-            template: '{% include 'scrclubCMSBundle:cms:alert_lang_validate.html.twig'  %}'
-        });
-
-
-        $('#submit_lang').click(function() {
-            updateLangs();
-        })
-
-    });
-
-
-    function updateLangs() {
-
-        var langValues = $("#lang_combo").val() || [];
-
-        $.ajax({
-            type :'post',
-            cache:false,
-            url  :'{{ path('update_langs') }}',
-            data :{data:langValues},
-            success: function(data){
-
-                $('#validate_lang').popover({
-
-                    placement:"top",
-                    trigger: "manual",
-                    title:"{% trans %}status{% endtrans %}",
-                    content:"{% trans %}update.success{% endtrans %}"
-
-                });
-                $('#validate_lang').popover('show');
-                setTimeout(function() {$('#validate_lang').popover('hide');}, 4000);
-            }
-
-        });
+    var translations = {
+        "wannadoo.this": "{{ 'wannadoo.this'| trans }}",
+        "choose.lang" : "{{ 'choose.lang'| trans }}",
+        "status" : "{{ 'status'| trans }}",
+        "update.success" : "{{ 'update.success'| trans }}"
     }
-
-
+    var alertTemplate = '{% include 'scrclubCMSBundle:cms:alert_lang_validate.html.twig'  %}';
+    var updateLangUrl = "{{ path('update_langs') }}";
 
 </script>
 
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/config.js' filter='yui_js'  output='js/compiled/config.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 
 {% endblock %}

@@ -35,6 +35,8 @@ delete.success: Éffacé avec succés !
 itsyou: C'est vous !
 
 choose.lang: Choisir une langue
+choose.category: Ajouter une catégorie
+add.mediaset: Ajouter un set de média
 alert.validate.lang: Attention ! Changer les langues peut effacer des articles que déja traduits !
 alert.minimum.lang: Il faut une langue minimum !
 alert.default.lang: Quelle est votre langue par défaut du coup ?
@@ -71,3 +73,5 @@ actions: Actions
 category: catégorie
 
 add.media.post: Ajouter à l'article
+
+categories.mediaset: Extra

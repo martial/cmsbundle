@@ -6,7 +6,7 @@
 
 
     <div class="featurette">
-        <h2 class="featurette-heading">{{ 'mediasets'| trans }}
+        <h2 class="featurette-heading">{{ 'mediasets'| trans | capitalize }}
             <div class="muted featurette-sub-heading">--</div>
         </h2>
     </div>
@@ -37,7 +37,7 @@
         <tr id="{{mediaset.id}}">
             <td>{{mediaset.name}}</td>
             <td>{{mediaset.medias | length }} medias</td>
-            <td style="text-align:right;"><a href="{{path('scrclub_cms_mediasetadd', {id:mediaset.id})}}" ><i class="icon-edit"> Edit</i></a> - <a href="#" class="remove-category"><i class="icon-trash"> Delete</i></a></td>
+            <td style="text-align:right;"><a href="{{path('scrclub_cms_mediasetadd', {id:mediaset.id})}}" ><i class="icon-edit"> Edit</i></a> - <a href="#" class="remove-mediaset"><i class="icon-trash"> Delete</i></a></td>
         </tr>
             {% endfor %}
 
@@ -52,7 +52,7 @@
     $(function () {
 
 
-        $('.remove-category').each(function() {
+        $('.remove-mediaset').each(function() {
 
             $(this).click(function(e) {
 

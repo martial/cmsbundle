@@ -84,26 +84,9 @@
 
 
 
-
-<script type="text/javascript">
-
-
-
-
-    $(function() {
-
-        //createUploader();
-
-        $("#roles").select2({
-            placeholder: "{{ 'select.user' | trans }}",
-            allowClear: true
-        });
-
-
-
-    })
-
-</script>
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/edit-user.js' filter='yui_js'  output='js/compiled/edit-user.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
 
 
 {% endblock %}

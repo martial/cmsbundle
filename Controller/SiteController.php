@@ -34,6 +34,7 @@
 
             $query = $repo->getRootNodesQueryBuilder();
             if(!$addPosts ) $query->andWhere("node.type = 'node'");
+            $query->andWhere("node.active = '1'");
             $result = $query->getQuery()->getResult();
 
             return $result;
@@ -49,6 +50,7 @@
 
             $query = $repo->createQueryBuilder('p');
             $query->setMaxResults($limit);
+            $query->andWhere("node.active = '1'");
             $result = $repo->findAll();
 
 

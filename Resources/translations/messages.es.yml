@@ -31,6 +31,8 @@ delete.success: Borrado correctamente !
 itsyou: Este eres tu !
 
 choose.lang: Elegir una lengua
+choose.category: Añadir categoria
+add.mediaset: Añadir mediaset
 alert.validate.lang: Cuidado ! Cambiar las idiomas puede borrar todos los articulos vinculados !
 alert.minimum.lang: Se necesita un idioma como minimo ( si no, como lo harias ? ) !
 alert.default.lang: Cual es el idioma por defecto ?
@@ -70,3 +72,5 @@ actions: Acciones
 category: categoria
 
 add.media.post: Añadir al post
+
+categories.mediaset: Extra

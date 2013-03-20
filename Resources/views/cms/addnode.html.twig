@@ -11,7 +11,9 @@
     var translations = {
 
         "upload.drag": "{{ 'upload.drag'| trans }} ",
-        "embed.files": "{{ 'embed.files'| trans }} "
+        "embed.files": "{{ 'embed.files'| trans }} ",
+        "choose.category": "{{ 'choose.category'| trans }} ",
+        "add.mediaset": "{{ 'add.mediaset'| trans }} "
 
     }
 
@@ -226,7 +228,7 @@
 
 <div class="navbar">
     <div class="navbar-inner">
-        <a class="brand" href="#">{{ 'Categories et médiasets'| trans | capitalize }}</a>
+        <a class="brand" href="#">{{ 'categories.mediaset'| trans | capitalize }}</a>
         <ul class="nav" id="mediaset-add-tab">
             <li class="active" ><a href="#category-menu">{{ 'categories'| trans  }}</a></li>
             <li><a href="#mediaset-menu">{{ 'mediasets'| trans | capitalize }}</a></li>
@@ -384,27 +386,9 @@
 
         $('#scrclub_cmsbundle_{{node.type}}type_description').wysihtml5();
 
-        $('#langTab a').click(function (e) {
-            e.preventDefault();
-            $(this).tab('show');
-        })
-
     })
 
-    $(".category-select").select2({
-                placeholder:"{% trans %}choose.category{% endtrans %}"
-            }
-    );
 
-    $(".mediaset-select").select2({
-                placeholder:"{% trans %}add.mediaset{% endtrans %}"
-            }
-    );
-
-    $('#mediaset-add-tab a').click(function(e) {
-        e.preventDefault();
-        $(this).tab('show');
-    });
 
 
 
