@@ -142,48 +142,6 @@ class DocumentController extends Controller
 
 
 
-
-    /*
-    public function uploadAction($mediaset_id)
-    {
-
-
-        // find media set
-
-        $em = $this->getDoctrine()->getManager();
-        $noderepo = $em->getRepository('scrclub\CMSBundle\Entity\MediaSet');
-        $mediaset = $noderepo->find($mediaset_id);
-
-
-        $document = new Document();
-        $form = $this->createFormBuilder($document)
-            ->add('name')
-            ->add('file')
-            ->getForm()
-        ;
-
-        if ($this->getRequest()->isMethod('POST')) {
-            $form->bind($this->getRequest());
-            if ($form->isValid()) {
-                $em = $this->getDoctrine()->getManager();
-
-                $em->persist($document);
-                $em->flush();
-
-            //$this->redirect($this->generateUrl(...));
-        }
-        }
-
-        return array('form' => $form->createView());
-    }
-
-
-    /**
-     * Deletes a Document entity.
-     *
-*/
-
-
     public function deleteAction( $id)
     {
 

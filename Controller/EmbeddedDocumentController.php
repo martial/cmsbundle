@@ -18,40 +18,6 @@
 
 
 
-        /*
-        public function testAction () {
-
-
-            $embedUtils = new \scrClub\CMSBundle\Service\EmbeddedUtils();
-            //$type = $embedUtils->guessService("http://vimeo.com/31977188");
-
-            $doc = new EmbeddedDocument();
-            $doc->setUrl("https://soundcloud.com/compost");
-
-            $embedUtils = new \scrClub\CMSBundle\Service\EmbeddedUtils();
-            $type = $embedUtils->guessService($doc->getUrl());
-
-            if($type != 'file' AND $type != 'image') {
-                $embedId = $embedUtils->getIdFromUrl($doc->getUrl(), $type);
-                $doc->setEmbedId($embedId);
-            }
-
-            $doc->setEmbedType($type);
-
-            $json =  file_get_contents("http://soundcloud.com/oembed?format=json&url=".$doc->getUrl()."&iframe=true");
-            $result = json_decode($json);
-
-
-
-            return $this->render('scrclubCMSBundle:cms:test.html.twig', array(
-                'document' => $doc,
-                ));
-
-        }
-
-        */
-
-
 
 
         public function updateAction($mediasetId, $id) {
