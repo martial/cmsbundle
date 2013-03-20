@@ -11,7 +11,10 @@
     <!-- choose thumnails -->
     <form id="embed-edit-form" action="{{ path('scrclub_cms_updateEmbedPopOver', {mediasetId:mediaset.id, id:document.id}) }}" method="post" {{ form_enctype(form) }} novalidate >
     {{form_widget(form)}}
+
+        <!--
         <button type="submit" class="btn btn-info">Send</button>
+        -->
 
         <script>
 
@@ -25,7 +28,7 @@
 
 
                         $('#embeddoc-modal-container').parent().html(responseText.html);
-                        $('#media-form-submit').html("{% trans %}save.changes{% endtrans %}");
+                        $('#media-form-submit').html("{{ 'save.changes' | trans }}");
 
 
 
@@ -59,12 +62,10 @@
 
 
                 $('#embed-edit-form').ajaxSubmit(options);
-                $('#media-form-submit').html('{% trans %}save.changes{% endtrans %} <i class="icon-refresh icon-spin"></i></a>');
+                $('#media-form-submit').html('{{ 'save.changes' | trans }} <i class="icon-refresh icon-spin"></i></a>');
 
             });
 
         </script>
 
 </div>
-
-b

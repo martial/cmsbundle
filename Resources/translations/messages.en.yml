@@ -1,4 +1,5 @@
 sections: Sections
+post: post
 categories: Categories
 langs: Langs
 configuration: Settings
@@ -13,6 +14,7 @@ by.default: by default
 
 edit: Edit
 add: Add
+delete: Delete
 section: section
 
 login: login
@@ -45,8 +47,6 @@ mediaset: Media set
 
 welcome: Welcome
 
-
-
 analytics: Analytics
 connection.checking: Connection check...
 connection.connected: The connection is ok !
@@ -54,3 +54,21 @@ connection.error: There was a connection error
 
 add.media.post: add Media to post
 validate.post.media.notice: You must validate yur media before adding posts !
+
+
+title: title
+content: content
+type: type
+name: title
+description : content
+your.post: Your post
+mediaset.all: All mediaset
+
+upload.drag: Upload / Drag files
+embed.files: Embed external document
+
+actions: Actions
+
+category: category
+
+add.media.post: Add to post

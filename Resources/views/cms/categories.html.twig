@@ -25,9 +25,9 @@
     <table class="table">
         <thead>
         <tr>
-            <th>Name</th>
-            <th>bla</th>
-            <th style="text-align:right;">Actions</th>
+            <th>{{ "name" | trans | capitalize }}</th>
+
+            <th style="text-align:right;">{{ "actions" | trans | capitalize }}</th>
         </tr>
         </thead>
         <tbody>
@@ -36,8 +36,8 @@
             {% for category in categories %}
         <tr id="{{category.id}}">
             <td>{{category.name}}</td>
-            <td>-</td>
-            <td style="text-align:right;"><a href="{{path('scrclub_cms_categories_add', {id:category.id})}}" ><i class="icon-edit"> Edit</i></a> - <a href="#" class="remove-category"><i class="icon-trash"> Delete</i></a></td>
+
+            <td style="text-align:right;"><a href="{{path('scrclub_cms_categories_add', {id:category.id})}}" ><i class="icon-edit"> {{ "edit" | trans | capitalize }}</i></a> - <a href="#" class="remove-category"><i class="icon-trash"> {{ "delete" | trans | capitalize }}</i></a></td>
         </tr>
             {% endfor %}
 
@@ -55,9 +55,6 @@
         $('.remove-category').each(function() {
 
             $(this).click(function(e) {
-
-
-
 
                 e.preventDefault();
 
@@ -82,11 +79,6 @@
                     }
                 });
 
-
-
-
-
-
             });
 
         });
@@ -94,8 +86,6 @@
 
 
     })
-
-
 
 </script>
 

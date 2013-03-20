@@ -6,6 +6,17 @@
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
+<script>
+
+    var translations = {
+
+        "upload.drag": "{{ 'upload.drag'| trans }} ",
+        "embed.files": "{{ 'embed.files'| trans }} "
+
+    }
+
+</script>
+
 {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/edit-post.js' filter='yui_js'  output='js/compiled/cms.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
@@ -15,8 +26,14 @@
 <div class="container post" id="{{node.id}}">
 
 
+{% if node.type == "post" %}
+{% set titleType = "post"  %}
+{% elseif node.type == "node " %}
+{% set titleType = "article"  %}
+{% endif %}
+
 <div class="featurette">
-    <h2 class="featurette-heading">{{ 'edit'| trans }} {{ 'section'| trans }} /
+    <h2 class="featurette-heading">{{ 'edit'| trans }} {{ titleType | trans }} /
         <div class="muted featurette-sub-heading">{{ node.name }}</div>
     </h2>
 </div>
@@ -115,12 +132,12 @@
 
                     <div class="span9">
 
-                        {{ form_label( form.name , 'name' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                        {{ form_label( form.name , 'title' | lower | trans , {'attr': {'class': 'input-xxlarge' }})
                         }}
                         {{ form_widget(form.name,  {'attr': {'class': 'input-xxlarge'}})}}
 
 
-                        {{ form_label( form.description , 'description' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                        {{ form_label( form.description , 'content' | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
                         }}
                         {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge'}})}}
 
@@ -135,7 +152,7 @@
 
                         {% for f in translationForm.children %}
 
-                        {{ form_label( f , f.name | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                        {{ form_label( f , f.name | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
                         }}
                         {{ form_widget(f,  {'attr': {'class': 'input-xxlarge'}})}}
 
@@ -246,8 +263,6 @@
 
 <!------------- Medias  --------------->
 
-{{ node.mediasets | length }}
-
 {% if  node.id and node.mediasets | length > 0 %}
 
 
@@ -273,8 +288,8 @@
 
             <ul class="nav nav-tabs">
                 <li {% if loop.first %} class="active" {% endif %} >
-                    <a href="#mediaset-node-{{mediaset.id}}" data-toggle="tab">Your post</a></li>
-                <li><a href="#mediaset-all-{{mediaset.id}}" data-toggle="tab">All</a></li>
+                    <a href="#mediaset-node-{{mediaset.id}}" data-toggle="tab">{{ "your.post" | trans }}</a></li>
+                <li><a href="#mediaset-all-{{mediaset.id}}" data-toggle="tab">{{ "mediaset.all" | trans }}</a></li>
             </ul>
 
             <div class="tab-content">
@@ -375,92 +390,6 @@
         })
 
     })
-
-
-    /*
-
-    // add mediaset
-
-    var collectionHolder = $('div.mediasets');
-
-    // setup an "add a tag" link
-    var $addTagLink = $('<a href="#" class="add_tag_link">Add a mediaset</a>');
-    var $newLinkLi = $('<div></div>').append($addTagLink);
-
-    var index;
-
-    jQuery(document).ready(function () {
-
-        collectionHolder.data('index', collectionHolder.find(':input').length);
-
-        $('#mediaset-button').on('click', function (e) {
-
-            e.preventDefault();
-            addMediaSetForm(collectionHolder, $newLinkLi);
-
-        });
-    });
-
-    function addMediaSetForm(collectionHolder) {
-
-        var prototype = collectionHolder.data('prototype');
-
-        index = collectionHolder.data('index') + 1;
-        var newForm = prototype.replace(/__name__/g, index);
-
-        // increase the index with one for the next item
-        collectionHolder.data('index', index);
-
-        var $newFormLi = $('<div></div>').append('' +
-                '<div class="accordion-group">' +
-
-                '<div class="accordion-heading" style="background-color: rgb(212, 232, 241)">' +
-                '<div class="accordion-toggle-cms">' +
-                '<a  class="accordion-heading-link-cms" data-toggle="collapse" data-parent="#accordion2" href="#cnew' + (index + 1) + '">' +
-                'New' +
-                '</a>' +
-                '<div class="pull-right delete-mediaset">' +
-                '<i class="icon-trash"></i> Delete' +
-                '</div>' +
-                ' </div>' +
-                '</div>' +
-                '<div id="cnew' + (index + 1) + '" class="accordion-body collapse">' +
-                '<div class="accordion-inner" style="background-color: rgb(253, 253, 253)">' +
-                newForm +
-
-                '</div>' +
-                '</div>' +
-
-                '</div>'
-        );
-
-        setNiceCheckBox(collectionHolder.append($newFormLi));
-        setDeleteAction();
-        //setNiceChechBox();
-    }
-
-    function setNiceCheckBox(el) {
-
-        el.find(":input[type=checkbox]").wrap('<div class="switch switch-small" />');
-        el.find('.switch')['switch']();
-
-    }
-
-    function setDeleteAction() {
-
-        $.each($('.delete-mediaset'), function () {
-
-            $(this).click(function () {
-                $($(this).parents().get()[2]).remove();
-            })
-
-        })
-
-    }
-
-    setDeleteAction();
-
-    */
 
     $(".category-select").select2({
                 placeholder:"{% trans %}choose.category{% endtrans %}"

@@ -75,6 +75,15 @@ scrclub_cms_addtemplate:
     requirements:
                 _locale: en|fr|es
 
+scrclub_cms_deletetemplate:
+    pattern:  /backend/deletetemplate/{id}
+    defaults: { _controller: scrclubCMSBundle:Template:delete }
+    requirements:
+                _locale: en|fr|es
+    options:
+              expose: true
+
+
 scrclub_cms_adduser:
     pattern:  /backend/{_locale}/adduser/{id}
     defaults: { _controller: scrclubCMSBundle:Registration:register,  id:null }
@@ -111,18 +120,8 @@ scrclub_cms_charts:
 
 
 
-scrclubCMSBundle_backend_node:
-        resource: "@scrclubCMSBundle/Resources/config/routing/node.yml"
-        prefix:   /backend/node
 
 
-#scrclubCMSBundle_backend_post:
-       #resource: "@scrclubCMSBundle/Resources/config/routing/post.yml"
-        #prefix:   /backend/post
-
-#scrclubCMSBundle_backend_user:
-       # resource: "@scrclubCMSBundle/Resources/config/routing/user.yml"
-        #prefix:   /backend/user
 
 scrclubCMSBundle_backend_media:
         resource: "@scrclubCMSBundle/Resources/config/routing/media.yml"
