@@ -50,7 +50,7 @@ force.article: Forcer premier article
 layouts: Maquette visuelle
 template.settings: Configuration front end
 mediaset: Set de medias
-
+validate.post.media.notice: Vous devez valider l'article une première fois pour ajouter des médias !
 welcome: Bienvenue
 
 analytics: Statistiques
@@ -75,3 +75,6 @@ category: catégorie
 add.media.post: Ajouter à l'article
 
 categories.mediaset: Extra
+
+currently: Il y a
+visitors.online: visiteurs online.

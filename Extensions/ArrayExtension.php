@@ -5,11 +5,7 @@
     use Doctrine\Common\Collections\ArrayCollection;
     use Doctrine\Common\Collections\Collection;
 
-    /**
-     * Translate locales using intl extension
-     * Usages:
-     *  {{ getLocaleName('fr', 'es') }}
-     */
+
     class ArrayExtension extends \Twig_Extension
     {
         /**
@@ -23,10 +19,7 @@
             );
         }
 
-        /**
-         * @param $locale       the locale you need to translate
-         * @param $locale_out   in which lang locale you need
-         */
+
         public function in_array($needle, $array )
         {
             return in_array($needle, (Array)$array);

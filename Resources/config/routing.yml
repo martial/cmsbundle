@@ -2,7 +2,7 @@
 
 scrclub_cms_homepage:
     pattern:  /backend/{_locale}
-    defaults: { _controller: scrclubCMSBundle:Nodes:index, _locale: en }
+    defaults: { _controller: scrclubCMSBundle:Nodes:index, _locale: fr }
     requirements:
                 _locale: en|fr|es
 
