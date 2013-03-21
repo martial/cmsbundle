@@ -1,19 +1,12 @@
 {% extends "scrclubCMSBundle:cms:layout.html.twig" %}
 
-
-
-
 {% block body %}
-
-
-
-
 
 <div class="container">
 
     <div class="featurette" style="min-height:150px">
         <div style="position:absolute">
-        <h2 class="featurette-heading" >{% trans %}welcome{% endtrans %} {{ app.user.username }} !<span class="muted"><br>site.url</span></h2>
+        <h2 class="featurette-heading" >{% trans %}welcome{% endtrans %} {{ app.user.username }} !<p class="muted" style="font-size:60%">{{config.getSitename()}}</p></h2>
         <p class="lead" id="counter">Vous pouvez accéder à vos articles ici.</p>
         </div>
         <div id="charts" class="pull-right" style="position: relative;  top:10px; z-index:-1;">

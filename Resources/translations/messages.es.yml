@@ -80,3 +80,6 @@ categories.mediaset: Extra
 
 currently: Ahora hay
 visitors.online: usuarios online.
+
+mediaset.explication: Mediasets sirven para gestionar sus medias. Podéis elegir archivos desde sur ordenador o añadir un archivo online. Servicios soportados son Youtube, Vimeo, SoundCloud, Dailymotion.
+google.api.help: Puedes encontrar tu API Key en la home de google analytics, el numero detras del 'p' en la URL.

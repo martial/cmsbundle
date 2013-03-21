@@ -1,9 +1,26 @@
 
 
-body {
-      padding-top: 60px;
-      padding-bottom: 0px;
-  }
+/* Custom paddings etc..
+------------------------- */
+
+@media (max-width: 767px) { body { padding-left: 0; padding-right: 0; } }
+.navbar { margin-left: 0; margin-right: 0; }
+
+.no-padding {
+
+    padding:0px;
+
+}
+
+.margin-top-20 {
+
+    margin-top: 20px;
+
+}
+
+
+/* accordion
+------------------------- */
 
 .accordion-heading {
 
@@ -203,11 +220,6 @@ li.mjs-nestedSortable-collapsed.mjs-nestedSortable-hovering div {
     border: none;
 }
 
-.no-padding {
-
-    padding:0px;
-
-}
 
 
 

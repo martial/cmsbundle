@@ -25,6 +25,8 @@
 
     </div>
 
+
+<form action="{{ path('scrclub_cms_analytics') }}" method="post" {{ form_enctype(form) }}>
     <div class="tab-content">
 
         <div class="tab-pane active" id="google-config">
@@ -33,9 +35,15 @@
 
                 <img src="{{asset('img/google.png')}}" class="img-rounded">
 
+
+                <div class="margin-top-20 alert alert-info">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <i class=" icon-exclamation-sign"></i> {{ 'google.explication'| trans | raw }}
+                </div>
+
                 <hr>
 
-                <form action="{{ path('scrclub_cms_analytics') }}" method="post" {{ form_enctype(form) }}>
+
 
 
                     {{ form_label   (form.gg_email , 'Google Email' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
@@ -46,13 +54,16 @@
                     }}
                     {{ form_widget(form.gg_password,  {'attr': {'class': 'input-xxlarge'}})}}
 
-                    {{ form_label( form.gg_analyticsid , 'Analytics ID' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
-                    }}
+                    <label class="input-xxlarge">Analytics ID <i data-toggle="tooltip"  id="label-google" class="icon-question-sign"></i></label>
+                    <label id="help-google" style="display: none;">
+                        <small class="muted ">{{"google.api.help" | trans }}</small><br>
+                        <img src="{{asset('bundles/scrclubcms/img/cms/google_urlbar.png')}}">
+                    </label>
                     {{ form_widget(form.gg_analyticsid,  {'attr': {'class': 'input-xxlarge'}})}}
 
-                    {{ form_widget(form._token) }}
 
-                    {% if config.getGgAnalyticsid() | length > 0  %}}
+
+                    {% if config.getGgAnalyticsid() | length > 0  %}
                     <hr>
                     <div id="connect-check">
                         <div class="alert alert-info">
@@ -76,13 +87,21 @@
 
     </div>
 
-
+    {{ form_widget(form._token) }}
 </fieldset>
 <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
 </form>
 
 
 <script type="text/javascript">
+
+    $('#label-google').click(function() {
+        $('#help-google').toggle(200, function() {
+            // Animation complete.
+        });
+    });
+
+
 
 
     $('#menu-analytics a').click(function(e) {

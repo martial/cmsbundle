@@ -1,6 +1,6 @@
 /****************** Google Analytics  *******************/
 
-if (gg_id.length > 0) {
+if (gg_id && gg_id.length > 0) {
 
     google.load('visualization', '1', {packages:['corechart']});
     google.setOnLoadCallback(loadCharts);
@@ -101,19 +101,49 @@ $(document).ready(function () {
 
     });
 
+
+
+
 });
 
 /****************** GoSquared  *******************/
 
+
+
 if (gs_token.length > 0) {
 
-    var oldnum = 0, newnum = 0;
+
+    var oldnum = -1, newnum = 0;
+
+    var origText = $("#counter").html();
+    $("#counter").html('');
+    //$("#counter").shuffleLetters();
+    var currentText = origText;
 
     function hitCounter() {
+
         $.getJSON("https://api.gosquared.com/latest/concurrents?callback=?&api_key=" + gs_api + "&site_token=" + gs_token + "", function (data) {
             newnum = data.visitors;
 
-            $('#counter').text(translations['currently']+ ' ' + newnum + ' ' + translations['visitors.online']);
+            if(newnum > 0 && newnum != oldnum) {
+                console.log("shuffle");
+                currentText = translations['currently']+ ' ' + newnum + ' ' + translations['visitors.online'];
+                $("#counter").shuffleLetters({
+                    "text": currentText
+                });
+            }
+
+            if(newnum == 0 && newnum != oldnum) {
+                currentText = origText;
+                $("#counter").shuffleLetters({
+                    "text": currentText
+                });
+            }
+
+
+
+
+            // $('#counter').text(translations['currently']+ ' ' + newnum + ' ' + translations['visitors.online']);
             oldnum = newnum;
         });
     }
