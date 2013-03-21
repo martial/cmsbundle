@@ -5,15 +5,7 @@ $(document).ready(function () {
         }
     );
 
-    $('#validate_lang').avgrund({
-        height              :130,
-        holderClass         :'custom',
-        showClose           :false,
-        showCloseText       :'Close',
-        enableStackAnimation:true,
-        onBlurContainer     :'.container',
-        template            :alertTemplate
-    });
+
 
     $('#submit_lang').click(function () {
         updateLangs();

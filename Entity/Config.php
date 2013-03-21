@@ -31,6 +31,20 @@ class Config
     /**
      * @var string
      *
+     * @ORM\Column(name="metakey", type="string", length=255, nullable=true)
+     */
+    private $metakey;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="metadescr", type="string", length=255, nullable=true)
+     */
+    private $metadescr;
+
+    /**
+     * @var string
+     *
      * @ORM\Column(name="gg_email", type="string", length=255, nullable=true)
      */
     private $gg_email;
@@ -192,5 +206,33 @@ class Config
      */
     public function getGsSitetoken() {
         return $this->gs_sitetoken;
+    }
+
+    /**
+     * @param string $metadescr
+     */
+    public function setMetadescr($metadescr) {
+        $this->metadescr = $metadescr;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMetadescr() {
+        return $this->metadescr;
+    }
+
+    /**
+     * @param string $metakey
+     */
+    public function setMetakey($metakey) {
+        $this->metakey = $metakey;
+    }
+
+    /**
+     * @return string
+     */
+    public function getMetakey() {
+        return $this->metakey;
     }
 }

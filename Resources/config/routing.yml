@@ -96,8 +96,14 @@ scrclub_cms_deleteuser:
     requirements:
                 _locale: en|fr|es
 
+scrclub_cms_config:
+    pattern:  /backend/{_locale}/settings/site
+    defaults: { _controller: scrclubCMSBundle:Config:site }
+    requirements:
+                _locale: en|fr|es
+
 scrclub_cms_analytics:
-    pattern:  /backend/{_locale}/settings/config
+    pattern:  /backend/{_locale}/settings/analytics
     defaults: { _controller: scrclubCMSBundle:Config:edit }
     requirements:
                 _locale: en|fr|es

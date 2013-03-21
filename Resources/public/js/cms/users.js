@@ -23,8 +23,6 @@ $('.delete-user').each(function () {
                     success:function (data) {
 
                         location.reload();
-                        // should redirect
-                        //newAlert("success", "{{ 'delete.success' | trans }}");
 
                     }
                 });

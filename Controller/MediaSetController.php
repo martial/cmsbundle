@@ -9,12 +9,9 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use scrclub\CMSBundle\Entity\MediaSet;
 use scrclub\CMSBundle\Form\MediaSetType;
+use Symfony\Component\HttpFoundation;
 
-/**
- * MediaSet controller.
- *
- * @Route("/mediaset")
- */
+
 class MediaSetController extends Controller
 {
 
@@ -93,7 +90,7 @@ class MediaSetController extends Controller
             $em->flush();
         }
 
-        return new \Symfony\Component\HttpFoundation\Response('');
+        return new Response('');
 
     }
 

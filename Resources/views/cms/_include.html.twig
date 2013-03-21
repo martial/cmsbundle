@@ -1,10 +1,14 @@
+
+
+
 {% stylesheets '@scrclubCMSBundle/Resources/public/css/cms/*' filter='yui_css' output='css/cms/main.css' %}
 <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
 
-{% stylesheets '@scrclubCMSBundle/Resources/public/css/bootstrap/*' %}
+{% stylesheets '@scrclubCMSBundle/Resources/public/css/bootstrap/*' output='css/cms/bstrap.css' %}
 <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
+
 
 
 <link rel="stylesheet" href="{{  asset('bundles/scrclubcms/css/wysiwig/wysiwyg-color.css') }}" />
@@ -23,6 +27,8 @@
 </script>
 
 <script src="{{ asset('bundles/scrclubcms/js/wysiwig/wysihtml5-0.3.0.js') }}"></script>
+
+
 {% javascripts '@scrclubCMSBundle/Resources/public/js/jquery/*' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
@@ -54,10 +60,6 @@
 
 
 
-{% javascripts '@scrclubCMSBundle/Resources/public/js/avgrund/*' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
-
 {% javascripts '@scrclubCMSBundle/Resources/public/js/toggle/*' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
@@ -73,7 +75,18 @@
 <script src="{{ asset('bundles/scrclubcms/js/select/select2.js') }}"></script>
 
 
+
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 
 <script type="text/javascript" src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
 <script type="text/javascript" src="{{ path('fos_js_routing_js', {"callback": "fos.Router.setData"}) }}"></script>
+
+        <style type="text/css">
+
+
+            body {
+                padding-top: 60px;
+                padding-bottom: 0px;
+            }
+
+        </style>
