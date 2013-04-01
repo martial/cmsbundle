@@ -107,7 +107,7 @@
                 $json = json_encode($results);
 
                 $response = new Response($json);
-                $cookie = new Cookie('ga_views_hom', $json, time() + (86400));
+                $cookie = new Cookie('ga_views_homze_', $json, time() + (86400));
                 $response->headers->setCookie($cookie);
                 $response->headers->set('Content-Type', 'application/json');
 
