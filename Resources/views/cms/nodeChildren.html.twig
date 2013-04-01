@@ -40,6 +40,7 @@
                 </ul>
             </div>
 
+            <!--
             <div class="btn-group pull-right" style="padding: 0; margin-top: -3px; padding-right: 10px;">
                 <button class="btn btn-mini  ">Focus</button>
                 <button class="btn btn-mini  dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
@@ -47,6 +48,8 @@
                     <li><a href="#">focus 1</a></li>
                 </ul>
             </div>
+
+            -->
             {% if node.type == 'node' %}
             <div class="btn-group pull-right" style="padding: 0; margin-top: -3px; padding-right: 10px;">
                 <a href="{{path('scrclub_cms_addpost', { 'parent_id': node.id })}}" ><button class="btn btn-mini pull-right" type="button"><i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}post{% endtrans %}</button></a>

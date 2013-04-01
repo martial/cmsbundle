@@ -56,7 +56,7 @@
 
         {% for media in mediaset.medias %}
 
-        {% include 'scrclubCMSBundle:cms:list_image_mediaset.html.twig' with {'media':media, 'mediaset':mediaset} %}
+        {% include 'scrclubCMSBundle:cms:list_image_mediaset.html.twig' with {'media':media, 'mediaset':mediaset, 'addPostLink':false} %}
 
         {% endfor %}
 
