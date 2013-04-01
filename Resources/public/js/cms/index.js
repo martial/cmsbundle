@@ -167,7 +167,7 @@ $(function () {
             var li = $($(this).parents().get()[4]);
             var id = li.attr('id').slice(5);
 
-            bootbox.confirm(translations['wanadoo.this'], function (result) {
+            bootbox.confirm(translations['wannado.this'], function (result) {
 
                 if (result) {
                     $.ajax({

@@ -32,3 +32,20 @@
 </fieldset>
 
 {% endblock %}
+
+<script>
+
+    var translations = {
+        "wannado.this": "{{ 'wannado.this'| trans }}",
+        "choose.lang" : "{{ 'choose.lang'| trans }}",
+        "status" : "{{ 'status'| trans }}",
+        "update.success" : "{{ 'update.success'| trans }}"
+    }
+    var alertTemplate = '{% include 'scrclubCMSBundle:cms:alert_lang_validate.html.twig'  %}';
+    var updateLangUrl = "{{ path('update_langs') }}";
+
+</script>
+
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/config.js' filter='yui_js'  output='js/compiled/config.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}

@@ -8,7 +8,7 @@ $(function () {
 
             var id = $($(this).parents().get()[1]).attr('id');
 
-            bootbox.confirm(translations['wanadoo.this'], function (result) {
+            bootbox.confirm(translations['wannado.this'], function (result) {
 
                 if (result) {
                     $.ajax({
