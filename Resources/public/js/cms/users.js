@@ -12,7 +12,7 @@ $('.delete-user').each(function () {
 
         var id = $(this).attr('id');
 
-        bootbox.confirm("<i class='icon-warning-sign'></i> " + translations["wanadoo.this"], function (result) {
+        bootbox.confirm("<i class='icon-warning-sign'></i> " + translations["wannado.this"], function (result) {
 
             if (result) {
                 $.ajax({
