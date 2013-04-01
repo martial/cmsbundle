@@ -15,6 +15,7 @@ $(document).ready(function () {
 
 function updateLangs() {
 
+
     var langValues = $("#lang_combo").val() || [];
 
     $.ajax({
@@ -24,7 +25,7 @@ function updateLangs() {
         data   :{data:langValues},
         success:function (data) {
 
-            $('#validate_lang').popover({
+            $('#submit_lang').popover({
 
                 placement:"top",
                 trigger  :"manual",
@@ -32,9 +33,9 @@ function updateLangs() {
                 content  :translations['update.success']
 
             });
-            $('#validate_lang').popover('show');
+            $('#submit_lang').popover('show');
             setTimeout(function () {
-                $('#validate_lang').popover('hide');
+                $('#submit_lang').popover('hide');
             }, 4000);
         }
 
