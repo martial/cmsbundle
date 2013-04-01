@@ -1,7 +1,7 @@
 <?php
 // src/Sdz/BlogBundle/Service/SdzAntispam.php
 
-    namespace scrClub\CMSBundle\Service;
+    namespace scrclub\CMSBundle\Service;
 
     /**
      * Un anti-spam simple pour Symfony2.
@@ -49,6 +49,9 @@
         /** is connected or not **/
         public $connected;
 
+
+        function __construct(){
+        }
 
         /**
          * Class constructor

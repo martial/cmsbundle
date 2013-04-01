@@ -1,7 +1,7 @@
 <?php
 // src/Sdz/BlogBundle/Service/SdzAntispam.php
 
-    namespace scrClub\CMSBundle\Service;
+    namespace scrclub\CMSBundle\Service;
     use scrclub\CMSBundle\Entity\EmbeddedDocument;
 
     /**
