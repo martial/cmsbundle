@@ -26,12 +26,10 @@
         </select>
 
         <div class="form-actions">
-            <button type="submit" class=" btn btn-primary pull-right" id="validate_lang">{% trans %}save.changes{% endtrans %}</button>
+            <button type="submit" class=" btn btn-primary pull-right" id="submit_lang">{% trans %}save.changes{% endtrans %}</button>
         </div>
     </div>
 </fieldset>
-
-{% endblock %}
 
 <script>
 
@@ -49,3 +47,6 @@
 {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/config.js' filter='yui_js'  output='js/compiled/config.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
+
+{% endblock %}
+
