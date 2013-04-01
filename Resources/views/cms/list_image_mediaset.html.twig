@@ -28,7 +28,9 @@
 
         <hr>
 
+        {% if addPostLink %}
         <p><a class ="add-media-post" href="#"><i class="icon-edit"></i> {{ 'add.media.post'| trans | capitalize }}</a></p>
+        {% endif %}
         <p><a data-mediaid="{{media.id}}"  data-medianodeid=""  href="{{updatePath}}" data-target="#media-edit-modal"><i class=" icon-edit"></i>
             {{ 'edit'| trans | capitalize }}</a></p>
         <p class="remove-media-mediaset"><a><i class=" icon-trash"></i> {{ 'delete'| trans | capitalize }}</a></p>

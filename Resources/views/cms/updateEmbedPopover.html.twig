@@ -18,6 +18,8 @@
 
         <script>
 
+            console.log("set js");
+
             $('#media-form-submit').unbind('click');
             $('#media-form-submit').on('click', function(e){
 
@@ -49,6 +51,7 @@
 
                         }
 
+                        console.log("update");
                         updateMediasItems(responseText.documentId);
                         assignNodeToMedia();
                         assignRemoveAction();

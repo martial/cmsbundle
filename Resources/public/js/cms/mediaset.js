@@ -222,6 +222,7 @@ function setPlaceHolders() {
 
 function updateMediasItems(mediaId) {
 
+
     //a bit tricky but we would need to get through the node to get medianodeId
 
     $('.media-post-container .media-' + mediaId).each(function () {
@@ -244,19 +245,23 @@ function updateMediasItems(mediaId) {
 
         });
 
-        $.ajax({
-            type   :'post',
-            cache  :false,
-            url    :Routing.generate('scrclub_cms_getMediaAjax', { mediaId:mediaId }),
-            success:function (data) {
-                $('.media-scroll-container .media-' + mediaId).replaceWith(data);
-                assignRemoveAction();
-                assignModalLinks();
-                setPlaceHolders();
-            }
-
-        });
-
     })
+
+    $.ajax({
+        type   :'post',
+        cache  :false,
+        url    :Routing.generate('scrclub_cms_getMediaAjax', { mediaId:mediaId }),
+        success:function (data) {
+            $('.media-scroll-container .media-' + mediaId).replaceWith(data);
+
+            console.log(data);
+
+
+            assignRemoveAction();
+            assignModalLinks();
+            setPlaceHolders();
+        }
+
+    });
 
 }

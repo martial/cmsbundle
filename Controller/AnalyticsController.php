@@ -66,7 +66,7 @@
 
 
             $request = $this->get('request');
-            $cookie = $request->cookies->get('ga_views_hom');
+            $cookie = $request->cookies->get('ga_views_homze_');
 
             if(isset($cookie)) {
 
@@ -87,13 +87,22 @@
                 $results = array();
                 array_push($results, array('time', 'Weekly views'));
 
+                $min = 9999999;
+                $max = 0;
                 for ($i=30; $i >= 0; $i --) {
 
                     $t = time() - ( $i * 86400);
                     $this->ga->setDate(date('Y-m-d',$t));
-                    array_push($results, array( "", intval($this->ga->getMetric('pageviews'))));
+
+                    $pageViews = intval($this->ga->getMetric('pageviews'));
+                    $min = min($min, $pageViews);
+                    $max = max($max, $pageViews);
+
+                    array_push($results, array( "", $pageViews));
 
                 }
+
+                $results[0][1] = "Weekly views ↓".$min." ↑".$max;
 
                 $json = json_encode($results);
 
@@ -122,3 +131,14 @@
 
 
     }
+
+
+/*
+ *
+ * uglitch api gosquared
+ * KEY5DGR1P4XAQHAHXY7
+ *
+ * Site token
+ * GSN-113675-W
+ *
+ */

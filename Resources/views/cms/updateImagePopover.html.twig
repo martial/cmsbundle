@@ -11,11 +11,11 @@
 
     <form id="media-edit-form" action="{{ path('scrclub_cms_updateMediaPopOver', {id:image.id}) }}" method="post" {{ form_enctype(form) }} novalidate >
     {{form_widget(form)}}
-        <button type="submit" class="btn btn-info">Send</button>
 
 </div>
 
 <script>
+    $('#media-form-submit').unbind('click');
 $('#media-form-submit').on('click', function(e){
 // We don't want this to act as a link so cancel the link action
 e.preventDefault();
@@ -30,6 +30,8 @@ e.preventDefault();
             if(responseText.status == "success") {
 
                 $('#media-edit-modal').modal('hide');
+
+
                 updateMediasItems(responseText.mediaId);
                 assignNodeToMedia();
             } else {
