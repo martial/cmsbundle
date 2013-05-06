@@ -28,7 +28,6 @@
                     $config = $configs[0];
                 }
 
-
                 $status = $this->ga->init($config->getGgEmail(), $config->getGgPassword(), $config->getGgAnalyticsid(), date('Y-m-d', time()));
 
             }
@@ -45,8 +44,6 @@
             }
 
 
-
-
         }
 
         /*
@@ -56,14 +53,6 @@
         */
 
         public function indexAction() {
-
-
-
-
-
-
-
-
 
             $request = $this->get('request');
             $cookie = $request->cookies->get('ga_views_homze_');
@@ -121,14 +110,7 @@
 
             }
 
-
-
-
-
         }
-
-
-
 
     }
 

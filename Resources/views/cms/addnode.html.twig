@@ -138,6 +138,10 @@
                         }}
                         {{ form_widget(form.name,  {'attr': {'class': 'input-xxlarge'}})}}
 
+                        {{ form_label( form.header , 'header' | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
+                        }}
+                        {{ form_widget(form.header,  {'attr': {'class': 'input-xxlarge'}})}}
+
 
                         {{ form_label( form.description , 'content' | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
                         }}
