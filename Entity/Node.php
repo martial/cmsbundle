@@ -76,11 +76,34 @@ class Node
 
 
     /**
+     * @var string $header
+     * @Gedmo\Translatable
+     * @ORM\Column(name="header", type="text", length=4096, nullable=true)
+     */
+    protected $header;
+
+    /**
+     * @param string $header
+     */
+    public function setHeader($header) {
+        $this->header = $header;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeader() {
+        return $this->header;
+    }
+
+    /**
      * @var string $description
      * @Gedmo\Translatable
      * @ORM\Column(name="description", type="text", length=4096, nullable=true)
      */
     protected $description;
+
+
 
     /**
      * @ORM\OneToMany(

@@ -25,6 +25,7 @@ class NodeType extends AbstractType
         $builder
         ->add('name', 'text', array('required' => true))
         ->add('slug', 'text', array('required' => false))
+        ->add('header', 'textarea')
         ->add('description', 'textarea')
         ->add('active', 'checkbox')
         ->add('template', 'entity',  array(
