@@ -27,6 +27,14 @@
         }
 
 
+        public function shuffle($array) {
+
+            $a = (array)$array;
+            return shuffle($a);
+
+        }
+
+
         public function contains($needle, Collection $array )
         {
             return $array->contains($needle);
