@@ -150,7 +150,7 @@ class Node
      * @ORM\OneToMany(targetEntity="Node", mappedBy="parent")
      * @ORM\OrderBy({"lft" = "ASC"})
      */
-    protected  $children;
+    public  $children;
 
     /**
 

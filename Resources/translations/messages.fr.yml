@@ -5,6 +5,7 @@ langs: Langues
 configuration: Configuration
 personal.data: Vos données personelles
 your.site: Votre site
+welcome.text: Vous pouvez accéder à vos articles ici !
 
 save.changes: Sauvegarder
 yes: Oui

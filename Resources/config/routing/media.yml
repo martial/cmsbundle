@@ -40,9 +40,6 @@ scrclub_cms_updateEmbedPopOver:
    options:
                expose: true
 
-scrclub_cms_updateMediaPopOver:
-    pattern:  /backend/updateMediaPop/{id}
-    defaults: { _controller: scrclubCMSBundle:Image:update, id:null  }
 
 scrclub_cms_fineuploadhandle:
     pattern:  /backend/fineupload/{mediaset_id}

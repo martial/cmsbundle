@@ -1,4 +1,18 @@
 
+scrclub_cms_setup:
+    pattern:  /setup
+    defaults: { _controller: scrclubCMSBundle:Config:setup, _locale: fr }
+    requirements:
+                _locale: en|fr|es
+
+
+scrclub_cms_setupUser:
+    pattern:  /setup-user
+    defaults: { _controller: scrclubCMSBundle:Registration:registerSetup, _locale: fr }
+    requirements:
+                _locale: en|fr|es
+
+
 
 scrclub_cms_homepage:
     pattern:  /backend/{_locale}
@@ -86,7 +100,7 @@ scrclub_cms_deletetemplate:
 
 scrclub_cms_adduser:
     pattern:  /backend/{_locale}/adduser/{id}
-    defaults: { _controller: scrclubCMSBundle:Registration:register,  id:null }
+    defaults: { _controller: scrclubCMSBundle:Registration:register }
     requirements:
                 _locale: en|fr|es
 

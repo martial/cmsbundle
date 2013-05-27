@@ -95,6 +95,7 @@
             // proprement l'entité d'être persistée dans la base de données si
             // erreur il y a
             $this->file->move($this->getUploadRootDir(), $this->path);
+            $this->setFileSize($this->file->getClientSize());
 
             unset($this->file);
         }

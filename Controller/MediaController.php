@@ -39,16 +39,22 @@
 
             }
 
+
             if($image->getType() == "image")
+
                 $mediaType = new ImageType();
+
             else if($image->getType() == "embedded")
+
                 $mediaType = new \scrclub\CMSBundle\Form\EmbeddedDocumentType();
+
             else
+
                 $mediaType = new DocumentType();
 
+
+
             $form = $this->createForm($mediaType, $image);
-
-
 
             // update if needed
             if ($request->getMethod() == 'POST') {
@@ -62,9 +68,19 @@
                     if($image->getType() != "embedded") {
 
                         // here we need to check if the type differs
-
-
                         $image->upload();
+
+
+                        //$image->setPath($result['uploadName']);
+
+
+
+                        $sizes = getimagesize($image->getWebPath());
+                        $image->setWidth($sizes[0]);
+                        $image->setHeight($sizes[1]);
+
+
+
 
                     }
 
