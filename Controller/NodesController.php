@@ -254,7 +254,6 @@
             if (isset($id)) {
 
                 $post = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Post')->find($id);
-                //$post->setTranslatableLocale($locale);
 
             }
 

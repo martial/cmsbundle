@@ -1,17 +1,32 @@
-<div class="container">
+<div class="">
+
+
+    <form id="media-edit-form" action="{{ path('scrclub_cms_updateMediaPopOver', {id:image.id}) }}" method="post" {{ form_enctype(form) }} novalidate >
     {% if (image.getType() == "image" )%}
-    <img class="thumbnail" data-src="holder.js/300x200" {% if (image.getWebPath() != "" )%}src="{{asset(image.getWebPath()  | apply_filter('cms_user_thumb') )}}"{% endif %} alt="">
+
+
+
+        <div class="fileupload fileupload-new" data-provides="fileupload">
+            <div class="fileupload-preview thumbnail" ">
+                <img  data-src="holder.js/200x150/text:Avatar" {% if (image.getWebPath() != "" )%}src="{{asset(image.getWebPath())}}" {% endif %}alt="">
+            </div>
+            <div>
+                <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>{{ form_widget(form.file)}}</span>
+            </div>
+        </div>
+
+
     <hr>
     {% endif %}
 
     {% if (image.getType() == "document" )%}
-    <a href="{{asset(image.getWebPath() )}}" alt="">ahou</a>
+    <a href="{{asset(image.getWebPath() )}}" alt="">Document</a>
     <hr>
     {% endif %}
 
-    <form id="media-edit-form" action="{{ path('scrclub_cms_updateMediaPopOver', {id:image.id}) }}" method="post" {{ form_enctype(form) }} novalidate >
-    {{form_widget(form)}}
 
+    {{form_widget(form)}}
+    </form>
 </div>
 
 <script>
@@ -44,6 +59,7 @@ e.preventDefault();
         }
 
     };
+
 
     $('#media-edit-form').ajaxSubmit(options);
 

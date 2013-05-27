@@ -6,6 +6,7 @@
     use Doctrine\Common\Collections\Collection;
 
 
+
     class ArrayExtension extends \Twig_Extension
     {
         /**
@@ -19,6 +20,15 @@
             );
         }
 
+        public function getFilters() {
+
+            return array(
+
+                'shuffle' => new \Twig_Filter_Method($this, 'shuffle')
+            );
+
+        }
+
 
         public function in_array($needle, $array )
         {
@@ -27,10 +37,16 @@
         }
 
 
+
+
         public function shuffle($array) {
 
-            $a = (array)$array;
-            return shuffle($a);
+            if ($array instanceof Traversable) {
+                $array = iterator_to_array($array, false);
+            }
+            shuffle($array);
+
+            return $array;
 
         }
 

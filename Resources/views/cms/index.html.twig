@@ -7,11 +7,14 @@
     <div class="featurette" style="min-height:150px">
         <div style="position:absolute">
         <h2 class="featurette-heading" >{% trans %}welcome{% endtrans %} {{ app.user.username }} !<p class="muted" style="font-size:60%">{{config.getSitename()}}</p></h2>
-        <p class="lead" id="counter">Vous pouvez accéder à vos articles ici.</p>
+        <p class="lead" id="counter">{% trans %}welcome.text{% endtrans %}</p>
         </div>
+
+        {%  if config.getGgAnalyticsid() is not empty %}
         <div id="charts" class="pull-right" style="position: relative;  top:10px; z-index:-1;">
             <i class="icon-refresh icon-spin"></i>
         </div>
+        {%  endif %}
     </div>
 
     <hr class="featurette-divider">

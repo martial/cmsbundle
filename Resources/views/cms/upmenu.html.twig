@@ -2,23 +2,19 @@
     <div class="navbar-inner">
         <div class="container">
 
-
-
             <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
 
-            <a class="brand" href="{{  path('scrclub_cms_homepage')}}""> Knob </a>
+            <a class="brand" href="{{  path('scrclub_cms_homepage')}}""> <img src="{{asset('bundles/scrclubcms/img/cms/bilder.png')}}" /> </a>
 
             <div class="nav-collapse collapse">
                 <ul class="nav">
                     <li class="active"><a href="{{  path('scrclub_cms_homepage')}}"><i class="icon-folder-close-alt"></i> {{ 'sections'| trans | capitalize }}</a></li>
                     <li><a href="{{ path('scrclub_cms_categories') }}"><i class="icon-tags"></i> {{ 'categories'| trans | capitalize }}</a></li>
                     <li><a href="{{ path('scrclub_cms_mediaset') }}"><i class="icon-picture"></i> {{ 'mediasets'| trans | capitalize }}</a></li>
-
-
                 </ul>
 
                 <ul class="nav pull-right">
@@ -28,13 +24,11 @@
                             <b class="caret"></b></a>
                         <ul class="dropdown-menu">
 
-
                             <li><a href="{{path('scrclub_cms_config')}}"><i class="icon-sitemap"></i> {{ 'your.site'| trans | capitalize }}</a></li>
                             <li><a href="{{path('scrclub_cms_langs')}}"><i class="icon-globe"></i> {{ 'langs'| trans | capitalize }}</a>
                             <li><a href="{{path('scrclub_cms_users')}}"><i class="icon-user"></i> {{ 'users'| trans | capitalize }}</a></li>
                             <li><a href="{{path('scrclub_cms_templates')}}"><i class="icon-paste"></i> {{ 'templates'| trans | capitalize }}</a></li>
                             <li><a href="{{path('scrclub_cms_analytics')}}"><i class="icon-tasks"></i> {{ 'analytics'| trans | capitalize }}</a></li>
-
 
                         </ul>
                     </li>
@@ -58,8 +52,6 @@
                         <ul class="dropdown-menu">
                             <li><a href="{{ path('scrclub_cms_adduser', { 'id': app.user.id }) }}"><i class="icon-user"></i>{{ 'personal.data'| trans | capitalize }}</a></li>
                             <li><a href="{{ path('fos_user_security_logout')}}"><i class="icon-off"></i>{{ 'logout'| trans | capitalize }}</a></li>
-
-
                         </ul>
                     </li>
                 </ul>

@@ -145,7 +145,7 @@
 
                         {{ form_label( form.description , 'content' | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
                         }}
-                        {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge'}})}}
+                        {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge text-area-high'}})}}
 
 
                     </div>
@@ -160,7 +160,13 @@
 
                         {{ form_label( f , f.name | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
                         }}
-                        {{ form_widget(f,  {'attr': {'class': 'input-xxlarge'}})}}
+
+                        {%  set className = "input-xxlarge" %}
+                        {%  if f.name == "description" %}
+                        {%  set className = "input-xxlarge text-area-high" %}
+                        {%  endif %}
+
+                        {{ form_widget(f,  {'attr': {'class': className}})}}
 
                         {% endfor %}
 
