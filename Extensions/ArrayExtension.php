@@ -6,7 +6,6 @@
     use Doctrine\Common\Collections\Collection;
 
 
-
     class ArrayExtension extends \Twig_Extension
     {
         /**
@@ -16,7 +15,8 @@
         {
             return array(
                 'in_array' => new \Twig_Function_Method($this, 'in_array'),
-                'contains' => new \Twig_Function_Method($this, 'contains')
+                'contains' => new \Twig_Function_Method($this, 'contains'),
+                'shuffleFunc' => new \Twig_Function_Method($this, 'shuffleFunc')
             );
         }
 
@@ -36,17 +36,25 @@
 
         }
 
+        
+        public function shuffleFunc($array) {
+	        
+	        return (object)shuffle((array)$array);
 
+
+        }
 
 
         public function shuffle($array) {
-
+	        
+	        
+	        $array = $array->toArray();
             if ($array instanceof Traversable) {
                 $array = iterator_to_array($array, false);
             }
             shuffle($array);
 
-            return $array;
+            return new ArrayCollection($array);
 
         }
 
