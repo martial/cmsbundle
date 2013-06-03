@@ -34,6 +34,7 @@
 
 
 
+
             return $this->render('scrclubCMSBundle:cms:categories.html.twig', array(
                 'categories' => $categories
             ));
@@ -57,7 +58,7 @@
 
 
 
-            $category  = new Category();
+            //$category  = new Category();
 
             if (isset($id)) {
 
