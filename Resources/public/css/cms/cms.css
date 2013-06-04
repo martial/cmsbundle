@@ -460,6 +460,13 @@ a.thumbnail.selected {
 /* custom forms
 -------------------------- ------------------------ */
 
+
+.text-area-mid {
+
+    height:100px !important;
+
+}
+
 .text-area-high {
 
     height:200px !important;

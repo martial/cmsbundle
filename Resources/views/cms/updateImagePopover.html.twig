@@ -1,75 +1,87 @@
 <div class="">
 
 
-    <form id="media-edit-form" action="{{ path('scrclub_cms_updateMediaPopOver', {id:image.id}) }}" method="post" {{ form_enctype(form) }} novalidate >
-    {% if (image.getType() == "image" )%}
+    <form id="media-edit-form" action="{{ path('scrclub_cms_updateMediaPopOver', {id:image.id}) }}" method="post" {{ form_enctype(form) }} novalidate>
+        {% if (image.getType() == "image" ) %}
 
 
 
         <div class="fileupload fileupload-new" data-provides="fileupload">
-            <div class="fileupload-preview thumbnail" ">
-                <img  data-src="holder.js/200x150/text:Avatar" {% if (image.getWebPath() != "" )%}src="{{asset(image.getWebPath())}}" {% endif %}alt="">
-            </div>
-            <div>
-                <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>{{ form_widget(form.file)}}</span>
-            </div>
+            <div class="fileupload-preview thumbnail"
+            ">
+            <img data-src="holder.js/200x150/text:Avatar" {% if (image.getWebPath() != "" ) %}src="{{ asset(image.getWebPath()) }}" {% endif %}alt="">
         </div>
+        <div>
+            <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>{{ form_widget(form.file) }}</span>
+        </div>
+</div>
 
 
-    <hr>
+<hr>
+{% endif %}
+
+    {% if (image.getType() == "document" ) %}
+        <a href="{{ asset(image.getWebPath() ) }}" alt="">Document</a>
+        <hr>
     {% endif %}
 
-    {% if (image.getType() == "document" )%}
-    <a href="{{asset(image.getWebPath() )}}" alt="">Document</a>
-    <hr>
-    {% endif %}
 
-
-    {{form_widget(form)}}
-    </form>
+    {{ form_widget(form.name, {'attr': {'class': 'span5 text-area-mid' }})}}
+</form>
 </div>
 
 <script>
 
-    $('#scrclub_cmsbundle_imagetype_name').wysihtml5();
+    $(function () {
+
+        console.log("gogogo");
 
 
+        $('#scrclub_cmsbundle_imagetype_name').wysihtml5({
+            "font-styles": true,
+            "emphasis": true,
+            "lists": false,
+            "html": false,
+            "link": true,
+            "image": false,
+            "color": false
+        });
 
-    $('#media-form-submit').unbind('click');
-$('#media-form-submit').on('click', function(e){
+        $('#media-form-submit').unbind('click');
+        $('#media-form-submit').on('click', function (e) {
 // We don't want this to act as a link so cancel the link action
-e.preventDefault();
+            e.preventDefault();
 
+            var options = {
 
-    var options = {
+                success: function (responseText, statusText, xhr, $form) {
 
-        success: function (responseText, statusText, xhr, $form) {
+                    // check if errors
 
-            // check if errors
+                    if (responseText.status == "success") {
 
-            if(responseText.status == "success") {
+                        $('#media-edit-modal').modal('hide');
 
-                $('#media-edit-modal').modal('hide');
+                        updateMediasItems(responseText.mediaId);
+                        assignNodeToMedia();
+                    } else {
 
+                        $('#media-edit-modal .modal-body').html(responseText.html);
 
-                updateMediasItems(responseText.mediaId);
-                assignNodeToMedia();
-            } else {
+                    }
 
-                $('#media-edit-modal .modal-body').html(responseText.html);
+                }
 
+            };
 
-            }
+            $('#media-edit-form').ajaxSubmit(options);
 
-        }
-
-    };
-
-
-    $('#media-edit-form').ajaxSubmit(options);
+        });
 
 
 
-});
+    })
+
+
 
 </script>
