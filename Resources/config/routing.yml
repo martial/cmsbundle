@@ -100,7 +100,7 @@ scrclub_cms_deletetemplate:
 
 scrclub_cms_adduser:
     pattern:  /backend/{_locale}/adduser/{id}
-    defaults: { _controller: scrclubCMSBundle:Registration:register }
+    defaults: { _controller: scrclubCMSBundle:Registration:register,  id:null }
     requirements:
                 _locale: en|fr|es
 
