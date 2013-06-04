@@ -10,7 +10,10 @@
 
     <!-- choose thumnails -->
     <form id="embed-edit-form" action="{{ path('scrclub_cms_updateEmbedPopOver', {mediasetId:mediaset.id, id:document.id}) }}" method="post" {{ form_enctype(form) }} novalidate >
-    {{form_widget(form)}}
+    {{form_widget(form.name, {'attr': {'class': 'span5 text-area-mid'}})}}
+
+    {{form_label(form.url)}}
+    {{form_widget(form.url)}}
 
         <!--
         <button type="submit" class="btn btn-info">Send</button>
@@ -18,7 +21,15 @@
 
         <script>
 
-            $('#scrclub_cmsbundle_embeddeddocumenttype_name').wysihtml5();
+            $('#scrclub_cmsbundle_embeddeddocumenttype_name').wysihtml5({
+                "font-styles": true,
+                "emphasis": true,
+                "lists": false,
+                "html": false,
+                "link": true,
+                "image": false,
+                "color": false
+            });
 
 
             $('#media-form-submit').unbind('click');
@@ -32,9 +43,6 @@
 
                         $('#embeddoc-modal-container').parent().html(responseText.html);
                         $('#media-form-submit').html("{{ 'save.changes' | trans }}");
-
-
-
 
                         var mediasetContainer = $('#mediaset-all-' + responseText.mediasetId).find('.media-scroll-container');
 
@@ -52,7 +60,6 @@
 
                         }
 
-                        console.log("update");
                         updateMediasItems(responseText.documentId);
                         assignNodeToMedia();
                         assignRemoveAction();
