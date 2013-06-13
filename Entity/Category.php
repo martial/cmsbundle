@@ -190,8 +190,9 @@ class Category implements Translatable
 
     public function addNode(\scrclub\CMSBundle\Entity\Node $node)
     {
-        // Ici, on utilise l'ArrayCollection vraiment comme un tableau, avec la syntaxe []
-        $this->nodes[] = $node;
+
+        if(!$this->nodes->contains($node))
+         $this->nodes[] = $node;
     }
 
     /**

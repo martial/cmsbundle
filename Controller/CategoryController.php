@@ -56,9 +56,7 @@
             $request = $this->getRequest();
             $locale = $request->getLocale();
 
-
-
-            //$category  = new Category();
+            $category  = new Category();
 
             if (isset($id)) {
 
@@ -94,8 +92,6 @@
                 }
 
             }
-
-            //echo 'ahou';
 
 
 
@@ -186,7 +182,6 @@
 
                 $category = $repo->find($id);
 
-                echo $category->getName();
 
                 $em->remove($category);
                 $em->flush();

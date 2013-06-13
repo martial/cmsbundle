@@ -2,27 +2,19 @@
 
     namespace scrclub\CMSBundle\Controller;
 
+    use scrclub\CMSBundle\Entity\Node;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
-    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
-    use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
-    use scrclub\CMSBundle\Entity\Config;
-    use scrclub\CMSBundle\Form\ConfigType;
+
 
 
     class SiteController extends Controller
     {
 
 
-
         public function indexAction() {
 
-
-
-
             return $this->render(new \Symfony\Component\HttpFoundation\Response(''));
-
 
         }
 
@@ -35,7 +27,7 @@
             $query = $repo->getRootNodesQueryBuilder();
             if(!$addPosts ) $query->andWhere("node.type = 'node'");
             $query->andWhere("node.active = '1'");
-            $result = $query->getQuery()->getResult();
+            $rootnodes = $result = $query->getQuery()->getResult();
 
             return $result;
 
@@ -53,13 +45,40 @@
             $query->andWhere("node.active = '1'");
             $result = $repo->findAll();
 
-
-
-
-
             return $result;
 
 
+        }
+
+        /*
+         *
+         *  Get nodes related by categories
+         *
+         */
+
+        public function getRelatedByCategory(Node $node) {
+
+
+            $result = array();
+            foreach ($node->getCategories() as  $category ) {
+
+
+                foreach ($category->getNodes() as $n ) {
+                    if( $n != $node AND !in_array($n, $result))
+                        array_push($result, $n);
+                }
+
+            }
+
+            return $result;
+
+        }
+
+        public function getLangs () {
+
+            $repo = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Langs');
+            $langs = $repo->findAll();
+            return $langs;
         }
 
         public function getAnalytics() {
