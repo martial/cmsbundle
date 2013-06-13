@@ -84,7 +84,6 @@
 
             }
 
-            //echo "ahou";
             $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node')->getMediaSetsRecursive($node);
 
             $form = $this->createForm(new NodeType($lang_repo, $templates), $node);

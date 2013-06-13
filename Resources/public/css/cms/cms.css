@@ -480,3 +480,28 @@ a.thumbnail.selected {
     margin-left:5px;
     margin-right: 5px;
 }
+
+/* Plug googlemap
+-------------------------- ------------------------ */
+
+#panel {
+    position: absolute;
+    top: 15px;
+    left: 25%;
+    margin-left: -180px;
+    width: 112px;
+    z-index: 5;
+    background-color: #fff;
+    padding: 5px;
+    border: 1px solid #999;
+}
+
+#latlng {
+    width: 225px;
+}
+
+#map-canvas {
+    width: 500px;
+    height: 300px;
+}
+
