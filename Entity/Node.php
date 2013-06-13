@@ -195,6 +195,26 @@ class Node
     protected $template;
 
     /**
+     * @ORM\ManyToOne(targetEntity="scrclub\CMSBundle\Entity\Template")
+     * @ORM\JoinColumn()
+     */
+    protected $templateDefaultChild;
+
+    /**
+     * @param mixed $templateDefaultChild
+     */
+    public function setTemplateDefaultChild($templateDefaultChild) {
+        $this->templateDefaultChild = $templateDefaultChild;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTemplateDefaultChild() {
+        return $this->templateDefaultChild;
+    }
+
+    /**
      * @ORM\ManyToMany(targetEntity="scrclub\CMSBundle\Entity\MediaSet", cascade={"persist"})
      */
     private $mediasets;
@@ -591,8 +611,6 @@ class Node
     public function getMediasets() {
         return $this->mediasets;
     }
-
-
 
 
     public function addMediaNode(\scrclub\CMSBundle\Entity\MediaNode $mediaNode)

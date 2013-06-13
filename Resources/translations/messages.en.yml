@@ -83,3 +83,5 @@ visitors.online: visitors online.
 
 mediaset.explication: Mediasets are here to regroup all your media. You can choose a file on your computer or give an external URL. <br>Third parties supported are Youtube, Vimeo, Dailymotion, SoundCloud, external images or documents.
 google.api.help: You can find your api key on the main page of google analytics, the number in the URL bar after the letter 'p'
+
+layoutsDefaultChild: Template default for child

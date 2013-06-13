@@ -84,3 +84,5 @@ mediaset.explication: Les sets de médias permettent de gérer vos fichiers. Vou
 template.explication: La gestion de templates est réservée aux développeurs du site.
 google.explication: Vous pouvez renseigner vos identifiants google analytics afin d'avoir un apercu de vos statistiques.
 google.api.help: L'API Key se trouve dans votre page d'accueil Google Analytics, le chiffre après la lettre 'p' dans l'URL.
+
+layoutsDefaultChild: Template defaut pour children

@@ -81,7 +81,13 @@
 
             $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node')->getMediaSetsRecursive($node);
 
-            $form = $this->createForm(new NodeType($lang_repo, $templates), $node);
+            $defaultTemplate = null;
+            $parent = $node->getParent();
+            if ( isset( $parent ) ){
+                $defaultTemplate = $parent->getTemplateDefaultChild();
+            };
+
+            $form = $this->createForm(new NodeType($lang_repo, $templates, $defaultTemplate), $node);
 
 
             $request = $this->get('request');
@@ -255,6 +261,8 @@
             $node_parent = $noderepo->find($parent_id);
             $post->setParent($node_parent);
 
+            //$post->setTemplate($node_parent->getTemplate());
+
 
             $request = $this->getRequest();
             $locale = $request->getLocale();
@@ -276,7 +284,7 @@
 
 
 
-            $form = $this->createForm(new PostType($lang_repo), $post);
+            $form = $this->createForm(new PostType($lang_repo, array(), $node_parent->getTemplateDefaultChild() ), $post);
 
 
             $request = $this->get('request');
