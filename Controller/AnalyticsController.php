@@ -43,7 +43,6 @@
                 return $this->ga->connected;
             }
 
-
         }
 
         /*
@@ -59,8 +58,6 @@
 
             if(isset($cookie)) {
 
-                //echo $cookie;
-                //echo 'gogogo';
                 $response = new Response($cookie);
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;

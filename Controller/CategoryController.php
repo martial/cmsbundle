@@ -34,6 +34,7 @@
 
 
 
+
             return $this->render('scrclubCMSBundle:cms:categories.html.twig', array(
                 'categories' => $categories
             ));
@@ -54,8 +55,6 @@
 
             $request = $this->getRequest();
             $locale = $request->getLocale();
-
-
 
             $category  = new Category();
 
@@ -93,8 +92,6 @@
                 }
 
             }
-
-            //echo 'ahou';
 
 
 
@@ -185,7 +182,6 @@
 
                 $category = $repo->find($id);
 
-                echo $category->getName();
 
                 $em->remove($category);
                 $em->flush();

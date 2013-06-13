@@ -1,4 +1,18 @@
 
+scrclub_cms_setup:
+    pattern:  /setup
+    defaults: { _controller: scrclubCMSBundle:Config:setup, _locale: fr }
+    requirements:
+                _locale: en|fr|es
+
+
+scrclub_cms_setupUser:
+    pattern:  /setup-user
+    defaults: { _controller: scrclubCMSBundle:Registration:registerSetup, _locale: fr }
+    requirements:
+                _locale: en|fr|es
+
+
 
 scrclub_cms_homepage:
     pattern:  /backend/{_locale}

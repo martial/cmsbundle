@@ -5,15 +5,12 @@
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use scrclub\CMSBundle\Entity\Node;
     use scrclub\CMSBundle\Entity\Post;
-    use scrclub\CMSBundle\Entity\Template;
 
     use scrclub\CMSBundle\Form\NodeType;
     use scrclub\CMSBundle\Form\PostType;
-    use scrclub\CMSBundle\Entity\Langs;
-    use scrclub\CMSBundle\Entity\Category;
+
     use Symfony\Component\HttpFoundation\Response;
-    use Symfony\Component\Validator\Constraints\MinLength;
-    use Symfony\Component\Validator\Constraints\NotBlank;
+
     use Symfony\Component\Validator\Constraints as Assert;
 
 
@@ -65,9 +62,7 @@
             $locale = $request->getLocale();
 
 
-            // get templates
-
-            $templates = $em->getRepository('scrclubCMSBundle:Template')->findAll();
+            //$templates = $em->getRepository('scrclubCMSBundle:Template')->findAll();
 
             $query = $em->getRepository('scrclubCMSBundle:Template')->createQueryBuilder('p')//->where('type', 'node')
                 ->orderBy('p.name', 'ASC')->getQuery();
@@ -109,7 +104,22 @@
                     $em->persist($node);
                     $em->flush();
 
-                    return $this->redirect($this->generateUrl('scrclub_cms_addnode', array('id' => $node->getId())));
+
+                    // update categories ?
+
+
+                    foreach ( $node->getCategories() as $category ) {
+
+                        $category->addNode($node);
+                        $em->persist($node);
+                        $em->flush();
+
+                    }
+
+
+
+
+                   // return $this->redirect($this->generateUrl('scrclub_cms_addnode', array('id' => $node->getId())));
                 }
             }
 
@@ -249,11 +259,14 @@
             $request = $this->getRequest();
             $locale = $request->getLocale();
 
+            $originalCategories = array();
 
             if (isset($id)) {
 
                 $post = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Post')->find($id);
-                //$post->setTranslatableLocale($locale);
+
+                // get categories before
+                $originalCategories = $post->getCategories();
 
             }
 
@@ -264,6 +277,7 @@
 
 
             $form = $this->createForm(new PostType($lang_repo), $post);
+
 
             $request = $this->get('request');
             // update if needed
@@ -277,7 +291,43 @@
                     $post->setSlug('');
                     $post->setType('post');
                     $em->persist($post);
+
+                    // -------------------------------------------------- manage categories
+
+                    $submittedCategories = $post->getCategories();
+
+                    if(count($submittedCategories) == 0 ) {
+
+                        foreach($originalCategories as $category) {
+
+                            $category->removeNode($post);
+
+                        }
+
+                    }
+
+
+                    foreach($originalCategories as $category) {
+                        if(!$submittedCategories->contains($category)) {
+                            $category->removeNode($post);
+                            $em->persist($category);
+                        }
+                    }
+
+                    // finally add
+                    if(!empty($submittedCategories)) {
+
+                        foreach ($submittedCategories as $category ) {
+
+                            $category->addNode($post);
+                            $em->persist($category);
+
+                        }
+
+                    }
+
                     $em->flush();
+
 
                     return $this->redirect($this->generateUrl('scrclub_cms_addpost', array('parent_id' => $parent_id, 'id' => $post->getId())));
                 }

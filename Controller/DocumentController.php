@@ -23,7 +23,7 @@ class DocumentController extends Controller
 
         $request = $this->get('request');
 
-        $dummyDoc = new \scrclub\CMSBundle\Entity\Document();
+        $dummyDoc = new Document();
         $dummyDoc->setFile($request->files->get('qqfile'));
 
         $ext            = $dummyDoc->getFile()->guessExtension();
@@ -35,8 +35,10 @@ class DocumentController extends Controller
         $uploader->allowedExtensions = array();
         $uploader->sizeLimit = 10 * 1024 * 1024;
         $uploader->inputName = 'qqfile';
+
         // If you want to use resume feature for uploader, specify the folder to save parts.
         $uploader->chunksFolder = 'chunks';
+
         // Call handleUpload() with the name of the folder, relative to PHP's getcwd()
         $result = $uploader->handleUpload(md5(mt_rand()).'.'.$ext);
 

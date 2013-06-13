@@ -15,8 +15,18 @@
         {
             return array(
                 'in_array' => new \Twig_Function_Method($this, 'in_array'),
-                'contains' => new \Twig_Function_Method($this, 'contains')
+                'contains' => new \Twig_Function_Method($this, 'contains'),
+                'shuffleFunc' => new \Twig_Function_Method($this, 'shuffleFunc')
             );
+        }
+
+        public function getFilters() {
+
+            return array(
+
+                'shuffle' => new \Twig_Filter_Method($this, 'shuffle')
+            );
+
         }
 
 
@@ -26,11 +36,25 @@
 
         }
 
+        
+        public function shuffleFunc($array) {
+	        
+	        return (object)shuffle((array)$array);
+
+
+        }
+
 
         public function shuffle($array) {
+	        
+	        
+	        $array = $array->toArray();
+            if ($array instanceof Traversable) {
+                $array = iterator_to_array($array, false);
+            }
+            shuffle($array);
 
-            $a = (array)$array;
-            return shuffle($a);
+            return new ArrayCollection($array);
 
         }
 

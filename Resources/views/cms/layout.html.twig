@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="utf-8">
-    <title>CMS</title>
+    <title>SNUT</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -15,21 +15,25 @@
 
 
 {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-{% embed "scrclubCMSBundle:cms:upmenu.html.twig" %}{% endembed %}
+    {% embed "scrclubCMSBundle:cms:upmenu.html.twig" %}{% endembed %}
 {% endif %}
 
 <div class="container">
-{% block fos_user_content %}{% endblock %}
+    {% block fos_user_content %}{% endblock %}
 </div>
 
 {% block body %}{% endblock %}
 
-<div class="container"><hr></div>
+<div class="container">
+    <hr>
+</div>
 
 <script>
-    function newAlert (type, message) {
+    function newAlert(type, message) {
         $("#alert-area").append($("<div class='featurette alert-box fade in'><div class='alert alert-" + type + "' data-alert<p> " + message + " </p></div></div>"));
-        $(".alert-box").delay(5000).fadeOut("slow", function () { $(this).remove(); });
+        $(".alert-box").delay(5000).fadeOut("slow", function () {
+            $(this).remove();
+        });
     }
 </script>
 

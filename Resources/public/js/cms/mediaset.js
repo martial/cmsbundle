@@ -163,6 +163,7 @@ function assignRemoveAction() {
 
 function assignModalLinks() {
 
+
     $('a[data-target=#media-edit-modal]').unbind('click');
     $('a[data-target=#media-edit-modal]').click(function (ev) {
 
@@ -182,6 +183,8 @@ function assignModalLinks() {
             success :function (data) {
 
                 $('#media-edit-modal').modal('show');
+
+                $('#media-edit-modal .modal-body').html("");
                 $('#media-edit-modal .modal-body').html(data.html);
 
             }
@@ -203,6 +206,7 @@ function assignModalLinks() {
             success :function (data) {
 
                 $('#media-edit-modal').modal('show');
+                $('#media-edit-modal .modal-body').html("");
                 $('#media-edit-modal .modal-body').html(data.html);
             }
 
@@ -253,9 +257,6 @@ function updateMediasItems(mediaId) {
         url    :Routing.generate('scrclub_cms_getMediaAjax', { mediaId:mediaId }),
         success:function (data) {
             $('.media-scroll-container .media-' + mediaId).replaceWith(data);
-
-            console.log(data);
-
 
             assignRemoveAction();
             assignModalLinks();
