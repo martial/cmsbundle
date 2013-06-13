@@ -68,6 +68,27 @@ class Node
     protected $active;
 
     /**
+     * @var integer autocontent
+     *
+     * @ORM\Column(name="autocontent", type="boolean")
+     */
+    protected $autocontent;
+
+    /**
+     * @param int $forcechild
+     */
+    public function setAutocontent($autocontent) {
+        $this->autocontent = $autocontent;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAutocontent() {
+        return $this->autocontent;
+    }
+
+    /**
      * @var string $name
      * @Gedmo\Translatable
      * @ORM\Column(name="name", type="string", nullable=true, length=255)

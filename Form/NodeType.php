@@ -28,6 +28,7 @@ class NodeType extends AbstractType
         ->add('header', 'textarea')
         ->add('description', 'textarea')
         ->add('active', 'checkbox')
+        ->add('auto_content', 'checkbox')
         ->add('template', 'entity',  array(
                                             'class' => 'scrclubCMSBundle:Template',
                                             'required' => true,
@@ -61,6 +62,8 @@ class NodeType extends AbstractType
 
         ->add('latitude', 'hidden', array('required' => true))
         ->add('longitude', 'hidden', array('required' => true))
+
+
 
         ->add('translations', 'a2lix_translations', array(
         'locales' => $this->langrepo->getLocales($langs),

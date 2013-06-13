@@ -212,8 +212,10 @@
                 <label>{{ 'force.article'| trans  }}</label>
 
                 <div id="auto_content_button" class="switch switch-small">
-                    <input id="auto_content" type="checkbox" value="value1" checked="checked">
+                    {{ form_widget(form.auto_content, { 'attr': {'id': 'auto_content_box'} }) }}
                 </div>
+
+
             </div>
 
             <div class="span4">
@@ -388,7 +390,7 @@
 <div id="map-canvas"></div>
 <br></br>
 <div>
-    <input id="" type="button" value="Obtenir position géographique" onclick="getPosition()">
+    <input id="" type="button" class="btn" value="Obtenir position géographique" onclick="getPosition()">
     <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
     {{ form_widget(form._token) }}
 </div>
