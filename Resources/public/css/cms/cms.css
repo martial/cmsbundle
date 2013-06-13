@@ -493,15 +493,21 @@ a.thumbnail.selected {
 
 #panel {
     position: relative;
-    width: 112px;
-    z-index: 5;
-    background-color: #fff;
+    margin-left:0!important;
     padding: 5px;
 }
 #latlng {
     width: 225px;
 }
 #map-canvas {
-    width: 100%;
+
     height: 300px;
+}
+
+#inlineinput {
+    float : left;
+}
+
+#btn_geoloc {
+    margin-top : -10px;
 }
