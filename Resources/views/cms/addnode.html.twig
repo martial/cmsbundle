@@ -218,12 +218,20 @@
 
             </div>
 
-            <div class="span4">
-
-
+            <div class="span3">
                 <label>{{ 'layouts'| trans  }}</label>
                 {{ form_widget(form.template)}}
             </div>
+
+
+            {%  if node.type == 'node' %}
+            <div class="span3">
+                <label>{{ 'layoutsDefaultChild'| trans  }}</label>
+                {{ form_widget(form.templateDefaultChild)}}
+            </div>
+            {% endif %}
+
+
 
             <div class="span3">
                 <label>&nbsp;</label>

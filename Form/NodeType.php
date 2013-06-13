@@ -6,14 +6,15 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use scrclub\CMSBundle\Entity\LangsRepository;
-use scrclub\CMSBundle\Entity\Category;
+use scrclub\CMSBundle\Entity\Template;
 
 class NodeType extends AbstractType
 {
 
-    function __construct(\scrclub\CMSBundle\Entity\LangsRepository $langrepo, array $templates) {
-        $this->langrepo = $langrepo;
-        $this->templates = $templates;
+    function __construct(\scrclub\CMSBundle\Entity\LangsRepository $langrepo, array $templates, \scrclub\CMSBundle\Entity\Template $defaultTemplate = null) {
+        $this->langrepo         = $langrepo;
+        $this->templates        = $templates;
+        $this->defaultTemplate  = $defaultTemplate;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -33,8 +34,8 @@ class NodeType extends AbstractType
                                             'class' => 'scrclubCMSBundle:Template',
                                             'required' => true,
                                             'label' => 'Template',
+                                            'data' => $this->defaultTemplate,
                                             'query_builder' => function(\scrclub\CMSBundle\Entity\TemplateRepository $er) {
-
                                                 $queryBuilder = $er->createQueryBuilder('t');
                                                 return $queryBuilder
                                                     ->setParameter('node', 'node')
@@ -42,6 +43,21 @@ class NodeType extends AbstractType
                                                     ->orderBy('t.name', 'ASC');
                                             }
         ))
+
+        ->add('templateDefaultChild', 'entity',  array(
+            'class' => 'scrclubCMSBundle:Template',
+            'required' => true,
+            'label' => 'Template',
+
+            'query_builder' => function(\scrclub\CMSBundle\Entity\TemplateRepository $er) {
+                $queryBuilder = $er->createQueryBuilder('t');
+                return $queryBuilder
+                    ->setParameter('node', 'node')
+                    ->where('t.type = :node')
+                    ->orderBy('t.name', 'ASC');
+            }
+        ))
+
         ->add('categories', 'entity',  array(
         'class' => 'scrclubCMSBundle:Category',
         'required' => true,
@@ -62,9 +78,6 @@ class NodeType extends AbstractType
 
         ->add('latitude', 'hidden', array('required' => true))
         ->add('longitude', 'hidden', array('required' => true))
-
-
-
         ->add('translations', 'a2lix_translations', array(
         'locales' => $this->langrepo->getLocales($langs),
         'fields' => array(
