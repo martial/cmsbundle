@@ -22,8 +22,6 @@
 
         public function updateAction($mediasetId, $id) {
 
-            $response = null;
-
 
             $em = $this->getDoctrine()->getManager();
 
@@ -98,6 +96,20 @@
                         $embedId = $embedUtils->getIdFromUrl($url, $type);
                         $document->setEmbedId($embedId);
                     }
+
+                    /*
+                    if($type == 'image') {
+
+
+                        $sizes = getimagesize($document->getWebPath());
+                        $document->setWidth($sizes[0]);
+                        $document->setHeight($sizes[1]);
+                        $document->setType('image');
+
+
+                    }
+
+                    */
 
                     $document->setEmbedType($type);
                     $document->setType('embedded');

@@ -5,6 +5,7 @@ langs: Langs
 configuration: Settings
 personal.data: Your personal data
 your.site: Your website
+welcome.text: You can access to your content here !
 
 save.changes: Save changes
 yes: Yes

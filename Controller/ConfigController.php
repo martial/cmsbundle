@@ -9,6 +9,7 @@
     use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
     use scrclub\CMSBundle\Entity\Config;
     use scrclub\CMSBundle\Form\ConfigType;
+    use Symfony\Component\Locale\Locale;
 
     /**
      * Config controller.
@@ -17,6 +18,46 @@
      */
     class ConfigController extends Controller {
 
+
+        // New config is called when there's no user / no lang
+
+        public function setupAction () {
+
+            $em = $this->getDoctrine()->getManager();
+
+            // get langs
+            $locales = Locale::getDisplayLocales('fr');
+            $localeCodes = Locale::getLocales();
+
+            $repo = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Langs');
+
+            $langs = $repo->findAll();
+
+            //format langs for default
+            $default_langs = array();
+            foreach($langs as $lang) {
+                array_push($default_langs, $lang->getLocale());
+            }
+
+
+
+            return $this->render('scrclubCMSBundle:cms:new_config_site.html.twig', array(
+                "langs" => $langs,
+                "default_lang" => $default_langs,
+                "locales" => $locales
+
+            ));
+
+        }
+
+        public function setupUserAction () {
+
+
+            return new Response("okay");
+
+
+
+        }
 
         public function siteAction() {
 

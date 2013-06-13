@@ -1,0 +1,118 @@
+{% extends "scrclubCMSBundle:cms:layout.html.twig" %}
+
+
+
+{% block body %}
+<div class="container">
+
+<div class="featurette">
+    <h2 class="featurette-heading">{% trans %}welcome{% endtrans %}!<span class="muted"><br>Back Office Access</span></h2>
+</div>
+
+<hr class="featurette-divider">
+<span class="muted">Il semble que c'est la première fois. Veuillez choisir une langue.</span>
+<div class="row-fluid page-header"></div>
+
+
+    <fieldset>
+
+        <div class=" well control-group">
+            <select class="input-xlarge populate placeholder" multiple="multiple" id="lang_combo">
+                {% for key, locale in locales %}
+
+                    {% set selected = '' %}
+                    {% for lang in langs %}
+                        {% if key == lang.locale %}
+                            {% set selected = 'selected="selected"' %}
+                        {% endif %}
+
+                    {% endfor %}
+
+                    <option {{selected  | raw }} value="{{key}}">{{locale}}</option>
+                {% endfor %}
+            </select>
+
+            <div class="form-actions">
+                <button type="submit" class=" btn btn-primary pull-right" id="submit_lang">{% trans %}next{% endtrans %}</button>
+            </div>
+        </div>
+    </fieldset>
+</div>
+
+<script>
+
+    var translations = {
+        "wannado.this": "{{ 'wannado.this'| trans }}",
+        "choose.lang" : "{{ 'choose.lang'| trans }}",
+        "status" : "{{ 'status'| trans }}",
+        "update.success" : "{{ 'update.success'| trans }}"
+    }
+    var alertTemplate = '{% include 'scrclubCMSBundle:cms:alert_lang_validate.html.twig'  %}';
+    var updateLangUrl = "{{ path('update_langs') }}";
+    var nextUrl = "{{ path('scrclub_cms_setupUser') }}";
+
+
+
+    $(document).ready(function () {
+
+        $("#lang_combo").select2({
+                 placeholder:translations['choose.lang']
+             }
+        );
+
+
+
+        $('#submit_lang').click(function () {
+            updateLangs();
+        })
+
+    });
+
+    function updateLangs() {
+
+
+        var langValues = $("#lang_combo").val() || [];
+
+        $.ajax({
+            type   :'post',
+            cache  :false,
+            url    :updateLangUrl,
+            data   :{data:langValues},
+            success:function (data) {
+
+
+                window.location.href = nextUrl;
+
+                /*
+
+
+
+
+
+                $('#submit_lang').popover({
+
+                    placement:"top",
+                    trigger  :"manual",
+                    title    :translations['status'],
+                    content  :translations['update.success']
+
+                });
+
+
+                $('#submit_lang').popover('show');
+
+
+                setTimeout(function () {
+                    $('#submit_lang').popover('hide');
+                }, 4000);
+
+                 */
+            }
+
+        });
+    }
+
+
+</script>
+
+{% endblock body %}

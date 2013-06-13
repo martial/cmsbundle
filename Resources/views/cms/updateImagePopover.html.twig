@@ -1,54 +1,87 @@
-<div class="container">
-    {% if (image.getType() == "image" )%}
-    <img class="thumbnail" data-src="holder.js/300x200" {% if (image.getWebPath() != "" )%}src="{{asset(image.getWebPath()  | apply_filter('cms_user_thumb') )}}"{% endif %} alt="">
-    <hr>
+<div class="">
+
+
+    <form id="media-edit-form" action="{{ path('scrclub_cms_updateMediaPopOver', {id:image.id}) }}" method="post" {{ form_enctype(form) }} novalidate>
+        {% if (image.getType() == "image" ) %}
+
+
+
+        <div class="fileupload fileupload-new" data-provides="fileupload">
+            <div class="fileupload-preview thumbnail"
+            ">
+            <img data-src="holder.js/200x150/text:Avatar" {% if (image.getWebPath() != "" ) %}src="{{ asset(image.getWebPath()) }}" {% endif %}alt="">
+        </div>
+        <div>
+            <span class="btn btn-file"><span class="fileupload-new">Select image</span><span class="fileupload-exists">Change</span>{{ form_widget(form.file) }}</span>
+        </div>
+</div>
+
+
+<hr>
+{% endif %}
+
+    {% if (image.getType() == "document" ) %}
+        <a href="{{ asset(image.getWebPath() ) }}" alt="">Document</a>
+        <hr>
     {% endif %}
 
-    {% if (image.getType() == "document" )%}
-    <a href="{{asset(image.getWebPath() )}}" alt="">ahou</a>
-    <hr>
-    {% endif %}
 
-    <form id="media-edit-form" action="{{ path('scrclub_cms_updateMediaPopOver', {id:image.id}) }}" method="post" {{ form_enctype(form) }} novalidate >
-    {{form_widget(form)}}
-
+    {{ form_widget(form.name, {'attr': {'class': 'span5 text-area-mid' }})}}
+</form>
 </div>
 
 <script>
-    $('#media-form-submit').unbind('click');
-$('#media-form-submit').on('click', function(e){
+
+    $(function () {
+
+        console.log("gogogo");
+
+
+        $('#scrclub_cmsbundle_imagetype_name').wysihtml5({
+            "font-styles": true,
+            "emphasis": true,
+            "lists": false,
+            "html": false,
+            "link": true,
+            "image": false,
+            "color": false
+        });
+
+        $('#media-form-submit').unbind('click');
+        $('#media-form-submit').on('click', function (e) {
 // We don't want this to act as a link so cancel the link action
-e.preventDefault();
+            e.preventDefault();
+
+            var options = {
+
+                success: function (responseText, statusText, xhr, $form) {
+
+                    // check if errors
+
+                    if (responseText.status == "success") {
+
+                        $('#media-edit-modal').modal('hide');
+
+                        updateMediasItems(responseText.mediaId);
+                        assignNodeToMedia();
+                    } else {
+
+                        $('#media-edit-modal .modal-body').html(responseText.html);
+
+                    }
+
+                }
+
+            };
+
+            $('#media-edit-form').ajaxSubmit(options);
+
+        });
 
 
-    var options = {
 
-        success: function (responseText, statusText, xhr, $form) {
-
-            // check if errors
-
-            if(responseText.status == "success") {
-
-                $('#media-edit-modal').modal('hide');
+    })
 
 
-                updateMediasItems(responseText.mediaId);
-                assignNodeToMedia();
-            } else {
-
-                $('#media-edit-modal .modal-body').html(responseText.html);
-
-
-            }
-
-        }
-
-    };
-
-    $('#media-edit-form').ajaxSubmit(options);
-
-
-
-});
 
 </script>
