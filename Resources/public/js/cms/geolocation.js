@@ -25,8 +25,10 @@ function getPosition() {
 }
 
 function getNewPosition(input) {
-    //console.log("test2")
+
     input = document.getElementById("searchTextField").value;
+
+
     newgeocoder.geocode({'address': input}, function(results, status) {
         if (status == google.maps.GeocoderStatus.OK) {
             map.setCenter(results[0].geometry.location);
@@ -59,7 +61,9 @@ function initialize() {
 }
 
 function autoComplete() {
+
     input = (document.getElementById('searchTextField'));
+
     var autocomplete = new google.maps.places.Autocomplete(input);
 
     autocomplete.bindTo('bounds', map);
@@ -67,6 +71,8 @@ function autoComplete() {
     var marker = new google.maps.Marker({
         map: map
     });
+
+
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
         infowindow.close();
         marker.setVisible(false);
@@ -111,7 +117,7 @@ function codeLatLng(latitude, longitude) {
                     position: latlng,
                     map: map
                 });
-                results
+
                 contentInfowindow = results[0].formatted_address;
                 infowindow.setContent(contentInfowindow);
                 infowindow.open(map, marker);
@@ -123,7 +129,11 @@ function codeLatLng(latitude, longitude) {
             alert('Geocoder failed due to: ' + status);
         }
     });
+
+
     $("#scrclub_cmsbundle_posttype_latitude").val(latitude);
     $("#scrclub_cmsbundle_posttype_longitude").val(longitude);
+
+
 }
 
