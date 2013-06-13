@@ -292,36 +292,8 @@
                 {% endjavascripts %}
 
                 <div id="panel" class="row-fluid">
-                    <script>
-                        $(window).load(function(){
-                            initialize();
-                            {% if node.latitude %}
-                            setPosition({{ node.latitude}}, {{ node.longitude }});
-                            {% else %}
-                            getPosition();
-                            {% endif %}
-                            $("#googlemaps_input").select2({placeholder:"maps"});
-                        });
 
 
-                        function clickgeo(){
-
-                            setTimeout(
-                                    function()
-                                    {
-                                        initialize();
-                                        {% if node.latitude %}
-                                        setPosition({{ node.latitude}}, {{ node.longitude }});
-                                        {% else %}
-                                        getPosition();
-                                        {% endif %}
-                                    }, 300);
-
-                        }
-
-
-
-                    </script>
                     <input id="searchTextField" type="text" size="50" class="span3">
                     <input id="btn_geoloc" type="button" class="btn span3" value="Obtenir position géographique" onclick="getPosition()">
                 </div>
@@ -420,10 +392,7 @@
 
 
 <div>
-<<<<<<< HEAD
-    <input id="" type="button" class="btn" value="Obtenir position géographique" onclick="getPosition()">
-=======
->>>>>>> 9f8b23dccd848d175d485a17be758538c206bb5b
+
     <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
     {{ form_widget(form._token) }}
 </div>
@@ -466,16 +435,40 @@
         $('#scrclub_cmsbundle_{{node.type}}type_description').wysihtml5();
         $('#scrclub_cmsbundle_{{node.type}}type_header').wysihtml5();
 
-        //scrclub_cmsbundle_nodetype_translations_en_header
+
+        // google maps
+        initialize();
+        {% if node.latitude %}
+        setPosition({{ node.latitude}}, {{ node.longitude }});
+        {% else %}
+        getPosition();
+        {% endif %}
+        $("#googlemaps_input").select2({placeholder:"maps"});
+
+
 
     })
 
 
+    function clickgeo(){
 
+        setTimeout(
+                function()
+                {
+                    initialize();
+                    {% if node.latitude %}
+                    setPosition({{ node.latitude}}, {{ node.longitude }});
+                    {% else %}
+                    getPosition();
+                    {% endif %}
+                }, 1);
+
+    }
 
 
 
 </script>
+
 
 
 {% endblock %}
