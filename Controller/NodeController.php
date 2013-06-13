@@ -51,11 +51,4 @@ class NodeController extends Controller
             'entity'      => $entity,
             'delete_form' => $deleteForm->createView(),        ));
     }
-
-
-
-
-
-
-
 }

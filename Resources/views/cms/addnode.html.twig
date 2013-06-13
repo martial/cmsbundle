@@ -350,8 +350,40 @@
 
 {%  endif %}
 
-<button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
-{{ form_widget(form._token) }}
+<!------------- Geolocation --------------->
+
+{{ form_widget(form.latitude) }}
+
+{{ form_widget(form.longitude) }}
+<!--
+<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+-->
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/geolocation.js' filter='yui_js'  output='js/compiled/geolocation.js' %}
+<script src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+<div id="panel">
+    <script>
+        $(window).load(function(){
+            initialize();
+            {% if node.latitude %}
+            setPosition({{ node.latitude}}, {{ node.longitude }});
+            {% else %}
+            getPosition();
+            {% endif %}
+            $("#googlemaps_input").select2({placeholder:"maps"});
+        });
+    </script>
+    <input id="searchTextField" type="text" size="50">
+</div>
+<div id="map-canvas"></div>
+<br></br>
+<div>
+    <input id="" type="button" value="Obtenir position géographique" onclick="getPosition()">
+    <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
+    {{ form_widget(form._token) }}
+</div>
 </form>
 
 
@@ -369,7 +401,6 @@
     <div class="modal-footer">
         <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
         <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{% trans %}save.changes{% endtrans %}</button>
-
     </div>
 </div>
 

@@ -58,6 +58,10 @@ class NodeType extends AbstractType
                 'data' => 'node',
             )
         )
+
+        ->add('latitude', 'hidden', array('required' => true))
+        ->add('longitude', 'hidden', array('required' => true))
+
         ->add('translations', 'a2lix_translations', array(
         'locales' => $this->langrepo->getLocales($langs),
         'fields' => array(
@@ -65,8 +69,6 @@ class NodeType extends AbstractType
                 'required' => true
             )
         )));
-
-
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
