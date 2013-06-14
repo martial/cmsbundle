@@ -27,9 +27,10 @@
 
 <div class="container post" id="{{node.id}}">
 
-<a href="#">home</a> >
+<ul class="breadcrumb">
+<li><a href="{{  path('scrclub_cms_homepage')}}">Home</a> <span class="divider">/</span></li>
 {% if node.parent  %}{% include 'scrclubCMSBundle:cms:node_nav.html.twig' with {'node':node.parent, 'level':0 } %}{% endif %}
-
+</ul>
 
 {% if node.type == "post" %}
 {% set titleType = "post"  %}
