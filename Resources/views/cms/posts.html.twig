@@ -10,18 +10,12 @@
 
 <div class="container">
 
-    <a href="#">home</a>
-    {% if node.parent  %}{% include 'scrclubCMSBundle:cms:node_nav.html.twig' with {'node':node.parent, 'level':0 } %}{% endif %}
+    <ul class="breadcrumb">
+        <li><a href="{{  path('scrclub_cms_homepage')}}">Home</a> <span class="divider">/</span></li>
+        {% if node.parent  %}{% include 'scrclubCMSBundle:cms:node_nav.html.twig' with {'node':node.parent, 'level':0 } %}{% endif %}
+    </ul>
 
-    <!-- got to node -->
-    <div class="nav-collapse">
-        <ul class="nav">
-            <li class="dropdown">
-                <a data-toggle="dropdown" class="dropdown-toggle active" href="#">Go To <b class="caret"></b></a>
-                {% include 'scrclubCMSBundle:cms:nodeMenuChildren.html.twig' with {'tree':rootTree, 'level':0 } %}
-            </li>
-        </ul>
-    </div>
+   
 
     <div class="featurette">
         <h2 class="featurette-heading">{{ 'section'| trans | capitalize }} {{ nodeParent.name }}</h2>

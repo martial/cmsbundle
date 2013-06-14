@@ -1,3 +1,14 @@
 
 {% if node.parent  %}{% include 'scrclubCMSBundle:cms:node_nav.html.twig' with {'node':node.parent, 'level':0 } %}{% endif %}
-> <a href="">{{ node.name | lower }}</a>
+
+ {% if node.type == 'post' %}
+     {% set addPath = path('scrclub_cms_addpost', { 'id': node.id, 'parent_id': node.parent.id  }) %}
+     {% set navPath = addPath %}
+ {% else %}
+
+     {% set addPath =  path('scrclub_cms_post', { 'parent_id': node.id }) %}
+     {% set navPath = path('scrclub_cms_post', { 'parent_id': node.id })  %}
+ {% endif %}
+
+<li><a href="{{ addPath }}">{{ node.name | lower }}</a> <span class="divider">/</span></li>
+
