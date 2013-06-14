@@ -8,8 +8,10 @@
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
-
 <div class="container">
+
+    <a href="#">home</a>
+    {% if node.parent  %}{% include 'scrclubCMSBundle:cms:node_nav.html.twig' with {'node':node.parent, 'level':0 } %}{% endif %}
 
     <!-- got to node -->
     <div class="nav-collapse">

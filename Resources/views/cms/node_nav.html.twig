@@ -1,0 +1,3 @@
+
+{% if node.parent  %}{% include 'scrclubCMSBundle:cms:node_nav.html.twig' with {'node':node.parent, 'level':0 } %}{% endif %}
+> <a href="">{{ node.name | lower }}</a>
