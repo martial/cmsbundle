@@ -11,7 +11,7 @@
     class PostType extends NodeType
     {
 
-        function __construct(\scrclub\CMSBundle\Entity\LangsRepository $langrepo, array $templates, Template $defaultTemplate) {
+        function __construct(\scrclub\CMSBundle\Entity\LangsRepository $langrepo, array $templates = null, Template $defaultTemplate = null) {
             $this->langrepo         = $langrepo;
             $this->templates        = $templates;
             $this->defaultTemplate  = $defaultTemplate;
