@@ -1,6 +1,6 @@
 <div class="">
 
-
+    {{ form_errors(form) }}
     <form id="media-edit-form" action="{{ path('scrclub_cms_updateMediaPopOver', {id:image.id}) }}" method="post" {{ form_enctype(form) }} novalidate>
         {% if (image.getType() == "image" ) %}
 
@@ -25,7 +25,7 @@
         <hr>
     {% endif %}
 
-
+     {{ form_widget(form._token) }}
     {{ form_widget(form.name, {'attr': {'class': 'span5 text-area-mid' }})}}
 </form>
 </div>
@@ -34,7 +34,7 @@
 
     $(function () {
 
-        console.log("gogogo");
+        //console.log("gogogo");
 
 
         $('#scrclub_cmsbundle_imagetype_name').wysihtml5({
@@ -58,6 +58,8 @@
 
                     // check if errors
 
+                    console.log(responseText.debug)
+
                     if (responseText.status == "success") {
 
                         $('#media-edit-modal').modal('hide');
@@ -65,6 +67,8 @@
                         updateMediasItems(responseText.mediaId);
                         assignNodeToMedia();
                     } else {
+
+                       // console.log(responseText.html)
 
                         $('#media-edit-modal .modal-body').html(responseText.html);
 

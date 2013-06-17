@@ -65,6 +65,8 @@
 
                 if ($form->isValid()) {
 
+                    $result['debug'] = "form valid";
+
                     if($image->getType() != "embedded") {
 
                         // here we need to check if the type differs
@@ -106,6 +108,7 @@
 
                 } else {
 
+                    $result['debug'] = "form not valid";
 
 
                 }
@@ -120,6 +123,7 @@
             if($request->isXmlHttpRequest()) {
 
                 if(empty($result['html'])) {
+
 
                     $result['html'] =  $this->renderView($view, array(
                         //'mediaset' => $mediaset,
