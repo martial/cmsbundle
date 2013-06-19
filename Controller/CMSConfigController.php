@@ -49,9 +49,6 @@
                 array_push($default_langs, $lang->getLocale());
             }
 
-
-
-
             return $this->render('scrclubCMSBundle:cms:config_lang.html.twig', array(
                 "langs" => $langs,
                 "default_lang" => $default_langs,
@@ -82,12 +79,15 @@
 
             $request = $this->get('request');
 
+            $repo = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Langs');
+            $em = $this->getDoctrine()->getManager();
+
             if ($request->getMethod() == 'POST') {
 
                 $data = $request->request->all();
 
-                $em = $this->getDoctrine()->getManager();
-                $repo = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Langs');
+
+
 
 
                 foreach ($data['data'] as $locale ) {
@@ -126,6 +126,26 @@
                 }
 
             }
+
+
+            // set default
+
+            $i=0;
+            $langs = $repo->findAll();
+            foreach($langs as $lang) {
+
+                if($i==0)
+                    $lang->setDefault(true);
+                else
+                    $lang->setDefault(false);
+
+                $em->persist($lang);
+
+                $i++;
+
+            }
+
+            $em->flush();
 
             return new Response('');
 

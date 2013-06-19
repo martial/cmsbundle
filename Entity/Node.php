@@ -33,7 +33,7 @@ class Node
 
     public function __construct()
     {
-        $this->translations = new ArrayCollection();;
+        $this->translations = new ArrayCollection();
         $this->mediasets = new ArrayCollection();
         $this->mediaNodes = new ArrayCollection();
     }
@@ -91,7 +91,7 @@ class Node
     /**
      * @var string $name
      * @Gedmo\Translatable
-     * @ORM\Column(name="name", type="string", nullable=true, length=255)
+     * @ORM\Column(name="name", type="string", nullable=false, length=255)
      */
     protected $name;
 
@@ -449,6 +449,9 @@ class Node
      */
     public function setTranslations($translations)
     {
+        foreach ($translations as $translation) {
+            $translation->setObject($this);
+        }
         $this->translations = $translations;
         return $this;
     }

@@ -12,6 +12,10 @@ use scrclub\CMSBundle\Entity\Node;
 class Post extends Node
 {
 
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
     public function __toString() {
 

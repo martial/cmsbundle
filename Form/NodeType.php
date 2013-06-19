@@ -20,8 +20,13 @@ class NodeType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
+
+
+
         //$em = $this->getDoctrine()->getManager();
         $langs = $this->langrepo->findAll();
+
+
 
         $builder
         ->add('name', 'text', array('required' => true))
@@ -76,15 +81,12 @@ class NodeType extends AbstractType
             )
         )
 
+
         ->add('latitude', 'hidden', array('required' => true))
         ->add('longitude', 'hidden', array('required' => true))
         ->add('translations', 'a2lix_translations', array(
-        'locales' => $this->langrepo->getLocales($langs),
-        'fields' => array(
-            'name' => array(
-                'required' => true
-            )
-        )));
+            'locales' => $this->langrepo->getLocales($langs),
+       ));
     }
 
     public function setDefaultOptions(OptionsResolverInterface $resolver)
