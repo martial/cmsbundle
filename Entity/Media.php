@@ -45,7 +45,7 @@
         public $name;
 
         /**
-         * @ORM\Column(type="string", length=255, nullable=true)
+         * @ORM\Column(type="string", length=1020, nullable=true)
          *
          */
         public $type;
@@ -76,7 +76,7 @@
             $this->nodes[] = $node;
         }
 
-        /**
+        /*
          * Remove node
          *
          * @param scrClub\CMSBundle\Entity\Node $node
@@ -98,7 +98,7 @@
             $this->mediaNodes[] = $mediaNode;
         }
 
-        /**
+        /*
          * Remove categories
          *
          * @param scrClub\CMSBundle\Entity\MediaSet $categories
@@ -122,7 +122,7 @@
             $this->mediaSets[] = $mediaSet;
         }
 
-        /**
+        /*
          * Remove categories
          *
          * @param scrClub\CMSBundle\Entity\MediaSet $categories

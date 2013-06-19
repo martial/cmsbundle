@@ -1,8 +1,6 @@
 <?php
 
     namespace scrclub\CMSBundle\Extensions;
-
-    use Doctrine\Common\Collections\ArrayCollection;
     use scrclub\CMSBundle\Entity\EmbeddedDocument;
     use scrclub\CMSBundle\Entity\Media;
 
@@ -50,7 +48,7 @@
         }
 
 
-        /**
+        /*
          *
          * get embed thumbnail if available
          *
@@ -68,7 +66,7 @@
 
         }
 
-        /**
+        /*
          *
          * get embed code for third party services
          *
@@ -141,7 +139,7 @@
         }
 
 
-        /**
+        /*
          *
          * get embed code for third party services
          *
