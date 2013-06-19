@@ -23,9 +23,12 @@ class LangsRepository extends EntityRepository
             }
 
             $locales = array();
-            foreach ($all as $l)
-                array_push($locales, $l->getLocale());
 
+            foreach ($all as $l) {
+
+                if(!$l->getDefault())
+                array_push($locales, $l->getLocale());
+            }
 
             return $locales;
 

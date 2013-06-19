@@ -30,6 +30,31 @@ class Langs
     private $locale;
 
 
+    /**
+     * @var integer $default
+     *
+     * @ORM\Column(name="defaultLang", type="boolean")
+     */
+    protected $default;
+
+    /**
+     * @param int $default
+     */
+    public function setDefault($default) {
+        $this->default = $default;
+    }
+
+    /**
+     * @return int
+     */
+    public function getDefault() {
+        return $this->default;
+    }
+
+
+
+
+
 
     /**
      * Get id

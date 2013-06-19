@@ -263,7 +263,6 @@
 
             //$post->setTemplate($node_parent->getTemplate());
 
-
             $request = $this->getRequest();
             $locale = $request->getLocale();
 
@@ -278,17 +277,16 @@
 
             }
 
-
             $noderepo->getMediaSetsRecursive($post);
-
-
-
 
             $form = $this->createForm(new PostType($lang_repo, array(), $node_parent->getTemplateDefaultChild() ), $post);
 
 
             $request = $this->get('request');
+
+
             // update if needed
+
             if ($request->getMethod() == 'POST') {
 
                 $form->bind($request);
@@ -298,6 +296,7 @@
                     $em = $this->getDoctrine()->getManager();
                     $post->setSlug('');
                     $post->setType('post');
+
                     $em->persist($post);
 
                     // -------------------------------------------------- manage categories
@@ -305,15 +304,10 @@
                     $submittedCategories = $post->getCategories();
 
                     if(count($submittedCategories) == 0 ) {
-
                         foreach($originalCategories as $category) {
-
                             $category->removeNode($post);
-
                         }
-
                     }
-
 
                     foreach($originalCategories as $category) {
                         if(!$submittedCategories->contains($category)) {
@@ -324,20 +318,20 @@
 
                     // finally add
                     if(!empty($submittedCategories)) {
-
                         foreach ($submittedCategories as $category ) {
-
                             $category->addNode($post);
                             $em->persist($category);
-
                         }
-
                     }
 
                     $em->flush();
 
-
                     return $this->redirect($this->generateUrl('scrclub_cms_addpost', array('parent_id' => $parent_id, 'id' => $post->getId())));
+
+                } else {
+
+                    echo "Error";
+
                 }
             }
 

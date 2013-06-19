@@ -2,7 +2,7 @@
 
 {% block body %}
 
-{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/mediaset.js' filter='yui_js'  output='js/compiled/mediaset.js' %}
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/mediaset.js' filter='yui_js'  output='js/compiled/mediaset.js' %})
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
@@ -24,7 +24,7 @@
 {% endjavascripts %}
 
 
-
+    {{ form_errors(form) }}
 <div class="container post" id="{{node.id}}">
 
 <ul class="breadcrumb">
@@ -97,6 +97,13 @@
 <div class="tabbable">
     <ul class="nav nav-tabs" id="langTab">
 
+        <!-- default locale -->
+
+
+        <li class="active">
+            <a href="#{{form.translations.vars.default_locale[0]}}" data-toggle="tab">{{icon | raw}} {{getLocaleName(form.translations.vars.default_locale[0],  app.request.locale  ) | capitalize }}</a>
+        </li>
+
 
         {% for locale in form_locales %}
 
@@ -122,8 +129,41 @@
     </ul>
 </div>
 
+
+
+
 <div class="tab-content">
 
+
+    <!-- default locale -->
+
+    <div class="tab-pane x active " id="{{form.translations.vars.default_locale[0]}}">
+
+        <fieldset>
+            <div class=" well control-group">
+                <div class="row-fluid">
+
+                        <div class="span9">
+
+                            {{ form_label( form.name , 'title' | lower | trans , {'attr': {'class': 'input-xxlarge' }})
+                            }}
+                            {{ form_widget(form.name,  {'attr': {'class': 'input-xxlarge'}})}}
+
+                            {{ form_label( form.header , 'header' | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
+                            }}
+                            {{ form_widget(form.header,  {'attr': {'class': 'input-xxlarge'}})}}
+
+
+                            {{ form_label( form.description , 'content' | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
+                            }}
+                            {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge text-area-high'}})}}
+
+                        </div>
+                </div>
+            </div>
+        </fieldset>
+
+    </div>
 
     {% for locale in form_locales %}
 
