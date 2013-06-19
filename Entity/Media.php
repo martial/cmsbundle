@@ -39,7 +39,7 @@
         public $id;
 
         /**
-         * @ORM\Column(type="string", length=255, nullable=true)
+         * @ORM\Column(type="text", length=4096, nullable=true)
          *
          */
         public $name;
@@ -59,8 +59,6 @@
          * @ORM\ManyToMany(targetEntity="scrclub\CMSBundle\Entity\MediaSet", mappedBy="medias" , cascade={"persist"} )
          */
         protected $mediaSets;
-
-
 
 
         public function setName($name) {
