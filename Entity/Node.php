@@ -36,6 +36,7 @@ class Node
         $this->translations = new ArrayCollection();
         $this->mediasets = new ArrayCollection();
         $this->mediaNodes = new ArrayCollection();
+        $this->categories = new ArrayCollection();
     }
 
     /**
@@ -657,11 +658,11 @@ class Node
     public function removeCategory(\scrclub\CMSBundle\Entity\Category $category)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
-        $this->mediasets->removeElement($category);
+        $this->categories->removeElement($category);
     }
 
     public function setCategories($categories) {
-        $this->mediasets = $categories;
+        $this->categories = $categories;
     }
 
     public function getCategories() {
