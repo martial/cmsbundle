@@ -30,7 +30,7 @@
             $em = $this->getDoctrine()->getManager();
 
             $query = $repo->getRootNodesQueryBuilder();
-            $query->andWhere("node.type = 'node'");
+            //$query->andWhere("node.type = 'node'");
             $result = $query->getQuery()->getResult();
 
             // add config
@@ -145,16 +145,18 @@
                 $em = $this->getDoctrine()->getManager();
                 $repo = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node');
 
+
                 foreach ($tree['data'] as $branch) {
 
                     if ($branch['item_id'] != 'null') {
 
-                        $node = $em->getRepository('scrclub\CMSBundle\Entity\Node')->findOneById($branch['item_id']);
-                        $nodeParent = $em->getRepository('scrclub\CMSBundle\Entity\Node')->findOneById($branch['parent_id']);
+                        $node       = $repo->findOneById($branch['item_id']);
+                        $nodeParent = $repo->findOneById($branch['parent_id']);
 
                         if ($node) {
 
-                            if ($nodeParent) $node->setParent($nodeParent); else
+                            if ($nodeParent) $node->setParent($nodeParent);
+                                else
                                 $node->setParent(null);
 
                             $node->setLft($branch['left']);
@@ -163,9 +165,7 @@
                             $em->persist($node);
 
                         }
-
                     }
-
                 }
 
                 $em->flush();
