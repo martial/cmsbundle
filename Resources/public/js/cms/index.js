@@ -86,12 +86,14 @@ $(document).ready(function () {
 
             var arraied = $('.sortable').nestedSortable('toArray', {startDepthCount:0});
 
+
             $.ajax({
                 type   :'post',
                 cache  :false,
                 url    :Routing.generate('scrclub_cms_editnodetree', {_locale:locale}),
                 data   :{data:arraied},
                 success:function (data) {
+
 
                 }
 

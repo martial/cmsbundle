@@ -4,9 +4,7 @@
 
 {% block body %}
 
-{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/edit-post.js' filter='yui_js'  output='js/compiled/cms.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
+
 
 <div class="container">
 
@@ -59,11 +57,12 @@
 <!-- /container -->
 
 
-<script src="{{ asset('js/jquery.mjs.nestedSortable.js') }}"></script>
 
 <script>
 
     $(document).ready(function () {
+
+
 
 
         $('.sortable').nestedSortable({
@@ -71,11 +70,12 @@
             handle              :   'div',
             helper              :   'clone',
             items               :   'li',
-            rootID              :   'root',
+            rootID              :   {{ nodeParent.id }},
             opacity             :   1,
             tolerance           :   'pointer',
             placeholder         :   "placeholder",
             forcePlaceholderSize:   true,
+            protectRoot         : true,
 
             update              :   function (event, ui) {
 
@@ -155,6 +155,9 @@
                     url  :'{{ path('scrclub_cms_updateActiveNode')}}',
                     data :result,
                     success: function(data){
+
+                        console.log(data);
+
                         //newAlert("success", "{{ 'update.success' | trans }}");
                     }
                 });
