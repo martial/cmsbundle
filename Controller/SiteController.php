@@ -81,6 +81,8 @@
             return $langs;
         }
 
+
+
         public function getAnalytics() {
 
             $em = $this->getDoctrine()->getManager();
