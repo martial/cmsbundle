@@ -33,10 +33,13 @@ class Node
 
     public function __construct()
     {
+
+        $this->date                = new \Datetime;
+       // $this->date         = $date->format('Y-m-d H:i:s');
         $this->translations = new ArrayCollection();
-        $this->mediasets = new ArrayCollection();
-        $this->mediaNodes = new ArrayCollection();
-        $this->categories = new ArrayCollection();
+        $this->mediasets    = new ArrayCollection();
+        $this->mediaNodes   = new ArrayCollection();
+        $this->categories   = new ArrayCollection();
     }
 
     /**
@@ -75,19 +78,7 @@ class Node
      */
     protected $autocontent;
 
-    /**
-     * @param int $forcechild
-     */
-    public function setAutocontent($autocontent) {
-        $this->autocontent = $autocontent;
-    }
 
-    /**
-     * @return int
-     */
-    public function getAutocontent() {
-        return $this->autocontent;
-    }
 
     /**
      * @var string $name
@@ -104,19 +95,7 @@ class Node
      */
     protected $header;
 
-    /**
-     * @param string $header
-     */
-    public function setHeader($header) {
-        $this->header = $header;
-    }
 
-    /**
-     * @return string
-     */
-    public function getHeader() {
-        return $this->header;
-    }
 
     /**
      * @var string $description
@@ -125,6 +104,24 @@ class Node
      */
     protected $description;
 
+    /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $date;
+
+    /**
+     * @param mixed $date
+     */
+    public function setDate($date) {
+        $this->date = $date;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDate() {
+        return $this->date;
+    }
 
 
     /**
@@ -352,7 +349,7 @@ class Node
         return $this->active;
     }
 
-    /**
+    /*
      * Set title
      *
      * @param string $title
@@ -365,7 +362,7 @@ class Node
         return $this;
     }
 
-    /**
+    /*
      * Get title
      *
      * @return string 
@@ -738,6 +735,34 @@ class Node
     public function removeChildren(\scrclub\CMSBundle\Entity\Node $children)
     {
         $this->children->removeElement($children);
+    }
+
+    /**
+     * @param string $header
+     */
+    public function setHeader($header) {
+        $this->header = $header;
+    }
+
+    /**
+     * @return string
+     */
+    public function getHeader() {
+        return $this->header;
+    }
+
+    /*
+     * @param int $forcechild
+     */
+    public function setAutocontent($autocontent) {
+        $this->autocontent = $autocontent;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAutocontent() {
+        return $this->autocontent;
     }
 
 

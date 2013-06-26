@@ -48,7 +48,7 @@ scrclub_cms_post:
                 _locale: en|fr|es
 
 scrclub_cms_addpost:
-    pattern:  /{_locale}/addpost/{parent_id}/{id}
+    pattern:  /backend/{_locale}/addpost/{parent_id}/{id}
     defaults: { _controller: scrclubCMSBundle:Nodes:addPost, id:null }
     requirements:
                 _locale: en|fr|es
