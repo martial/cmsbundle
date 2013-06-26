@@ -2,7 +2,7 @@
 
 {% block body %}
 
-{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/mediaset.js' filter='yui_js'  output='js/compiled/mediaset.js' %})
+{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/mediaset.js' filter='yui_js'  output='js/compiled/mediaset.js' %}
 <script src="{{ asset_url }}"></script>
 {% endjavascripts %}
 
@@ -70,20 +70,28 @@
 {% endif %}
 
 <form action="{{ formPath }}" method="post" {{ form_enctype(form) }} novalidate>
-{{ form_widget(form.type)}}
+
 
 <div class="row-fluid page-header">
-    <div class="featurette pull-right">
+    <div class="featurette  span10">
 
 
-        <div id="active_box_button" class="switch switch-small">
+        <div id="active_box_button" class="switch switch-small span1">
             {{ form_widget(form.active, { 'attr': {'id': 'active_box'} }) }}
         </div>
 
-        <span class="right-caret-btn"></span>
+        <div  class="span2">
+            {{ form_widget(form.date) }}
+        </div>
+
+        <!--
+        <span class="right-caret-bt"></span>
+        <div  class=" span1">
         <a alt="{{node.fullslug}}" href="#">
             <button class="btn"><i class="icon-search"> {{node.fullslug}}</i></button>
         </a>
+        </div>
+        -->
 
     </div>
 </div>

@@ -76,10 +76,10 @@ class NodeType extends AbstractType
 
         ))
 
-        ->add('type', 'hidden', array(
-                'data' => 'node',
-            )
-        )
+        ->add('date', 'date', array(
+                'widget' => 'single_text',
+                'format' => 'yyyy-MM-dd',
+        ))
 
 
         ->add('latitude', 'hidden', array('required' => true))

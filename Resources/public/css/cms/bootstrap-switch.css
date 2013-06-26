@@ -96,10 +96,13 @@
 }
 /* line 94, ../sass/bootstrap-switch.scss */
 .switch span.switch-small, .switch label.switch-small {
-  padding-bottom: 3px;
-  padding-top: 3px;
+
   font-size: 12px;
+    /*
   line-height: 18px;
+    padding-bottom: 3px;
+    padding-top: 3px;
+    */
 }
 /* line 101, ../sass/bootstrap-switch.scss */
 .switch span.switch-large, .switch label.switch-large {
