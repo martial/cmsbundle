@@ -31,14 +31,14 @@ class Config
     /**
      * @var string
      *
-     * @ORM\Column(name="metakey", type="string", length=255, nullable=true)
+     * @ORM\Column(name="metakey", type="string", length=4096, nullable=true)
      */
     private $metakey;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="metadescr", type="string", length=255, nullable=true)
+     * @ORM\Column(name="metadescr", type="string", length=4096, nullable=true)
      */
     private $metadescr;
 
