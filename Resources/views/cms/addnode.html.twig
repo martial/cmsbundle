@@ -96,7 +96,7 @@
     </div>
 </div>
 
-<!------------- Translatable  --------------->
+<!------------- Translatable ahou --------------->
 
 {% set form_locales = form.translations.vars.locales %}
 {% set fields = form.translations.fields %}
@@ -114,27 +114,25 @@
 
 
         {% for locale in form_locales %}
-        {%  if (form.translations.vars.default_locale[0]  != locale) %}
 
-        {% set icon = '' %}
+            {% set icon = '' %}
 
-        {% if (form.translations.vars.default_locale[0] != locale)%}
-        {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
-
-        {% if (translationForm.name.get('value') == "") %}
-
-        {% set icon = '<i class="icon-warning-sign"></i>' %}
-
-        {% endif %}
-
-        {% endfor %}
-        {% endif %}
-        {% endif %}
+            {% if (form.translations.vars.default_locale[0] != locale)%}
 
 
-        <li class="{% if (form.translations.vars.default_locale[0] == locale) %} active {% endif %}">
-            <a href="#{{locale}}" data-toggle="tab">{{icon | raw}} {{getLocaleName(locale,  app.request.locale  ) | capitalize }}</a>
-        </li>
+                {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
+
+                    {% if (translationForm.name.get('value') == "") %}
+                        {% set icon = '<i class="icon-warning-sign"></i>' %}
+                    {% endif %}
+
+                {% endfor %}
+
+
+                <li class="{% if (form.translations.vars.default_locale[0] == locale) %} active {% endif %}">
+                    <a href="#{{locale}}" data-toggle="tab">{{icon | raw}} {{getLocaleName(locale,  app.request.locale  ) | capitalize }}</a>
+                </li>
+            {% endif %}
         {% endfor %}
     </ul>
 </div>
@@ -185,7 +183,7 @@
                 <div class="row-fluid">
 
 
-                    {%  if (form.translations.vars.default_locale[0]  != locale) %}
+                    {%  if (form.translations.vars.default_locale[0]  is not locale) %}
                     {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
 
                     <div class="span9">
