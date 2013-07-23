@@ -203,7 +203,7 @@
         {
             $ch = curl_init();
             curl_setopt($ch, CURLOPT_URL, "https://www.google.com/accounts/ClientLogin");
-            curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+            //curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
 
             $data = array('accountType' => 'GOOGLE',
                           'Email' => $this->login,
