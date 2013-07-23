@@ -114,7 +114,7 @@
 
 
         {% for locale in form_locales %}
-
+        {%  if (form.translations.vars.default_locale[0]  != locale) %}
 
         {% set icon = '' %}
 
@@ -125,6 +125,7 @@
 
         {% set icon = '<i class="icon-warning-sign"></i>' %}
 
+        {% endif %}
         {% endif %}
         {% endfor %}
         {% endif %}
