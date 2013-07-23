@@ -183,7 +183,7 @@
                 <div class="row-fluid">
 
 
-                    {%  if (form.translations.vars.default_locale[0]  is not locale) %}
+                    {%  if (form.translations.vars.default_locale[0]  != locale) %}
                     {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
 
                     <div class="span9">
