@@ -182,28 +182,8 @@
             <div class=" well control-group">
                 <div class="row-fluid">
 
-                    {% if (form.translations.vars.default_locale[0] == locale) %}
 
-                    <div class="span9">
-
-                        {{ form_label( form.name , 'title' | lower | trans , {'attr': {'class': 'input-xxlarge' }})
-                        }}
-                        {{ form_widget(form.name,  {'attr': {'class': 'input-xxlarge'}})}}
-
-                        {{ form_label( form.header , 'header' | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
-                        }}
-                        {{ form_widget(form.header,  {'attr': {'class': 'input-xxlarge'}})}}
-
-
-                        {{ form_label( form.description , 'content' | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
-                        }}
-                        {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge text-area-high'}})}}
-
-
-                    </div>
-
-                    {% else %}
-
+                    {%  if (form.translations.vars.default_locale[0]  != locale) %}
                     {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
 
                     <div class="span9">
