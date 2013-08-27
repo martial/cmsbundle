@@ -74,6 +74,10 @@
                 $node = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node')->find($id);
 
                 if (!$node) throw $this->createNotFoundException('Unable to find Node entity.');
+                $defaultLocale = $lang_repo->getDefaultLocale($langs);
+
+                $node->setTranslatableLocale($defaultLocale->getLocale());
+
 
                 //$node->setTranslatableLocale($locale);
 
@@ -271,6 +275,9 @@
             if (isset($id)) {
 
                 $post = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Post')->find($id);
+                $defaultLocale = $lang_repo->getDefaultLocale($langs);
+
+                $post->setTranslatableLocale($defaultLocale->getLocale());
 
                 // get categories before
                 $originalCategories = $post->getCategories();
@@ -296,6 +303,8 @@
                     $em = $this->getDoctrine()->getManager();
                     $post->setSlug('');
                     $post->setType('post');
+
+
 
                     $em->persist($post);
 

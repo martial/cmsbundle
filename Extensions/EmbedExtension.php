@@ -85,7 +85,7 @@
 
                 case "youtube" :
 
-                    $result = '<iframe id="ytplayer" type="text/html" width="'.$width.'" height="'.$height.'" src="http://www.youtube.com/embed/'.$doc->getEmbedId().'?autoplay='.$autoplay.'" frameborder="0"/>';
+                    $result = '<iframe id="ytplayer" type="text/html" width="'.$width.'" height="'.$height.'" src="http://www.youtube.com/embed/'.$doc->getEmbedId().'?autoplay='.$autoplay.'" frameborder="0"/></iframe>';
                     break;
 
                 case "vimeo" :

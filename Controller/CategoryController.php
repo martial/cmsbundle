@@ -64,6 +64,8 @@
                 if (!$category) {
                     throw $this->createNotFoundException('Unable to find Category entity.');
                 }
+                $defaultLocale = $lang_repo->getDefaultLocale($langs);
+                $category->setTranslatableLocale($defaultLocale->getLocale());
 
             }
 

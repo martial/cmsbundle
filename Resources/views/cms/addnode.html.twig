@@ -2,89 +2,89 @@
 
 {% block body %}
 
-{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/mediaset.js' filter='yui_js'  output='js/compiled/mediaset.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
+    {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/mediaset.js' filter='yui_js'  output='js/compiled/mediaset.js' %}
+    <script src="{{ asset_url }}" xmlns="http://www.w3.org/1999/html"></script>
+    {% endjavascripts %}
 
-<script>
+    <script>
 
-    var translations = {
+        var translations = {
 
-        "upload.drag": "{{ 'upload.drag'| trans }} ",
-        "embed.files": "{{ 'embed.files'| trans }} ",
-        "choose.category": "{{ 'choose.category'| trans }} ",
-        "add.mediaset": "{{ 'add.mediaset'| trans }} "
+            "upload.drag"    : "{{ 'upload.drag'| trans }} ",
+            "embed.files"    : "{{ 'embed.files'| trans }} ",
+            "choose.category": "{{ 'choose.category'| trans }} ",
+            "add.mediaset"   : "{{ 'add.mediaset'| trans }} "
 
-    }
+        }
 
-</script>
+    </script>
 
-{% javascripts '@scrclubCMSBundle/Resources/public/js/cms/edit-post.js' filter='yui_js'  output='js/compiled/edit-post.js' %}
-<script src="{{ asset_url }}"></script>
-{% endjavascripts %}
+    {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/edit-post.js' filter='yui_js'  output='js/compiled/edit-post.js' %}
+    <script src="{{ asset_url }}"></script>
+    {% endjavascripts %}
 
 
     {{ form_errors(form) }}
-<div class="container post" id="{{node.id}}">
+    <div class="container post" id="{{ node.id }}">
 
-<ul class="breadcrumb">
-<li><a href="{{  path('scrclub_cms_homepage')}}">Home</a> <span class="divider">/</span></li>
-{% if node.parent  %}{% include 'scrclubCMSBundle:cms:node_nav.html.twig' with {'node':node.parent, 'level':0 } %}{% endif %}
-</ul>
+    <ul class="breadcrumb">
+        <li><a href="{{ path('scrclub_cms_homepage') }}">Home</a> <span class="divider">/</span></li>
+        {% if node.parent %}{% include 'scrclubCMSBundle:cms:node_nav.html.twig' with {'node':node.parent, 'level':0 } %}{% endif %}
+    </ul>
 
-{% if node.type == "post" %}
-{% set titleType = "post"  %}
-{% elseif node.type == "node " %}
-{% set titleType = "article"  %}
-{% endif %}
+    {% if node.type == "post" %}
+        {% set titleType = "post" %}
+    {% elseif node.type == "node " %}
+        {% set titleType = "article" %}
+    {% endif %}
 
-<div class="featurette">
-    <h2 class="featurette-heading">{{ 'edit'| trans }} {{ titleType | trans }} /
-        <div class="muted featurette-sub-heading">{{ node.name }}</div>
-    </h2>
-</div>
-
-<hr class="featurette-divider">
-
-<!------------- Errors --------------->
-
-{% if form.get('errors') is not empty %}
-<div class="row-fluid page-header">
     <div class="featurette">
-        <div class="alert alert-error">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Error!</strong> {{form_errors(form)}}
-        </div>
+        <h2 class="featurette-heading">{{ 'edit'| trans }} {{ titleType | trans }} /
+            <div class="muted featurette-sub-heading">{{ node.name }}</div>
+        </h2>
     </div>
-</div>
-{% endif %}
 
-<!------------- Global properties --------------->
+    <hr class="featurette-divider">
 
+    <!------------- Errors --------------->
 
-
-{% if node.type =='node' %}
-{% set formPath = path('scrclub_cms_addnode', {'id': node.id }) %}
-{% elseif node.type =='post' %}
-{% set formPath = path('scrclub_cms_addpost', { 'parent_id' : parent_id, 'id': node.id }) %}
-{% endif %}
-
-<form action="{{ formPath }}" method="post" {{ form_enctype(form) }} novalidate>
-
-
-<div class="row-fluid page-header">
-    <div class="featurette  span10">
-
-
-        <div id="active_box_button" class="switch switch-small span1">
-            {{ form_widget(form.active, { 'attr': {'id': 'active_box'} }) }}
+    {% if form.get('errors') is not empty %}
+        <div class="row-fluid page-header">
+            <div class="featurette">
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Error!</strong> {{ form_errors(form) }}
+                </div>
+            </div>
         </div>
+    {% endif %}
 
-        <div  class="span2">
-            {{ form_widget(form.date) }}
-        </div>
+    <!------------- Global properties --------------->
 
-        <!--
+
+
+    {% if node.type =='node' %}
+        {% set formPath = path('scrclub_cms_addnode', {'id': node.id }) %}
+    {% elseif node.type =='post' %}
+        {% set formPath = path('scrclub_cms_addpost', { 'parent_id' : parent_id, 'id': node.id }) %}
+    {% endif %}
+
+    <form action="{{ formPath }}" method="post" {{ form_enctype(form) }} novalidate>
+
+
+    <div class="row-fluid page-header">
+        <div class="featurette  span10">
+
+
+            <div id="active_box_button" class="switch switch-small span1">
+                {{ form_widget(form.active, { 'attr': {'id': 'active_box'} }) }}
+            </div>
+
+            <div class="span2">
+                {{ form_widget(form.date) }}
+            </div>
+
+            <!--
         <span class="right-caret-bt"></span>
         <div  class=" span1">
         <a alt="{{node.fullslug}}" href="#">
@@ -93,421 +93,538 @@
         </div>
         -->
 
+        </div>
     </div>
-</div>
 
-<!------------- Translatable ahou --------------->
+    <!------------- Translatable ahou --------------->
 
-{% set form_locales = form.translations.vars.locales %}
-{% set fields = form.translations.fields %}
+    {% set form_locales = form.translations.vars.locales %}
+    {% set fields = form.translations.fields %}
 
 
-<div class="tabbable">
-    <ul class="nav nav-tabs" id="langTab">
+    <div class="tabbable">
+        <ul class="nav nav-tabs" id="langTab">
+
+            <!-- default locale -->
+
+
+            <li class="active">
+                <a href="#{{ form.translations.vars.default_locale[0] }}" data-toggle="tab">{{ icon | raw }} {{ getLocaleName(form.translations.vars.default_locale[0],  app.request.locale  ) | capitalize }}</a>
+            </li>
+
+
+            {% for locale in form_locales %}
+
+                {% set icon = '' %}
+
+                {% if (form.translations.vars.default_locale[0] != locale) %}
+
+
+                    {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
+
+                        {% if (translationForm.name.get('value') == "") %}
+                            {% set icon = '<i class="icon-warning-sign"></i>' %}
+                        {% endif %}
+
+                    {% endfor %}
+
+
+                    <li class="{% if (form.translations.vars.default_locale[0] == locale) %} active {% endif %}">
+                        <a href="#{{ locale }}" data-toggle="tab">{{ icon | raw }} {{ getLocaleName(locale,  app.request.locale  ) | capitalize }}</a>
+                    </li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <div class="tab-content">
+
 
         <!-- default locale -->
 
+        <div class="tab-pane x active " id="{{ form.translations.vars.default_locale[0] }}">
 
-        <li class="active">
-            <a href="#{{form.translations.vars.default_locale[0]}}" data-toggle="tab">{{icon | raw}} {{getLocaleName(form.translations.vars.default_locale[0],  app.request.locale  ) | capitalize }}</a>
-        </li>
-
-
-        {% for locale in form_locales %}
-
-            {% set icon = '' %}
-
-            {% if (form.translations.vars.default_locale[0] != locale)%}
-
-
-                {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
-
-                    {% if (translationForm.name.get('value') == "") %}
-                        {% set icon = '<i class="icon-warning-sign"></i>' %}
-                    {% endif %}
-
-                {% endfor %}
-
-
-                <li class="{% if (form.translations.vars.default_locale[0] == locale) %} active {% endif %}">
-                    <a href="#{{locale}}" data-toggle="tab">{{icon | raw}} {{getLocaleName(locale,  app.request.locale  ) | capitalize }}</a>
-                </li>
-            {% endif %}
-        {% endfor %}
-    </ul>
-</div>
-
-
-
-
-<div class="tab-content">
-
-
-    <!-- default locale -->
-
-    <div class="tab-pane x active " id="{{form.translations.vars.default_locale[0]}}">
-
-        <fieldset>
-            <div class=" well control-group">
-                <div class="row-fluid">
+            <fieldset>
+                <div class=" well control-group">
+                    <div class="row-fluid">
 
                         <div class="span9">
 
                             {{ form_label( form.name , 'title' | lower | trans , {'attr': {'class': 'input-xxlarge' }})
                             }}
-                            {{ form_widget(form.name,  {'attr': {'class': 'input-xxlarge'}})}}
+                            {{ form_widget(form.name,  {'attr': {'class': 'input-xxlarge' }})}}
 
-                            {{ form_label( form.header , 'header' | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
+                            {{ form_label( form.header , 'header' | lower | trans  , {'attr': {'class': 'input-xxlarge' }}
+                            )
                             }}
-                            {{ form_widget(form.header,  {'attr': {'class': 'input-xxlarge'}})}}
+                            {{ form_widget(form.header,  {'attr': {'class': 'input-xxlarge text-area-high' }})}}
 
 
-                            {{ form_label( form.description , 'content' | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
+                            {{ form_label( form.description , 'content' | lower | trans  , {'attr': {'class': 'input-xxlarge' }}
+                            )
                             }}
-                            {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge text-area-high'}})}}
+                            {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge text-area-high' }})}}
 
                         </div>
-                </div>
-            </div>
-        </fieldset>
-
-    </div>
-
-    {% for locale in form_locales %}
-
-
-    <div class="tab-pane x {% if (form.translations.vars.default_locale[0]  == locale) %} active {% endif %}" id="{{locale}}">
-
-        <fieldset>
-            <div class=" well control-group">
-                <div class="row-fluid">
-
-
-                    {%  if (form.translations.vars.default_locale[0]  != locale) %}
-                    {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
-
-                    <div class="span9">
-
-                        {% for f in translationForm.children %}
-
-                        {{ form_label( f , f.name | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
-                        }}
-
-                        {%  set className = "input-xxlarge" %}
-                        {%  if f.name == "description" %}
-                        {%  set className = "input-xxlarge text-area-high" %}
-                        {%  endif %}
-
-                        {{ form_widget(f,  {'attr': {'class': className}})}}
-
-                        {% endfor %}
-
                     </div>
-
-
-                    {% endfor %}
-
-                    {% endif %}
-
                 </div>
-            </div>
-        </fieldset>
-
-    </div>
-    <script type="text/javascript">
-        $(function () {
-
-            $('#scrclub_cmsbundle_{{node.type}}type_translations_{{locale}}_description').wysihtml5({"html": true});
-
-            $('#scrclub_cmsbundle_{{node.type}}type_translations_{{locale}}_header').wysihtml5({"html": true});
-
-            //scrclub_cmsbundle_nodetype_translations_en_header
-        })
-    </script>
-
-    {% endfor %}
-</div>
-
-<!------------- Template  --------------->
-
-<div class="navbar">
-    <div class="navbar-inner">
-        <a class="brand" href="#">{{ 'template.settings'| trans  }}</a>
-    </div>
-</div>
-
-<fieldset>
-    <div class=" well control-group">
-        <div class="row-fluid">
-
-            <div class="span3">
-                <label>{{ 'force.article'| trans  }}</label>
-
-                <div id="auto_content_button" class="switch switch-small">
-                    {{ form_widget(form.auto_content, { 'attr': {'id': 'auto_content_box'} }) }}
-                </div>
-
-
-            </div>
-
-            <div class="span3">
-                <label>{{ 'layouts'| trans  }}</label>
-                {{ form_widget(form.template)}}
-            </div>
-
-
-            {%  if node.type == 'node' %}
-            <div class="span3">
-                <label>{{ 'layoutsDefaultChild'| trans  }}</label>
-                {{ form_widget(form.templateDefaultChild)}}
-            </div>
-            {% endif %}
-
-
-
-            <div class="span3">
-                <label>&nbsp;</label>
-                <button type="submit" class="btn btn-primary">Preview</button>
-            </div>
-
+            </fieldset>
 
         </div>
-    </div>
+
+        {% for locale in form_locales %}
 
 
-</fieldset>
+            <div class="tab-pane x {% if (form.translations.vars.default_locale[0]  == locale) %} active {% endif %}" id="{{ locale }}">
 
-<!------------- Categories and media sets  --------------->
-
-
-<div class="navbar">
-    <div class="navbar-inner">
-        <a class="brand" href="#">{{ 'categories.mediaset'| trans | capitalize }}</a>
-        <ul class="nav" id="mediaset-add-tab">
-            <li class="active" ><a href="#category-menu">{{ 'categories'| trans  }}</a></li>
-            <li><a href="#mediaset-menu">{{ 'mediasets'| trans | capitalize }}</a></li>
-            <li><a href="#geolocation" onclick="javascript: clickgeo();return false;">{{ 'Géolocalisation' }}</a></li>
-        </ul>
-    </div>
-</div>
-<div class="tab-content">
-
-    <div class="tab-pane active" id="category-menu">
-
-        <fieldset>
-            <div class=" well control-group">
-
-                {{ form_widget(form.categories, { 'attr': {'class': 'input-xlarge populate placeholder category-select'}, 'empty_value': '' }) }}
-
-            </div>
-        </fieldset>
-
-    </div>
-
-    <div class="tab-pane" id="mediaset-menu">
-
-        <fieldset>
-            <div class=" well control-group">
-                {{ form_widget(form.mediasets, { 'attr': {'class': 'input-xlarge populate placeholder mediaset-select'}, 'empty_value': '' }) }}
-            </div>
-        </fieldset>
-
-    </div>
-
-    <div class="tab-pane" id="geolocation">
-
-        <fieldset>
-            <div class="well control-group">
-                <!------------- Geolocation --------------->
-
-                {{ form_widget(form.latitude) }}
-
-                {{ form_widget(form.longitude) }}
-                <!--
-                <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-                -->
-                <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
-                {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/geolocation.js' filter='yui_js'  output='js/compiled/geolocation.js' %}
-                <script src="{{ asset_url }}"></script>
-                {% endjavascripts %}
-
-                <div id="panel" class="row-fluid">
+                <fieldset>
+                    <div class=" well control-group">
+                        <div class="row-fluid">
 
 
-                    <input id="searchTextField" type="text" size="50" class="span3">
-                    <input id="btn_geoloc" type="button" class="btn span3" value="Obtenir position géographique" onclick="getPosition()">
-                </div>
-                <div id="map-canvas" class="row-fluid"></div>
-                <br></br>
-            </div>
-        </fieldset>
-    </div>
-</div>
+                            {% if (form.translations.vars.default_locale[0]  != locale) %}
+                                {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
+
+                                    <div class="span9">
+
+                                        {% for f in translationForm.children %}
+
+                                            {{ form_label( f , f.name | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
+                                            }}
+
+                                            {% set className = "input-xxlarge" %}
+                                            {% if f.name == "description" or f.name == "header" %}
+                                                {% set className = "input-xxlarge text-area-high" %}
+                                            {% endif %}
+
+                                            {{ form_widget(f,  {'attr': {'class': className }})}}
+
+                                        {% endfor %}
+
+                                    </div>
 
 
-<hr>
+                                {% endfor %}
 
-<!------------- Medias  --------------->
+                            {% endif %}
 
-{% if  node.id and node.mediasets | length > 0 %}
-
-
-<fieldset>
-    <div class="navbar">
-        <div class="navbar-inner">
-            <a class="brand" href="#">{{ 'mediasets'| trans | capitalize }}</a>
-            <ul class="nav" id="mediaset-tab">
-                {% for mediaset in node.mediasets %}
-                <li {% if loop.first %}class="active" {% endif %}>
-                    <a href="#mediaset-{{mediaset.id}}">{{ mediaset.name }}</a></li>
-                {% endfor %}
-            </ul>
-        </div>
-    </div>
-
-
-
-    <div class="tab-content">
-        {% for mediaset in node.mediasets %}
-
-        <div class="tab-pane {% if loop.first %}active{% endif %}" id="mediaset-{{mediaset.id}}">
-
-            <ul class="nav nav-tabs">
-                <li {% if loop.first %} class="active" {% endif %} >
-                    <a href="#mediaset-node-{{mediaset.id}}" data-toggle="tab">{{ "your.post" | trans }}</a></li>
-                <li><a href="#mediaset-all-{{mediaset.id}}" data-toggle="tab">{{ "mediaset.all" | trans }}</a></li>
-            </ul>
-
-            <div class="tab-content">
-
-                <div class="tab-pane active" id="mediaset-node-{{mediaset.id}}">
-
-                    <ul class="media-post-container sortable-thumb thumbnails ">
-
-                        {% for mediaNode in node.getMediaNodes() %}
-                        {% if contains(mediaset, mediaNode.media.getMediaSets() ) %}
-                        {% include 'scrclubCMSBundle:cms:list_image.html.twig' with {'mediaNode':mediaNode, 'mediaset':mediaset} %}
-                        {% endif %}
-                        {% endfor %}
-
-                    </ul>
-                </div>
-
-
-                <div class="tab-pane " id="mediaset-all-{{mediaset.id}}">
-                    <div class="row">
-                        <div id="mediaset-upload-{{mediaset.id}}" class="span12"></div>
-
+                        </div>
                     </div>
-                    <hr>
+                </fieldset>
 
-
-                    <ul class="media-scroll-container thumbnails ">
-
-                        {% for media in mediaset.medias %}
-
-                        {% include 'scrclubCMSBundle:cms:list_image_mediaset.html.twig' with {'media':media, 'mediaset':mediaset, 'addPostLink':true} %}
-
-                        {% endfor %}
-
-
-                    </ul>
-                </div>
             </div>
-        </div>
+            <script type="text/javascript">
+                $(function () {
+
+                    $('#scrclub_cmsbundle_{{node.type}}type_translations_{{locale}}_description').wysihtml5({"html": true});
+
+                    $('#scrclub_cmsbundle_{{node.type}}type_translations_{{locale}}_header').wysihtml5({"html": true});
+
+                    //scrclub_cmsbundle_nodetype_translations_en_header
+                })
+            </script>
+
         {% endfor %}
     </div>
 
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">{{ 'dates'| trans }}</a>
+            <ul class="nav" id="mediaset-add-tab">
+                <li class=""><a href="#" id="add-date"><i class="icon-plus"></i> {% trans %}add.date{% endtrans %}</a></li>
 
-</fieldset>
-
-{%  elseif not node.id  %}
-
-
-<div class="alert alert-info">
-    <i class=" icon-exclamation-sign"></i> {{ 'validate.post.media.notice'| trans  }}
-</div>
-
-{%  endif %}
-
-
-<div>
-
-    <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
-    {{ form_widget(form._token) }}
-</div>
-
-</form>
-
-
-<!------------- Modal --------------->
-
-
-<div id="media-edit-modal" class="modal hide fade ">
-    <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h3>Edit Image </h3>
+            </ul>
+        </div>
     </div>
-    <div class="modal-body">
+
+
+    <div id="date-fields-list" data-prototype="{{ form_widget(form.dates.vars.prototype) | e }}">
+
+        {% for date in form.dates %}
+
+        <fieldset>
+
+            <div class=" well control-group">
+                <div class="row-fluid">
+
+                        <div class="span3">
+                            {{ form_widget(date.dateStart) }}
+                        </div>
+
+                        <div class="span3">
+                            {{ form_widget(date.dateEnd) }}
+                        </div>
+
+                        <div class="span3" id="date-{{ date.vars.value.id }}">
+                            <div  class="btn btn-primary delete-date">Delete</div>
+                        </div>
+                </div>
+            </div>
+
+        </fieldset>
+
+        {% endfor %}
+
 
     </div>
-    <div class="modal-footer">
-        <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
-        <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{% trans %}save.changes{% endtrans %}</button>
+
+
+    <!------------- Template  --------------->
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">{{ 'template.settings'| trans }}</a>
+        </div>
     </div>
-</div>
 
-</div>
-<!-- /container -->
+    <fieldset>
+        <div class=" well control-group">
+            <div class="row-fluid">
+
+                <div class="span3">
+                    <label>{{ 'force.article'| trans }}</label>
+
+                    <div id="auto_content_button" class="switch switch-small">
+                        {{ form_widget(form.auto_content, { 'attr': {'id': 'auto_content_box'} }) }}
+                    </div>
+
+
+                </div>
+
+                <div class="span3">
+                    <label>{{ 'layouts'| trans }}</label>
+                    {{ form_widget(form.template) }}
+                </div>
+
+
+                {% if node.type == 'node' %}
+                    <div class="span3">
+                        <label>{{ 'layoutsDefaultChild'| trans }}</label>
+                        {{ form_widget(form.templateDefaultChild) }}
+                    </div>
+                {% endif %}
 
 
 
-<script type="text/javascript">
+                <div class="span3">
+                    <label>&nbsp;</label>
+                    <button type="submit" class="btn btn-primary">Preview</button>
+                </div>
 
-    {% if  node.id %}
-    {% for mediaset in node.mediasets %}
-    createUploader({{mediaset.id}});
-    {% endfor %}
+
+            </div>
+        </div>
+
+
+    </fieldset>
+
+    <!------------- Categories and media sets  --------------->
+
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">{{ 'categories.mediaset'| trans | capitalize }}</a>
+            <ul class="nav" id="mediaset-add-tab">
+
+                <li class="active"><a href="#category-menu">{{ 'categories'| trans }}</a></li>
+                <li><a href="#mediaset-menu">{{ 'mediasets'| trans | capitalize }}</a></li>
+                <li><a href="#geolocation" onclick="javascript: clickgeo();return false;">{{ 'Géolocalisation' }}</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="tab-content">
+
+        <div class="tab-pane active" id="category-menu">
+
+            <fieldset>
+                <div class=" well control-group">
+
+                    {{ form_widget(form.categories, { 'attr': {'class': 'input-xlarge populate placeholder category-select'}, 'empty_value': '' }) }}
+
+                </div>
+            </fieldset>
+
+        </div>
+
+        <div class="tab-pane" id="mediaset-menu">
+
+            <fieldset>
+                <div class=" well control-group">
+                    {{ form_widget(form.mediasets, { 'attr': {'class': 'input-xlarge populate placeholder mediaset-select'}, 'empty_value': '' }) }}
+                </div>
+            </fieldset>
+
+        </div>
+
+        <div class="tab-pane" id="geolocation">
+
+            <fieldset>
+                <div class="well control-group">
+                    <!------------- Geolocation --------------->
+
+                    {{ form_widget(form.latitude) }}
+
+                    {{ form_widget(form.longitude) }}
+                    <!--
+                    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+                    -->
+                    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
+                    {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/geolocation.js' filter='yui_js'  output='js/compiled/geolocation.js' %}
+                    <script src="{{ asset_url }}"></script>
+                    {% endjavascripts %}
+
+                    <div id="panel" class="row-fluid">
+
+
+                        <input id="searchTextField" type="text" size="50" class="span3">
+                        <input id="btn_geoloc" type="button" class="btn span3" value="Obtenir position géographique" onclick="getPosition()">
+                    </div>
+                    <div id="map-canvas" class="row-fluid"></div>
+                    <br></br>
+                </div>
+            </fieldset>
+        </div>
+    </div>
+
+
+    <hr>
+
+    <!------------- Medias  --------------->
+
+    {% if  node.id and node.mediasets | length > 0 %}
+
+
+        <fieldset>
+            <div class="navbar">
+                <div class="navbar-inner">
+                    <a class="brand" href="#">{{ 'mediasets'| trans | capitalize }}</a>
+                    <ul class="nav" id="mediaset-tab">
+                        {% for mediaset in node.mediasets %}
+                            <li {% if loop.first %}class="active" {% endif %}>
+                                <a href="#mediaset-{{ mediaset.id }}">{{ mediaset.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+
+
+            <div class="tab-content">
+                {% for mediaset in node.mediasets %}
+
+                    <div class="tab-pane {% if loop.first %}active{% endif %}" id="mediaset-{{ mediaset.id }}">
+
+                        <ul class="nav nav-tabs">
+                            <li {% if loop.first %} class="active" {% endif %} >
+                                <a href="#mediaset-node-{{ mediaset.id }}" data-toggle="tab">{{ "your.post" | trans }}</a>
+                            </li>
+                            <li>
+                                <a href="#mediaset-all-{{ mediaset.id }}" data-toggle="tab">{{ "mediaset.all" | trans }}</a>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content">
+
+                            <div class="tab-pane active" id="mediaset-node-{{ mediaset.id }}">
+
+                                <ul class="media-post-container sortable-thumb thumbnails ">
+
+                                    {% for mediaNode in node.getMediaNodes() %}
+                                        {% if contains(mediaset, mediaNode.media.getMediaSets() ) %}
+                                            {% include 'scrclubCMSBundle:cms:list_image.html.twig' with {'mediaNode':mediaNode, 'mediaset':mediaset} %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                </ul>
+                            </div>
+
+
+                            <div class="tab-pane " id="mediaset-all-{{ mediaset.id }}">
+                                <div class="row">
+                                    <div id="mediaset-upload-{{ mediaset.id }}" class="span12"></div>
+
+                                </div>
+                                <hr>
+
+
+                                <ul class="media-scroll-container thumbnails ">
+
+                                    {% for media in mediaset.medias %}
+
+                                        {% include 'scrclubCMSBundle:cms:list_image_mediaset.html.twig' with {'media':media, 'mediaset':mediaset, 'addPostLink':true} %}
+
+                                    {% endfor %}
+
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+
+
+        </fieldset>
+
+
+
+
+    {% elseif not node.id %}
+
+
+        <div class="alert alert-info">
+            <i class=" icon-exclamation-sign"></i> {{ 'validate.post.media.notice'| trans }}
+        </div>
+
     {% endif %}
 
-    $(function () {
 
-        $('#scrclub_cmsbundle_{{node.type}}type_description').wysihtml5({"html": true});
-        $('#scrclub_cmsbundle_{{node.type}}type_header').wysihtml5({"html": true});
+    <div>
+
+        <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}
+            save.changes{% endtrans %}</button>
+        {{ form_widget(form._token) }}
+    </div>
+
+    </form>
 
 
-        // google maps
-        initialize();
-        {% if node.latitude %}
-        setPosition({{ node.latitude}}, {{ node.longitude }});
-        {% else %}
-        getPosition();
+    <!------------- Modal --------------->
+
+
+    <div id="media-edit-modal" class="modal hide fade ">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h3>Edit Image </h3>
+        </div>
+        <div class="modal-body">
+
+        </div>
+        <div class="modal-footer">
+            <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
+            <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{% trans %}
+                save.changes{% endtrans %}</button>
+        </div>
+    </div>
+
+    </div>
+    <!-- /container -->
+
+
+
+    <script type="text/javascript">
+
+        {% if  node.id %}
+        {% for mediaset in node.mediasets %}
+        createUploader({{mediaset.id}});
+        {% endfor %}
         {% endif %}
-        $("#googlemaps_input").select2({placeholder:"maps"});
+
+        $(function () {
+
+            $('#scrclub_cmsbundle_{{node.type}}type_description').wysihtml5({"html": true});
+            $('#scrclub_cmsbundle_{{node.type}}type_header').wysihtml5({"html": true});
+
+            // google maps
+            initialize();
+            {% if node.latitude %}
+            setPosition({{ node.latitude}}, {{ node.longitude }});
+            {% else %}
+            getPosition();
+            {% endif %}
+            $("#googlemaps_input").select2({placeholder: "maps"});
+
+        })
+
+        function clickgeo() {
+
+            setTimeout(
+                    function () {
+                        initialize();
+                        {% if node.latitude %}
+                        setPosition({{ node.latitude}}, {{ node.longitude }});
+                        {% else %}
+                        getPosition();
+                        {% endif %}
+                    }, 1);
+
+        }
+
+
+        assignDeleteDates();
+
+        function assignDeleteDates() {
 
 
 
-    })
+            $(".delete-date").unbind("click");
+            $(".delete-date").click(function () {
 
 
-    function clickgeo(){
+                var container = $(this).parents("fieldset");
+                var id = $(this).parent().attr("id");
+                var splits = id.split("-");
+                id = splits[1];
 
-        setTimeout(
-                function()
-                {
-                    initialize();
-                    {% if node.latitude %}
-                    setPosition({{ node.latitude}}, {{ node.longitude }});
-                    {% else %}
-                    getPosition();
-                    {% endif %}
-                }, 1);
+                console.log(container)
 
-    }
+                $.ajax({
+                    type: "POST",
+                    url: "{{ path('scrclub_cms_deletedate') }}/"+id,
+                    success: function () {
+
+                        container.hide("400", function () {
+
+                            container.remove()
+
+                        })
 
 
+                    }
 
-</script>
+
+                });
+
+
+            })
+
+        }
+
+        var dateCount = {{ form.dates | length }}
+                jQuery('#add-date').click(function () {
+
+                    var productList = jQuery('#date-fields-list');
+
+                    var newWidget = productList.attr('data-prototype');
+
+                    newWidget = newWidget.replace(/__name__/g, dateCount);
+                    dateCount++;
+
+                    var jQueryWidget = $(newWidget);
+
+                    jQueryWidget.find(".wrap-span3").parent().addClass('span3');
+                    jQueryWidget.find(".wrap-push-span3").parent().addClass('span3 push');
+                    jQueryWidget.find("ul").parent().parent().addClass('span4');
+                    jQueryWidget.find("ul").addClass('nav nav-tabs');
+
+
+                    // créer une nouvelle liste d'éléments et l'ajoute à notre liste
+
+                    $('<fieldset><div class=" well control-group">' +
+                            '<div class="row-fluid">' + jQueryWidget.html() +
+                            '<div class="span3">' +
+                            '<label>&nbsp;</label>'+
+                            '<div  id="date-delete" class="delete-date btn btn-primary">Delete</div>' +
+                            '</div></div></div></fieldset>').insertAfter('#date-fields-list');
+
+                    //jQueryWidget.wrap("<tr />").appendTo(jQuery('#products-fields-list > tbody'));
+
+                    return false;
+                });
+
+
+    </script>
 
 
 

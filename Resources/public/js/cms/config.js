@@ -6,9 +6,10 @@ $(document).ready(function () {
     );
 
 
-
+    $('#submit_lang').unbind("click");
     $('#submit_lang').click(function () {
         updateLangs();
+
     })
 
 });
@@ -16,7 +17,9 @@ $(document).ready(function () {
 function updateLangs() {
 
 
+
     var langValues = $("#lang_combo").val() || [];
+
 
     $.ajax({
         type   :'post',

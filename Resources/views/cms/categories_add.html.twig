@@ -22,6 +22,12 @@
         <ul class="nav nav-tabs" id="langTab">
 
 
+
+
+            <li class="active">
+                <a href="#{{form.translations.vars.default_locale[0]}}" data-toggle="tab">{{icon | raw}} {{getLocaleName(form.translations.vars.default_locale[0],  app.request.locale  ) | capitalize }}</a>
+            </li>
+
             {% for locale in form_locales %}
 
 
@@ -48,6 +54,35 @@
 
     <div class="tab-content">
 
+
+        <div class="tab-pane x {% if (app.request.locale == locale) %} active {% endif %}" id="{{form.translations.vars.default_locale[0]}}">
+
+            <fieldset>
+                <div class=" well control-group">
+                    <div class="row-fluid">
+
+
+                            <div class="span9">
+
+                                {{ form_label( form.name , 'name' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                                }}
+                                {{ form_widget(form.name,  {'attr': {'class': 'input-xxlarge'}})}}
+
+
+                                {{ form_label( form.description , 'description' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})
+                                }}
+                                {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge'}})}}
+
+
+                            </div>
+
+
+
+                    </div>
+                </div>
+            </fieldset>
+
+        </div>
 
         {% for locale in form_locales %}
 

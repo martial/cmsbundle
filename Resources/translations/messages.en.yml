@@ -75,6 +75,10 @@ actions: Actions
 category: category
 
 add.media.post: Add to post
+add.date: Add date
+
+date.start: Start
+date.end: End
 
 categories.mediaset: Extra
 

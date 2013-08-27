@@ -138,7 +138,13 @@ scrclub_cms_charts:
 
 
 
-
+scrclub_cms_deletedate:
+    pattern:  /backend/ddeletedate/{id}
+    defaults: { _controller: scrclubCMSBundle:Date:delete, id:null }
+    requirements:
+                _locale: en|fr|es
+    options:
+              expose: true
 
 
 

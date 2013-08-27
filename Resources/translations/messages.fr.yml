@@ -74,6 +74,9 @@ actions: Actions
 category: catégorie
 
 add.media.post: Ajouter à l'article
+add.date: Ajouter date
+date.start: Début
+date.end: Fin
 
 categories.mediaset: Extra
 
