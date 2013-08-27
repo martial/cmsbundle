@@ -14,6 +14,19 @@ use Symfony\Component\Locale\Locale;
 class LangsRepository extends EntityRepository
 {
 
+        public function getDefaultLocale ($all = NULL) {
+
+            foreach ($all as $l) {
+
+                if($l->getDefault()) return $l;
+
+            }
+
+            return NULL;
+
+
+        }
+
         public function getLocales ($all = NULL) {
 
             if ( !isset($all)) {

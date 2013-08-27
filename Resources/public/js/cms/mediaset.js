@@ -72,9 +72,15 @@ function assignNodeToMedia() {
     $('.add-media-post').unbind('click');
     $('.add-media-post').each(function () {
 
-        $(this).click(function () {
+        $(this).click(function (event) {
+
+
             //console.log("click");
+            event.preventDefault();
             addMedia($(this));
+
+
+            return false;
         });
 
     });

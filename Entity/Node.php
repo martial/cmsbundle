@@ -35,6 +35,7 @@ class Node
     {
 
         $this->date                = new \Datetime;
+        $this->dates     =   new ArrayCollection();
        // $this->date         = $date->format('Y-m-d H:i:s');
         $this->translations = new ArrayCollection();
         $this->mediasets    = new ArrayCollection();
@@ -191,6 +192,12 @@ class Node
      * @ORM\JoinColumn()
      */
     protected $template;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="scrclub\CMSBundle\Entity\Date", cascade={"persist"})
+     * @ORM\JoinColumn()
+     */
+    protected $dates;
 
     /**
      * @ORM\ManyToOne(targetEntity="scrclub\CMSBundle\Entity\Template")
@@ -477,6 +484,8 @@ class Node
         }
     }
 
+
+
     /**
      * Remove translation
      *
@@ -566,11 +575,7 @@ class Node
         $this->medias[] = $media;
     }
 
-    /**
-     * Remove categories
-     *
-     * @param scrClub\CMSBundle\Entity\MediaSet $categories
-     */
+
     public function removeMedia(\scrclub\CMSBundle\Entity\Media $media)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
@@ -594,11 +599,7 @@ class Node
         $this->mediasets[] = $mediaset;
     }
 
-    /**
-     * Remove categories
-     *
-     * @param scrClub\CMSBundle\Entity\MediaSet $categories
-     */
+
     public function removeMediaSet(\scrclub\CMSBundle\Entity\MediaSet $mediaset)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
@@ -620,11 +621,6 @@ class Node
         $this->mediaNodes[] = $mediaNode;
     }
 
-    /**
-     * Remove categories
-     *
-     * @param scrClub\CMSBundle\Entity\MediaSet $categories
-     */
     public function removemediaNode(\scrclub\CMSBundle\Entity\MediaNode $mediaNode)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
@@ -647,11 +643,7 @@ class Node
         $this->categories[] = $category;
     }
 
-    /**
-     * Remove categories
-     *
-     * @param scrClub\CMSBundle\Entity\Category $category
-     */
+
     public function removeCategory(\scrclub\CMSBundle\Entity\Category $category)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
@@ -666,6 +658,31 @@ class Node
         return $this->categories;
     }
 
+
+    public function addDate(\scrclub\CMSBundle\Entity\Date $date)
+    {
+        // Ici, on utilise l'ArrayCollection vraiment comme un tableau, avec la syntaxe []
+        $this->dates[] = $date;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param scrClub\CMSBundle\Entity\MediaSet $categories
+     */
+    public function removeDate(\scrclub\CMSBundle\Entity\Date $date)
+    {
+        // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
+        $this->medias->removeElement($date);
+    }
+
+    public function setDates($dates) {
+        $this->dates = $dates;
+    }
+
+    public function getDates() {
+        return $this->dates;
+    }
 
 
     /**

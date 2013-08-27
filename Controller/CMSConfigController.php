@@ -98,6 +98,7 @@
 
                         $lang = new Langs();
                         $lang->setLocale($locale);
+                        $lang->setDefault(false);
                         $em->persist($lang);
 
                     }

@@ -81,6 +81,13 @@ class NodeType extends AbstractType
                 'format' => 'yyyy-MM-dd',
         ))
 
+        ->add('dates', 'collection', array(
+            'type'         => new DateType($this->langrepo),
+            'allow_add'    => true,
+            'allow_delete' => true,
+            'prototype'    => true,
+        ))
+
 
         ->add('latitude', 'hidden', array('required' => true))
         ->add('longitude', 'hidden', array('required' => true))
