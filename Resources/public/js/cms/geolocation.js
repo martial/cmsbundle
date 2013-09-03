@@ -17,7 +17,7 @@ function success(position) {
 };
 
 function error() {
-    console.log("Unable to retrieve your location");
+    //console.log("Unable to retrieve your location");
 };
 
 function getPosition() {
@@ -41,7 +41,7 @@ function getNewPosition(input) {
             codeLatLng(latitude, longitude);
         }
         else {
-            alert("Geocoder failed due to: " + status);
+            //alert("Geocoder failed due to: " + status);
         }
         setPosition(latitude, longitude);
     });
@@ -100,10 +100,13 @@ function autoComplete() {
                 (place.address_components[2] && place.address_components[2].short_name || '')
             ].join(' ');
         }
-        getNewPosition(input);
+        console.log(place);
+        //getNewPosition(input);
+        setPosition(place.geometry.location.ob, place.geometry.location.pb);
     });
     autocomplete.setTypes([]);
 }
+
 
 function codeLatLng(latitude, longitude) {
     var latlng = new google.maps.LatLng(latitude, longitude);
@@ -126,7 +129,7 @@ function codeLatLng(latitude, longitude) {
                 alert('No results found');
             }
         } else {
-            alert('Geocoder failed due to: ' + status);
+           // alert('Geocoder failed due to: ' + status);
         }
     });
 

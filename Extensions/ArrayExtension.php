@@ -16,7 +16,7 @@
             return array(
                 'in_array' => new \Twig_Function_Method($this, 'in_array'),
                 'contains' => new \Twig_Function_Method($this, 'contains'),
-                'shuffleFunc' => new \Twig_Function_Method($this, 'shuffleFunc')
+
             );
         }
 
@@ -24,11 +24,22 @@
 
             return array(
 
-                'shuffle' => new \Twig_Filter_Method($this, 'shuffle')
+                'shuffle' => new \Twig_Filter_Method($this, 'shuffle'),
+                'active' => new \Twig_Filter_Method($this, 'active')
             );
 
         }
 
+        public function active($nodes)
+        {
+            for ($i=$nodes->count() - 1; $i >=0 ; $i--) {
+                    if (!$nodes[$i]->getActive()) {
+                        unset($nodes[$i]);
+                    }
+            }
+            return $nodes;
+
+        }
 
         public function in_array($needle, $array )
         {
@@ -37,12 +48,6 @@
         }
 
         
-        public function shuffleFunc($array) {
-	        
-	        return (object)shuffle((array)$array);
-
-
-        }
 
 
         public function shuffle($array) {
