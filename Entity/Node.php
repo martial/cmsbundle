@@ -259,7 +259,7 @@ class Node
     /**
      * @var string
      *
-     * @ORM\Column(name="latitude", type="string", length=255, nullable=true)
+     * @ORM\Column(name="latitude", type="string", length=1024, nullable=true)
      */
     private $latitude;
 
@@ -282,7 +282,7 @@ class Node
     /**
      * @var string
      *
-     * @ORM\Column(name="longitude", type="string", length=255, nullable=true)
+     * @ORM\Column(name="longitude", type="string", length=1024, nullable=true)
      */
     private $longitude;
 

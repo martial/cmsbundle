@@ -2,6 +2,7 @@
 
     namespace scrclub\CMSBundle\Controller;
 
+    use Doctrine\ORM\Query;
     use scrclub\CMSBundle\Entity\Node;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -18,6 +19,8 @@
 
         }
 
+
+
         public function getRootNodes($addPosts = false) {
 
             // get nodes
@@ -26,13 +29,15 @@
 
             $query = $repo->getRootNodesQueryBuilder();
             if(!$addPosts ) $query->andWhere("node.type = 'node'");
-            $query->andWhere("node.active = '1'");
-            $rootnodes = $result = $query->getQuery()->getResult();
+            $query->andWhere("node.active = 1");
+
+            $result = $query->getQuery()->getResult();
 
             return $result;
 
 
         }
+
 
         public function getLastPosts($limit = 10) {
 
