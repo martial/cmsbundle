@@ -17,7 +17,15 @@
 
     <div class="featurette">
         <h2 class="featurette-heading">{{ 'section'| trans | capitalize }} {{ nodeParent.name }}</h2>
-        <div class="muted featurette-sub-heading">{{tree | length}} {{ 'post'| trans  }}</div>
+        <div class="muted featurette-sub-heading">
+
+            {% if  tree | length == 1 %}
+                {% set articles = 'post'| trans  %}
+                {% else %}
+                {% set articles = 'posts'| trans  %}
+            {% endif %}
+            {{tree | length}} {{ articles  }}
+        </div>
     </div>
 
     <hr class="featurette-divider">

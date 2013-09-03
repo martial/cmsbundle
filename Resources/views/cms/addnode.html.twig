@@ -379,10 +379,10 @@
 
 
                         <input id="searchTextField" type="text" size="50" class="span3">
-                        <input id="btn_geoloc" type="button" class="btn span3" value="Obtenir position géographique" onclick="getPosition()">
+                        <input id="btn_geoloc" type="button" class="btn span3" value="{{ "search.location" | trans }}" onclick="getPosition()">
                     </div>
                     <div id="map-canvas" class="row-fluid"></div>
-                    <br></br>
+                    <br><br>
                 </div>
             </fieldset>
         </div>
@@ -564,10 +564,19 @@
 
                 var container = $(this).parents("fieldset");
                 var id = $(this).parent().attr("id");
+
+                if(!id) {
+                    container.hide("400", function () {
+
+                        container.remove();
+
+                    })
+                    return;
+                }
+
                 var splits = id.split("-");
                 id = splits[1];
 
-                console.log(container)
 
                 $.ajax({
                     type: "POST",
@@ -611,14 +620,21 @@
 
                     // créer une nouvelle liste d'éléments et l'ajoute à notre liste
 
-                    $('<fieldset><div class=" well control-group">' +
+                    var input = $('<fieldset><div class=" well control-group">' +
                             '<div class="row-fluid">' + jQueryWidget.html() +
                             '<div class="span3">' +
                             '<label>&nbsp;</label>'+
                             '<div  id="date-delete" class="delete-date btn btn-primary">Delete</div>' +
                             '</div></div></div></fieldset>').insertAfter('#date-fields-list');
 
+                    input.css("display", "none");
+                    input.show("200");
+
+
+
                     //jQueryWidget.wrap("<tr />").appendTo(jQuery('#products-fields-list > tbody'));
+
+                    assignDeleteDates();
 
                     return false;
                 });
