@@ -68,6 +68,8 @@ $(function () {
     assignRemoveAction();
     assignNodeToMedia();
 
+
+
 });
 
 

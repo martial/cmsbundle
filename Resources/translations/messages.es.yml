@@ -1,5 +1,6 @@
 sections: Section
 post: articulo
+posts: articulos
 categories: Categorias
 langs: Idiomas
 configuration: Configuracion
@@ -81,6 +82,8 @@ date.start: Start
 date.end: End
 
 categories.mediaset: Extra
+
+search.location: Buscar lugar actual
 
 currently: Ahora hay
 visitors.online: usuarios online.

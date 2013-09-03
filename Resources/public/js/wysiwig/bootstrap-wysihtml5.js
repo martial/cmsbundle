@@ -382,6 +382,8 @@
 
     $.fn.wysihtml5.Constructor = Wysihtml5;
 
+
+
     var defaultOptions = $.fn.wysihtml5.defaultOptions = {
         'font-styles': true,
         'color': false,
@@ -444,9 +446,13 @@
                 'div': 1
             }
         },
-        stylesheets: [assetPath + '/css/wysiwig/wysiwyg-color.css'], // (path_to_project/lib/css/wysiwyg-color.css)
+        stylesheets: [bundlePath + '/css/wysiwig/wysiwyg-color.css'], // (path_to_project/lib/css/wysiwyg-color.css)
         locale: 'en'
+
+
     };
+
+
 
     if (typeof $.fn.wysihtml5.defaultOptionsCache === 'undefined') {
         $.fn.wysihtml5.defaultOptionsCache = $.extend(true, {}, $.fn.wysihtml5.defaultOptions);

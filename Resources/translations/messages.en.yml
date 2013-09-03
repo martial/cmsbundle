@@ -1,5 +1,6 @@
 sections: Sections
 post: post
+posts: posts
 categories: Categories
 langs: Langs
 configuration: Settings
@@ -69,6 +70,8 @@ mediaset.all: All mediaset
 
 upload.drag: Upload / Drag files
 embed.files: Embed external document
+
+search.location: Search current localisation
 
 actions: Actions
 

@@ -1,5 +1,6 @@
 sections: Sections
 post: article
+posts: articles
 categories: Catégories
 langs: Langues
 configuration: Configuration
@@ -40,8 +41,8 @@ choose.category: Ajouter une catégorie
 add.mediaset: Ajouter un set de média
 alert.validate.lang: Attention ! Changer les langues peut effacer des articles que déja traduits !
 alert.minimum.lang: Il faut une langue minimum !
-alert.default.lang: Quelle est votre langue par défaut du coup ?
-wannado.this: Vous êtes bien sur ? Heing ?
+alert.default.lang: Quelle est votre langue par défaut  ?
+wannado.this: Êtes vous sur de bien vouloir faire cela ?
 
 edit.section: Éditer section
 title: Titre
@@ -79,6 +80,8 @@ date.start: Début
 date.end: Fin
 
 categories.mediaset: Extra
+
+search.location: Obtenir localisation actuelle
 
 currently: Il y a
 visitors.online: visiteurs online.
