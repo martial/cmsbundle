@@ -2,6 +2,9 @@
 
     namespace scrclub\CMSBundle\Controller;
 
+    use scrclub\CMSBundle\Entity\Config;
+    use scrclub\CMSBundle\Entity\ContentTypeConfig;
+    use scrclub\CMSBundle\Form\ContentConfigType;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use scrclub\CMSBundle\Entity\Langs;
     use Symfony\Component\HttpFoundation\Response;
@@ -149,6 +152,58 @@
             $em->flush();
 
             return new Response('');
+
+        }
+
+        public function contentTypeAction () {
+
+            $em = $this->getDoctrine()->getManager();
+
+            $config = new Config();
+
+
+            // as there's one config only
+            // if exists - take the first one always
+            // if not that will create
+
+            $configs = $em->getRepository('scrclubCMSBundle:Config')->findAll();
+            if (isset($configs[0])) {
+                $config = $configs[0];
+            }
+
+
+            $form = $this->createFormBuilder($config)->add('contentTypeConfigs', 'collection', array(
+                'type' => new ContentConfigType(),
+                'allow_add' => true,
+                'by_reference' => false,
+            ))->getForm();
+
+
+            $request = $this->get('request');
+
+            // update if needed
+            if ($request->getMethod() == 'POST') {
+
+                $form->bind($request);
+
+                if ($form->isValid()) {
+                    $em = $this->getDoctrine()->getManager();
+                    $em->persist($config);
+                    $em->flush();
+
+                    //return $this->redirect($this->generateUrl('scrclub_cms_config'));
+                } else {
+
+                    var_dump($form->getErrorsAsString());
+                }
+
+            }
+
+            return $this->render('scrclubCMSBundle:cms:config_content_types.html.twig', array(
+                'config' => $config, 'form' => $form->createView()
+
+            ));
+
 
         }
 

@@ -479,11 +479,13 @@
 
     {% endif %}
 
+    {% for contentTypeForm in contentTypeForms %}
+        {{ form_widget(contentTypeForm) }}
+    {% endfor %}
 
     <div>
 
-        <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}
-            save.changes{% endtrans %}</button>
+        <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
         {{ form_widget(form._token) }}
     </div>
 
@@ -494,17 +496,17 @@
 
 
     <div id="media-edit-modal" class="modal hide fade ">
+
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3>Edit Image </h3>
         </div>
-        <div class="modal-body">
 
-        </div>
+        <div class="modal-body"></div>
+
         <div class="modal-footer">
             <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
-            <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{% trans %}
-                save.changes{% endtrans %}</button>
+            <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{% trans %}save.changes{% endtrans %}</button>
         </div>
     </div>
 

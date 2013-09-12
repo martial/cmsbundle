@@ -264,6 +264,13 @@ class Node
     private $latitude;
 
     /**
+     * @ORM\ManyToMany(targetEntity="ContentType", cascade={"persist"})
+     */
+    private $contentTypes;
+
+
+
+    /**
      * @param string $latitude
      */
     public function setLatitude($latitude)
@@ -673,7 +680,7 @@ class Node
     public function removeDate(\scrclub\CMSBundle\Entity\Date $date)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
-        $this->medias->removeElement($date);
+        $this->dates->removeElement($date);
     }
 
     public function setDates($dates) {
@@ -682,6 +689,30 @@ class Node
 
     public function getDates() {
         return $this->dates;
+    }
+
+
+    public function addContentType(ContentType $contentType)
+    {
+        $this->contentTypes[] = $contentType;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param scrClub\CMSBundle\Entity\MediaSet $categories
+     */
+    public function removeContentType(ContentType $contentType)
+    {
+        $this->contentTypes->removeElement($contentType);
+    }
+
+    public function setContentTypes($contentTypes) {
+        $this->contentTypes = $contentTypes;
+    }
+
+    public function getContentTypes() {
+        return $this->contentTypes;
     }
 
 

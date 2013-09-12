@@ -2,6 +2,9 @@
 
     namespace scrclub\CMSBundle\Controller;
 
+    use scrclub\CMSBundle\Entity\Config;
+    use scrclub\CMSBundle\Entity\TextContentType;
+    use scrclub\CMSBundle\Form\TextContentTypeType;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use scrclub\CMSBundle\Entity\Node;
     use scrclub\CMSBundle\Entity\Post;
@@ -261,6 +264,9 @@
             $post = new Post();
             $post->setType('post');
 
+
+
+
             $noderepo = $em->getRepository('scrclub\CMSBundle\Entity\Node');
             $node_parent = $noderepo->find($parent_id);
             $post->setParent($node_parent);
@@ -289,10 +295,9 @@
             $form = $this->createForm(new PostType($lang_repo, array(), $node_parent->getTemplateDefaultChild() ), $post);
 
 
+            // content types forms
+
             $request = $this->get('request');
-
-
-            // update if needed
 
             if ($request->getMethod() == 'POST') {
 
@@ -351,7 +356,14 @@
             $result = $repo->getRootNodes();
 
 
-            return $this->render('scrclubCMSBundle:cms:addnode.html.twig', array('node' => $post, 'form'=> $form->createView(), 'langs' => $langs, 'locale' => $locale, 'parent_id' => $parent_id, 'tree' => $result));
+            return $this->render('scrclubCMSBundle:cms:addnode.html.twig', array('node' => $post,
+                                                                                 'contentTypeForms' => $contentForms,
+                                                                                 'form'=> $form->createView(),
+                                                                                 'langs' => $langs,
+                                                                                 'locale' => $locale,
+                                                                                 'parent_id' => $parent_id,
+                                                                                 'tree' => $result
+                                                                                ));
 
         }
 
