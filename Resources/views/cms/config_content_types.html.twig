@@ -1,0 +1,74 @@
+{% extends "scrclubCMSBundle:cms:config.html.twig" %}
+
+{% block sub_body %}
+
+
+
+
+<form action="{{ path('scrclub_cms_contenttypeconfig') }}" method="post" {{ form_enctype(form) }}>
+<fieldset>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">{% trans %}content.types{% endtrans %}</a>
+        </div>
+    </div>
+    <div class=" well control-group">
+
+        <button class=" btn btn-primary " id="add_contentconfig">{% trans %}add{% endtrans %}</button>
+
+        <hr>
+
+
+
+        <ul class="nav nav-tabs nav-stacked  configs" data-prototype="{{ form_widget(form.contentTypeConfigs.vars.prototype)|e }}">
+
+            {% for contentTypeForm in form.contentTypeConfigs %}
+                <li >{{ form_widget(contentTypeForm)}}<hr></li>
+            {% endfor %}
+
+
+
+        </ul>
+
+
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary pull-right" id="validate_lang">{% trans %}save.changes{% endtrans %}</button>
+        </div>
+    </div>
+</fieldset>
+    {{ form_widget(form._token) }}
+    </form>
+
+
+    <script>
+
+        // Récupère le div qui contient la collection de tags
+        var collectionHolder = $('ul.configs');
+
+
+        jQuery(document).ready(function() {
+            // ajoute l'ancre « ajouter un tag » et li à la balise ul
+
+            $("#add_contentconfig").on('click', function(e) {
+                // empêche le lien de créer un « # » dans l'URL
+                e.preventDefault();
+
+                // ajoute un nouveau formulaire tag (voir le prochain bloc de code)
+                addContentTypeConfig(collectionHolder);
+            });
+        });
+
+        function addContentTypeConfig(collectionHolder) {
+
+            var prototype = collectionHolder.attr('data-prototype');
+            var newForm = prototype.replace(/__name__/g, collectionHolder.children().length);
+            var $newFormLi = $('<li></li>').append(newForm);
+            collectionHolder.append($newFormLi)
+
+        }
+
+
+    </script>
+
+
+{% endblock %}

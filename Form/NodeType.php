@@ -2,6 +2,7 @@
 
 namespace scrclub\CMSBundle\Form;
 
+use scrclub\CMSBundle\Entity\ContentType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -88,6 +89,11 @@ class NodeType extends AbstractType
             'prototype'    => true,
         ))
 
+        ->add('contentTypes', 'collection', array(
+            'type' => new ContentTypeType(),
+            'allow_add' => true,
+            'by_reference' => false,
+        ))
 
         ->add('latitude', 'hidden', array('required' => true))
         ->add('longitude', 'hidden', array('required' => true))

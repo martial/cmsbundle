@@ -2,6 +2,7 @@
 
 namespace scrclub\CMSBundle\Form;
 
+use scrclub\CMSBundle\Entity\ContentTypeConfig;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -22,6 +23,11 @@ class ConfigType extends AbstractType
             ->add('gg_analyticsid')
             ->add('gs_apikey')
             ->add('gs_sitetoken')
+            ->add('contentTypeConfigs', 'collection', array(
+                'type' => new ContentTypeConfig(),
+                'allow_add' => true,
+                'by_reference' => false,
+            ));
         ;
     }
 
