@@ -92,7 +92,6 @@
         </a>
         </div>
         -->
-
         </div>
     </div>
 
@@ -521,6 +520,10 @@
         </div>
 
     {% endif %}
+
+    {% for contentTypeForm in contentTypeForms %}
+        {{ form_widget(contentTypeForm) }}
+    {% endfor %}
 
 
 

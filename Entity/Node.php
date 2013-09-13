@@ -264,9 +264,11 @@ class Node
     private $latitude;
 
     /**
+
      * @ORM\ManyToMany(targetEntity="TextContentType", cascade={"persist"})
      */
     private $textContent;
+
 
 
 
@@ -688,7 +690,6 @@ class Node
 
 
 
-
     public function addTextContent(TextContentType $textContent)
     {
         $this->textContent[] = $textContent;
@@ -706,7 +707,9 @@ class Node
 
     public function getTextContent() {
         return $this->textContent;
+
     }
+
 
 
     /**
@@ -804,6 +807,19 @@ class Node
      */
     public function getAutocontent() {
         return $this->autocontent;
+    }
+
+    public function getExtraText($name) {
+
+        foreach($this->getTextContent() as $text ) {
+
+
+            if($text->getName() == $name)
+                return $text->getText();
+
+        }
+
+        return "";
     }
 
 
