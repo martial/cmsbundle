@@ -146,7 +146,11 @@ scrclub_cms_deletedate:
     options:
               expose: true
 
-
+scrclub_cms_contenttypeconfig:
+    pattern:  /backend/settings/contenttype
+    defaults: { _controller: scrclubCMSBundle:CMSConfig:contentType, id:null }
+    requirements:
+     _locale: en|fr|es
 
 
 scrclubCMSBundle_backend_media:

@@ -3,15 +3,9 @@
 namespace scrclub\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
-use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
-
-
-use Gedmo\Translatable\Translatable;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
+
 
 /**
  * Category
@@ -19,14 +13,16 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  * @ORM\Table()
  * @ORM\Entity
  * @ORM\Entity(repositoryClass="scrclub\CMSBundle\Entity\ContentTypeRepository")
+ * @ORM\InheritanceType("JOINED")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
  */
 
-class ContentType
+class TextContentType extends ContentType
 {
 
     public function __construct()
     {
-
+        $this->setType("text");
 
     }
 
@@ -37,65 +33,32 @@ class ContentType
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
+
 
     /**
-     * @param string $description
+     * @var string
+     * @Gedmo\Translatable
+     * @ORM\Column(name="text", type="text", nullable=true)
      */
-    public function setDescription($description) {
-        $this->description = $description;
+
+    private $text;
+
+
+    /**
+     * @param string $text
+     */
+    public function setText($text) {
+        $this->text = $text;
     }
 
     /**
      * @return string
      */
-    public function getDescription() {
-        return $this->description;
+    public function getText() {
+        return $this->text;
     }
 
-    /**
-     * @param int $id
-     */
-    public function setId($id) {
-        $this->id = $id;
-    }
-
-    /**
-     * @return int
-     */
-    public function getId() {
-        return $this->id;
-    }
-
-    /**
-     * @param string $name
-     */
-    public function setName($name) {
-        $this->name = $name;
-    }
-
-    /**
-     * @return string
-     */
-    public function getName() {
-        return $this->name;
-    }
-
-    /**
-     * @var string
-     *
-     * @Gedmo\Translatable
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
-     *
-     */
-    private $name;
-
-    /**
-     * @var string
-     * @Gedmo\Translatable
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    private $description;
 
 
 

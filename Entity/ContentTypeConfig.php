@@ -3,46 +3,21 @@
 namespace scrclub\CMSBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-
-use Doctrine\Common\Collections\ArrayCollection;
 use Gedmo\Mapping\Annotation as Gedmo;
-
-
-use Gedmo\Translatable\Translatable;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Mapping\ClassMetadata;
-use Symfony\Component\Validator\Constraints\NotBlank;
+
 
 /**
- * Category
+ * ContentTypeConfig
  *
  * @ORM\Table()
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="scrclub\CMSBundle\Entity\ContentTypeRepository")
- * @ORM\InheritanceType("JOINED")
- * @Gedmo\TranslationEntity(class="scrclub\CMSBundle\Entity\Translation\ContentTypeTranslation")
- * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"textContentType" = "TextContentType" })
  */
 
-class ContentType
+class ContentTypeConfig
 {
 
-    public function __construct()
-    {
-
-        $this->translations = new ArrayCollection();
-
-    }
-
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
-     */
-    protected $id;
+    public function __construct() {}
 
     /**
      * @param string $description
@@ -87,28 +62,6 @@ class ContentType
     }
 
     /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
-     *
-     */
-    protected $name;
-
-    /**
-     * @var string
-     * @ORM\Column(name="description", type="text", nullable=true)
-     */
-    protected $description;
-
-    /**
-     * @var string
-     *
-     * @ORM\Column(name="name", type="string", length=255, nullable=true)
-     *
-     */
-    protected $type;
-
-    /**
      * @param string $type
      */
     public function setType($type) {
@@ -123,68 +76,34 @@ class ContentType
     }
 
     /**
-     * @ORM\OneToMany(
-     *  targetEntity="scrclub\CMSBundle\Entity\Translation\NodeTranslation",
-     *  mappedBy="object",
-     *  cascade={"persist", "remove"}
-     * )
-     * @Assert\Valid(deep = true)
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
-    protected $translations;
-
-
+    protected $id;
 
     /**
-     * Set translations
+     * @var string
+     * @ORM\Column(name="name", type="string", length=255, nullable=true)
      *
-     * @param ArrayCollection $translations
-     * @return Node
      */
-    public function setTranslations($translations)
-    {
-        foreach ($translations as $translation) {
-            $translation->setObject($this);
-        }
-        $this->translations = $translations;
-        return $this;
-    }
-
-
+    protected $name;
 
     /**
-     * Get translations
-     *
-     * @return ArrayCollection
+     * @var string
+     * @ORM\Column(name="description", type="text", nullable=true)
      */
-    public function getTranslations()
-    {
-        return $this->translations;
-    }
+    protected $description;
 
     /**
-     * Add translation
+     * @var string
+     * @ORM\Column(name="type", type="string", length=255, nullable=true)
      *
-     * @param ProductTranslation
      */
-    public function addTranslation($translation)
-    {
-        if ($translation->getContent()) {
-            $translation->setObject($this);
-            $this->translations->add($translation);
-        }
-    }
+    protected $type;
 
-
-
-    /**
-     * Remove translation
-     *
-     * @param ProductTranslation
-     */
-    public function removeTranslation($translation)
-    {
-        $this->translations->removeElement($translation);
-    }
 
 
 

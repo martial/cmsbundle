@@ -2,6 +2,8 @@
 
 namespace scrclub\CMSBundle\Form;
 
+use scrclub\CMSBundle\Entity\ContentType;
+use scrclub\CMSBundle\Entity\TextContentType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -88,6 +90,11 @@ class NodeType extends AbstractType
             'prototype'    => true,
         ))
 
+        ->add('textContent', 'collection', array(
+            'type' => new TextContentTypeType($this->langrepo),
+            'allow_add' => true,
+            'by_reference' => false,
+        ))
 
         ->add('latitude', 'hidden', array('required' => true))
         ->add('longitude', 'hidden', array('required' => true))
