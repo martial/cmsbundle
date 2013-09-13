@@ -1,0 +1,33 @@
+{% extends "scrclubCMSBundle:cms:config.html.twig" %}
+
+{% block sub_body %}
+
+
+<form action="{{ path('update_langs') }}" method="post" {{ form_enctype(form) }}>
+<fieldset>
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">{% trans %}your.site{% endtrans %}</a>
+        </div>
+    </div>
+    <div class=" well control-group">
+
+        {{ form_label( form.sitename , 'sitename' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})}}
+        {{form_widget(form.sitename)}}
+
+        <hr>
+
+        {{ form_label( form.metakey , 'metakey' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})}}
+        {{form_widget(form.metakey)}}
+
+        {{ form_label( form.metadescr , 'metadescr' | lower | trans | capitalize , {'attr': {'class': 'input-xxlarge' }})}}
+        {{form_widget(form.metadescr)}}
+        {{ form_widget(form._token) }}
+        <div class="form-actions">
+            <button type="submit" class=" btn btn-primary pull-right" id="validate_lang">{% trans %}save.changes{% endtrans %}</button>
+        </div>
+    </div>
+</fieldset>
+</form>
+
+{% endblock %}
