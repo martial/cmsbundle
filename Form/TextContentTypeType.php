@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class TextContentTypeType extends AbstractType
 {
 
+
     function __construct(\scrclub\CMSBundle\Entity\LangsRepository $langrepo) {
 
         $this->langrepo         = $langrepo;

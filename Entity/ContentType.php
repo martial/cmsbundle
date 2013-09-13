@@ -67,6 +67,8 @@ class ContentType
      */
     protected $type;
 
+
+
     /**
      * @ORM\OneToMany(
      *  targetEntity="scrclub\CMSBundle\Entity\Translation\ContentTypeTranslation",

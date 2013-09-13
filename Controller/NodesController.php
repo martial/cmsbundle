@@ -270,7 +270,7 @@
             $configs = $em->getRepository('scrclubCMSBundle:Config')->findAll();
             if (isset($configs[0])) {
                 $config = $configs[0];
-            }
+
 
 
             $noderepo = $em->getRepository('scrclub\CMSBundle\Entity\Node');
@@ -297,6 +297,7 @@
             }
 
             $noderepo->getMediaSetsRecursive($post);
+
 
 
 
@@ -328,8 +329,6 @@
 
             $form = $this->createForm(new PostType($lang_repo, array(), $node_parent->getTemplateDefaultChild() ), $post);
 
-
-            // content types forms
 
             $request = $this->get('request');
 
@@ -402,5 +401,7 @@
 
 
 
+
+    }
 
     }
