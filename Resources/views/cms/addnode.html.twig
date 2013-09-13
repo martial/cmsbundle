@@ -257,7 +257,7 @@
                         </div>
 
                         <div class="span3" id="date-{{ date.vars.value.id }}">
-                            <div  class="btn btn-primary delete-date">Delete</div>
+                            <div class="btn btn-primary delete-date">Delete</div>
                         </div>
                 </div>
             </div>
@@ -268,6 +268,49 @@
 
 
     </div>
+
+    {% if form.textContent is not empty %}
+
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">{{ 'Text content'| trans }}</a>
+            <ul class="nav" id="mediaset-add-tab">
+                {% for textContentForm in form.textContent %}
+                <li ><a href="#textcontent-{{ textContentForm.vars.value.id }}">{{ textContentForm.vars.value.name }}</a></li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+
+    <div class="tab-content">
+    {% for textContentForm in form.textContent %}
+        <div class="tab-pane " id="textcontent-{{ textContentForm.vars.value.id }}">
+            <div id="add-textcontent-{{ textContentForm.vars.value.id }}">
+                    <fieldset>
+                        <div class=" well control-group">
+                            <div class="row-fluid">
+
+                              
+
+                                <span class="label">{{form.translations.vars.default_locale[0]}}  </span>
+                                {{ form_widget(textContentForm.text) }}
+                                <hr>
+                                {% for translationForm in textContentForm.translations  %}
+                                <span class="label">{{ translationForm.vars.name }}  </span>
+                                    {{ form_widget(translationForm.text) }}
+                                {% endfor %}
+                            </div>
+                        </div>
+                </fieldset>
+            </div>
+        </div>
+        {% endfor %}
+
+
+    </div>
+
+    {%  endif %}
+
 
 
     <!------------- Template  --------------->
@@ -480,10 +523,10 @@
     {% endif %}
 
 
+
     <div>
 
-        <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}
-            save.changes{% endtrans %}</button>
+        <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
         {{ form_widget(form._token) }}
     </div>
 
@@ -494,17 +537,17 @@
 
 
     <div id="media-edit-modal" class="modal hide fade ">
+
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
             <h3>Edit Image </h3>
         </div>
-        <div class="modal-body">
 
-        </div>
+        <div class="modal-body"></div>
+
         <div class="modal-footer">
             <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
-            <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{% trans %}
-                save.changes{% endtrans %}</button>
+            <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{% trans %}save.changes{% endtrans %}</button>
         </div>
     </div>
 

@@ -78,6 +78,13 @@ class Config
     private $gs_sitetoken;
 
 
+
+    /**
+     * @ORM\ManyToMany(targetEntity="ContentTypeConfig", cascade={"persist"})
+     */
+    private $contentTypeConfigs;
+
+
     /**
      * Get id
      *
@@ -235,4 +242,30 @@ class Config
     public function getMetakey() {
         return $this->metakey;
     }
+
+
+    public function addContentTypeConfig(\scrclub\CMSBundle\Entity\ContentTypeConfig $contentTypeConfig)
+    {
+        $this->contentTypeConfigs[] = $contentTypeConfig;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param scrClub\CMSBundle\Entity\MediaSet $categories
+     */
+    public function removeContentTypeConfig(\scrclub\CMSBundle\Entity\ContentTypeConfig $contentTypeConfig)
+    {
+        // Ici on contentTypes une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
+        $this->contentTypeConfigs->removeElement($contentTypeConfig);
+    }
+
+    public function setContentTypeConfigs($contentTypeConfigs) {
+        $this->contentTypeConfigs = $contentTypeConfigs;
+    }
+
+    public function getContentTypeConfigs() {
+        return $this->contentTypeConfigs;
+    }
+
 }

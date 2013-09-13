@@ -10,18 +10,18 @@
      *
 
      * @ORM\Entity
-     * @ORM\Table(name="Category_translations",
+     * @ORM\Table(name="ContentType_translations",
      *   uniqueConstraints={@ORM\UniqueConstraint(name="lookup_unique_idx", columns={
      *     "locale", "object_id", "field"
      *   })}
      * )
      */
 
-    class CategoryTranslation extends AbstractPersonalTranslation
+    class ContentTypeTranslation extends AbstractPersonalTranslation
     {
 
         /**
-         * @ORM\ManyToOne(targetEntity="scrclub\CMSBundle\Entity\Category", inversedBy="translations")
+         * @ORM\ManyToOne(targetEntity="scrclub\CMSBundle\Entity\ContentType", inversedBy="translations")
          * @ORM\JoinColumn(name="object_id", referencedColumnName="id", onDelete="CASCADE")
          */
         protected $object;

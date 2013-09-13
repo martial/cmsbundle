@@ -66,6 +66,14 @@ function autoComplete() {
 
     var autocomplete = new google.maps.places.Autocomplete(input);
 
+    $('#searchTextField').keydown(function (e) {
+        if (e.which == 13 )
+            return false;
+
+        //e.preventDefault();
+    });
+
+
     autocomplete.bindTo('bounds', map);
 
     var marker = new google.maps.Marker({
@@ -100,9 +108,12 @@ function autoComplete() {
                 (place.address_components[2] && place.address_components[2].short_name || '')
             ].join(' ');
         }
-        console.log(place);
+       // console.log(place);
         //getNewPosition(input);
-        setPosition(place.geometry.location.ob, place.geometry.location.pb);
+
+        setPosition(place.geometry.location.pb, place.geometry.location.qb);
+
+        return false;
     });
     autocomplete.setTypes([]);
 }

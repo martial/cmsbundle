@@ -6,7 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class ContentConfigType extends AbstractType
+class ContentTypeType extends AbstractType
 {
 
 
@@ -14,9 +14,7 @@ class ContentConfigType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('name')->add("description")->add('type', 'choice', array(
-            'choices' => array('text' => 'Bloc texte')
-        ));;
+
 
 
     }
@@ -24,12 +22,12 @@ class ContentConfigType extends AbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'scrclub\CMSBundle\Entity\ContentTypeConfig'
+            'data_class' => 'scrclub\CMSBundle\Entity\ContentType'
         ));
     }
 
     public function getName()
     {
-        return 'scrclub_cmsbundle_contentconfigtype';
+        return 'scrclub_cmsbundle_contenttype';
     }
 }

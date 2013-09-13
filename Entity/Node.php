@@ -264,6 +264,13 @@ class Node
     private $latitude;
 
     /**
+     * @ORM\ManyToMany(targetEntity="TextContentType", cascade={"persist"})
+     */
+    private $textContent;
+
+
+
+    /**
      * @param string $latitude
      */
     public function setLatitude($latitude)
@@ -342,7 +349,6 @@ class Node
     public function setActive($active)
     {
         $this->active = $active;
-    
         return $this;
     }
 
@@ -665,15 +671,11 @@ class Node
         $this->dates[] = $date;
     }
 
-    /**
-     * Remove categories
-     *
-     * @param scrClub\CMSBundle\Entity\MediaSet $categories
-     */
+
     public function removeDate(\scrclub\CMSBundle\Entity\Date $date)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
-        $this->medias->removeElement($date);
+        $this->dates->removeElement($date);
     }
 
     public function setDates($dates) {
@@ -682,6 +684,28 @@ class Node
 
     public function getDates() {
         return $this->dates;
+    }
+
+
+
+
+    public function addTextContent(TextContentType $textContent)
+    {
+        $this->textContent[] = $textContent;
+    }
+
+
+    public function removeTextContent(TextContentType $textContent)
+    {
+        $this->textContent->removeElement($textContent);
+    }
+
+    public function setTextContent($textContent) {
+        $this->textContent = $textContent;
+    }
+
+    public function getTextContent() {
+        return $this->textContent;
     }
 
 

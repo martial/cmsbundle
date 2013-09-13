@@ -2,6 +2,9 @@
 
     namespace scrclub\CMSBundle\Controller;
 
+    use scrclub\CMSBundle\Entity\Config;
+    use scrclub\CMSBundle\Entity\TextContentType;
+    use scrclub\CMSBundle\Form\TextContentTypeType;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
     use scrclub\CMSBundle\Entity\Node;
     use scrclub\CMSBundle\Entity\Post;
@@ -261,6 +264,15 @@
             $post = new Post();
             $post->setType('post');
 
+
+            // if post is new add automatically text contents
+            $config = NULL;
+            $configs = $em->getRepository('scrclubCMSBundle:Config')->findAll();
+            if (isset($configs[0])) {
+                $config = $configs[0];
+            }
+
+
             $noderepo = $em->getRepository('scrclub\CMSBundle\Entity\Node');
             $node_parent = $noderepo->find($parent_id);
             $post->setParent($node_parent);
@@ -286,13 +298,40 @@
 
             $noderepo->getMediaSetsRecursive($post);
 
+
+
+
+            // text contents
+
+            if($config) {
+                foreach ($config->getContentTypeConfigs() as $contentConfig) {
+
+                    $exists = false;
+                    foreach( $post->getTextContent() as $textContent ) {
+                       if ($textContent->getType() ==  $contentConfig->getType() AND $textContent->getName() == $contentConfig->getName())
+                           $exists = true;
+                    }
+
+                    if(!$exists) {
+                        if($contentConfig->getType() == "text") {
+                            $newTextContent = new TextContentType();
+                            $newTextContent->setName($contentConfig->getName());
+                            $newTextContent->setType($contentConfig->getType());
+                            $post->addTextContent($newTextContent);
+                        }
+                    }
+                }
+            }
+
+
+
+
             $form = $this->createForm(new PostType($lang_repo, array(), $node_parent->getTemplateDefaultChild() ), $post);
 
 
+            // content types forms
+
             $request = $this->get('request');
-
-
-            // update if needed
 
             if ($request->getMethod() == 'POST') {
 
@@ -351,7 +390,13 @@
             $result = $repo->getRootNodes();
 
 
-            return $this->render('scrclubCMSBundle:cms:addnode.html.twig', array('node' => $post, 'form'=> $form->createView(), 'langs' => $langs, 'locale' => $locale, 'parent_id' => $parent_id, 'tree' => $result));
+            return $this->render('scrclubCMSBundle:cms:addnode.html.twig', array('node' => $post,
+                                                                                 'form'=> $form->createView(),
+                                                                                 'langs' => $langs,
+                                                                                 'locale' => $locale,
+                                                                                 'parent_id' => $parent_id,
+                                                                                 'tree' => $result
+                                                                                ));
 
         }
 

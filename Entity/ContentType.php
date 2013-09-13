@@ -18,15 +18,19 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  *
  * @ORM\Table()
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="scrclub\CMSBundle\Entity\CategoryRepository")
- * @Gedmo\TranslationEntity(class="scrclub\CMSBundle\Entity\Translation\CategoryTranslation")
+ * @ORM\Entity(repositoryClass="scrclub\CMSBundle\Entity\ContentTypeRepository")
+ * @ORM\InheritanceType("JOINED")
+ * @Gedmo\TranslationEntity(class="scrclub\CMSBundle\Entity\Translation\ContentTypeTranslation")
+ * @ORM\DiscriminatorColumn(name="discr", type="string")
+ * @ORM\DiscriminatorMap({"textContentType" = "TextContentType" })
  */
 
-class Category implements Translatable
+class ContentType
 {
 
     public function __construct()
     {
+
         $this->translations = new ArrayCollection();
 
     }
@@ -38,34 +42,34 @@ class Category implements Translatable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
+
 
     /**
      * @var string
      *
-     * @Gedmo\Translatable
      * @ORM\Column(name="name", type="string", length=255, nullable=true)
      *
      */
-    private $name;
+    protected $name;
 
     /**
      * @var string
-     * @Gedmo\Translatable
      * @ORM\Column(name="description", type="text", nullable=true)
      */
-    private $description;
+    protected $description;
 
     /**
-     * @Gedmo\Locale
-     * Used locale to override Translation listener`s locale
-     * this is not a mapped field of entity metadata, just a simple property
+     * @var string
+     *
+     * @ORM\Column(name="type", type="string", length=255, nullable=true)
+     *
      */
-    protected $locale;
+    protected $type;
 
     /**
      * @ORM\OneToMany(
-     *  targetEntity="scrclub\CMSBundle\Entity\Translation\CategoryTranslation",
+     *  targetEntity="scrclub\CMSBundle\Entity\Translation\ContentTypeTranslation",
      *  mappedBy="object",
      *  cascade={"persist", "remove"}
      * )
@@ -75,79 +79,78 @@ class Category implements Translatable
 
 
     /**
-     * @ORM\ManyToMany(targetEntity="scrclub\CMSBundle\Entity\Node", cascade={"persist"})
+     * @param string $type
      */
-    private $nodes;
+    public function setType($type) {
+        $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getType() {
+        return $this->type;
+    }
 
 
     /**
-     * Get id
-     *
-     * @return integer 
+     * @param string $description
      */
-    public function getId()
-    {
+    public function setDescription($description) {
+        $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription() {
+        return $this->description;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id) {
+        $this->id = $id;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId() {
         return $this->id;
     }
 
     /**
-     * Set name
-     *
      * @param string $name
-     * @return Category
      */
-    public function setName($name)
-    {
+    public function setName($name) {
         $this->name = $name;
-    
-        return $this;
     }
 
     /**
-     * Get name
-     *
-     * @return string 
+     * @return string
      */
-    public function getName()
-    {
+    public function getName() {
         return $this->name;
     }
-
-    /**
-     * Set descr
-     *
-     * @param string $descr
-     * @return Category
-     */
-    public function setDescription($description)
-    {
-        $this->description = $description;
-    
-        return $this;
-    }
-
-    /**
-     * Get descr
-     *
-     * @return string 
-     */
-    public function getDescription()
-    {
-        return $this->description;
-    }
-
 
     /**
      * Set translations
      *
      * @param ArrayCollection $translations
-     * @return ArrayCollection
+     * @return Node
      */
     public function setTranslations($translations)
     {
+        foreach ($translations as $translation) {
+            $translation->setObject($this);
+        }
         $this->translations = $translations;
         return $this;
     }
+
+
 
     /**
      * Get translations
@@ -162,7 +165,7 @@ class Category implements Translatable
     /**
      * Add translation
      *
-     * @param $translation
+     * @param ProductTranslation
      */
     public function addTranslation($translation)
     {
@@ -172,52 +175,18 @@ class Category implements Translatable
         }
     }
 
+
+
     /**
      * Remove translation
      *
-     * @param $translation
+     * @param ProductTranslation
      */
     public function removeTranslation($translation)
     {
         $this->translations->removeElement($translation);
     }
 
-    public function setTranslatableLocale($locale)
-    {
-        $this->locale = $locale;
-    }
-
-
-    public function addNode(\scrclub\CMSBundle\Entity\Node $node)
-    {
-
-        if(!$this->nodes->contains($node))
-         $this->nodes[] = $node;
-    }
-
-    /**
-     * Remove categories
-     *
-     * @param scrClub\CMSBundle\Entity\Node $node
-     */
-    public function removeNode(\scrclub\CMSBundle\Entity\Node $node)
-    {
-        // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
-        $this->nodes->removeElement($node);
-    }
-
-    public function setNodes($nodes) {
-        $this->nodes = $nodes;
-    }
-
-    public function getNodes() {
-        return $this->nodes;
-    }
-
-    public function __toString()
-    {
-        return $this->getName();
-    }
 
 
 }
