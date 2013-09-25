@@ -37,12 +37,17 @@
 
             foreach ($json_a['results'][0]['address_components'] as $comp ) {
 
-                 if($comp['types'][0] == "locality" ) {
-                     $result .= $comp['long_name']." ";
-                 }
+                if(isset($json_a['results'][0])) {
 
-                if($comp['types'][0] == "postal_code" ) {
-                    $result .= "(".$comp['long_name'].")";
+
+                    if($comp['types'][0] == "locality" ) {
+                     $result .= $comp['long_name']." ";
+                    }
+
+                    if($comp['types'][0] == "postal_code" ) {
+                        $result .= "(".$comp['long_name'].")";
+                    }
+
                 }
 
             }

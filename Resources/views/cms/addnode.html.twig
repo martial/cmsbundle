@@ -310,7 +310,7 @@
 
     {%  endif %}
 
-
+    {{ node.getExtraText("dates") }}
 
     <!------------- Template  --------------->
 
@@ -371,7 +371,7 @@
 
                 <li class="active"><a href="#category-menu">{{ 'categories'| trans }}</a></li>
                 <li><a href="#mediaset-menu">{{ 'mediasets'| trans | capitalize }}</a></li>
-                <li><a href="#geolocation" onclick="javascript: clickgeo();return false;">{{ 'Géolocalisation' }}</a>
+                <!--<li><a href="#geolocation" onclick="javascript: clickgeo();return false;">{{ 'Géolocalisation' }}</a>-->
                 </li>
             </ul>
         </div>
@@ -401,6 +401,8 @@
         </div>
 
         <div class="tab-pane" id="geolocation">
+
+            {{ getTownDepartment(node.latitude, node.longitude) }}
 
             <fieldset>
                 <div class="well control-group">
@@ -574,7 +576,7 @@
 
             // google maps
             initialize();
-            {% if node.latitude %}
+            {% if node.latitude and node.longitude %}
             setPosition({{ node.latitude}}, {{ node.longitude }});
             {% else %}
             getPosition();
@@ -588,7 +590,7 @@
             setTimeout(
                     function () {
                         initialize();
-                        {% if node.latitude %}
+                        {% if node.latitude  and node.longitude  %}
                         setPosition({{ node.latitude}}, {{ node.longitude }});
                         {% else %}
                         getPosition();

@@ -7,6 +7,9 @@ var marker;
 var input;
 
 function setPosition (latitude, longitude) {
+
+
+
     codeLatLng(latitude, longitude);
 }
 
@@ -36,8 +39,8 @@ function getNewPosition(input) {
                 map: map,
                 position: results[0].geometry.location
             });
-            var latitude = results[0].geometry.location.jb;
-            var longitude = results[0].geometry.location.kb;
+            var latitude = results[0].geometry.location.lat();
+            var longitude = results[0].geometry.location.lng();
             codeLatLng(latitude, longitude);
         }
         else {
@@ -111,7 +114,11 @@ function autoComplete() {
        // console.log(place);
         //getNewPosition(input);
 
-        setPosition(place.geometry.location.pb, place.geometry.location.qb);
+       // console.log("get location");
+        //console.log(place.geometry.location);
+
+
+        setPosition(place.geometry.location.lat(), place.geometry.location.lng());
 
         return false;
     });
@@ -120,11 +127,17 @@ function autoComplete() {
 
 
 function codeLatLng(latitude, longitude) {
+
+   // console.log("set position", latitude, longitude)
+
     var latlng = new google.maps.LatLng(latitude, longitude);
     var contentInfowindow;
     geocoder.geocode({'latLng': latlng}, function(results, status) {
         infowindow.close();
         if (status == google.maps.GeocoderStatus.OK) {
+
+            //console.log(results)
+
             if (results[1]) {
                 map.setZoom(14);
                 marker = new google.maps.Marker({
