@@ -268,8 +268,9 @@
             // if post is new add automatically text contents
             $config = NULL;
             $configs = $em->getRepository('scrclubCMSBundle:Config')->findAll();
-            if (isset($configs[0])) {
+            if ( isset($configs[0]) ) {
                 $config = $configs[0];
+            }
 
 
 
@@ -305,6 +306,7 @@
             // text contents
 
             if($config) {
+
                 foreach ($config->getContentTypeConfigs() as $contentConfig) {
 
                     $exists = false;
@@ -402,6 +404,6 @@
 
 
 
-    }
+
 
     }

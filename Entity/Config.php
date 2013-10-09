@@ -2,6 +2,7 @@
 
 namespace scrclub\CMSBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -12,6 +13,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Config
 {
+
+    public function __construct()
+    {
+
+        $this->contentTypeConfigs     =   new ArrayCollection();
+
+    }
+
     /**
      * @var integer
      *

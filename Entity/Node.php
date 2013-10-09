@@ -28,6 +28,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  * @ORM\Entity(repositoryClass="scrclub\CMSBundle\Entity\NodeRepository")
  *
  */
+
 class Node
 {
 
@@ -41,6 +42,7 @@ class Node
         $this->mediasets    = new ArrayCollection();
         $this->mediaNodes   = new ArrayCollection();
         $this->categories   = new ArrayCollection();
+        $this->textContent  = new ArrayCollection();
     }
 
     /**
