@@ -214,7 +214,7 @@ $(function () {
 
     /* --- search box */
 
-    (function ($) {
+    $(function ($) {
 
         function listFilter(input, list) {
             input.change( function () {

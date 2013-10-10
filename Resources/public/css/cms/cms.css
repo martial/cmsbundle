@@ -1,9 +1,45 @@
 
 
+
 /* Custom paddings etc..
 ------------------------- */
 
-@media (max-width: 767px) { body { padding-left: 0; padding-right: 0; } }
+@media (max-width: 979px) {
+    body {
+        padding-left: 0;
+        padding-right: 0;
+        padding-top: 0px;
+
+
+    }
+
+    .nav-collapse {
+
+        height:auto;
+
+    }
+}
+
+
+@media (min-width: 979px) {
+
+
+    .nav-collapse {
+
+        height:auto;
+
+    }
+}
+
+
+@media  (max-width: 979px) {
+
+    body {
+        padding-top: 0px ! important;
+    }
+
+}
+
 .navbar { margin-left: 0; margin-right: 0; }
 
 .no-padding {
