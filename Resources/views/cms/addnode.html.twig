@@ -348,11 +348,12 @@
                 {% endif %}
 
 
-
+                <!--
                 <div class="span3">
                     <label>&nbsp;</label>
                     <button type="submit" class="btn btn-primary">Preview</button>
                 </div>
+                -->
 
 
             </div>
@@ -362,7 +363,6 @@
     </fieldset>
 
     <!------------- Categories and media sets  --------------->
-
 
     <div class="navbar">
         <div class="navbar-inner">
@@ -399,21 +399,17 @@
             </fieldset>
 
         </div>
-
+        <!--
         <div class="tab-pane" id="geolocation">
 
-            
+
 
             <fieldset>
                 <div class="well control-group">
-                    <!------------- Geolocation --------------->
 
                     {{ form_widget(form.latitude) }}
-
                     {{ form_widget(form.longitude) }}
-                    <!--
-                    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-                    -->
+
                     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
                     {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/geolocation.js' filter='yui_js'  output='js/compiled/geolocation.js' %}
                     <script src="{{ asset_url }}"></script>
@@ -430,6 +426,7 @@
                 </div>
             </fieldset>
         </div>
+         --------------->
     </div>
 
 
@@ -485,8 +482,21 @@
 
 
                             <div class="tab-pane " id="mediaset-all-{{ mediaset.id }}">
+
+                                <!-- here is the uploader-->
                                 <div class="row">
                                     <div id="mediaset-upload-{{ mediaset.id }}" class="span12"></div>
+
+                                    <div id="mediaset-status-{{ mediaset.id }}" class="span12" style="padding-top:14px; display: none;">
+                                        <div style="display: inline;">
+                                            <img style="display: inline;" src="{{ asset("bundles/scrclubcms/img/cms/spinner.gif") }}">
+                                            <div style="display: inline;" class="finename"></div>
+                                            - <div style="display: inline;" class="pct">
+
+                                            </div> %
+                                        </div>
+                                    </div>
+
 
                                 </div>
                                 <hr>
@@ -545,7 +555,7 @@
 
         <div class="modal-header">
             <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3>Edit Image </h3>
+            <h3 id="modal-name"></h3>
         </div>
 
         <div class="modal-body"></div>
@@ -625,27 +635,17 @@
                 var splits = id.split("-");
                 id = splits[1];
 
-
                 $.ajax({
                     type: "POST",
                     url: "{{ path('scrclub_cms_deletedate') }}/"+id,
                     success: function () {
 
                         container.hide("400", function () {
-
                             container.remove()
-
                         })
-
-
                     }
-
-
                 });
-
-
             })
-
         }
 
         var dateCount = {{ form.dates | length }}

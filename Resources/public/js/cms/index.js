@@ -211,6 +211,56 @@ $(function () {
         })
     });
 
+
+    /* --- search box */
+
+    (function ($) {
+
+        function listFilter(input, list) {
+            input.change( function () {
+                var filter = $(this).val();
+
+
+                var hasFound = false;
+                list.find("#name").each(function(i, data) {
+
+                    text = $(this).text();
+
+                    if (text.match(RegExp(filter, 'i'))) {
+                        $(this).parent().show();
+                        $( ".sortable" ).nestedSortable( "disable" );
+
+                    } else {
+                        $(this).parent().hide();
+                        hasFound = true;
+
+                    }
+                });
+
+                if(filter == "" ) {
+
+                    $( ".sortable" ).nestedSortable( "enable" );
+
+                    console.log("enable");
+                }
+
+
+                return false;
+            })
+                .keyup( function () {
+                    // fire the above change event after every letter
+                    $(this).change();
+                });
+        }
+
+        $(function () {
+            listFilter($(".large-input"), $(".list"));
+        });
+    }(jQuery));
+
+
+
+
 })
 
 

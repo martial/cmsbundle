@@ -99,7 +99,7 @@ class DocumentController extends Controller
         $result['media_id'] = $media->getId();
 
 
-        $result['media_html'] = $this->renderView('scrclubCMSBundle:cms:list_image_mediaset.html.twig', array('media' => $media));
+        $result['media_html'] = $this->renderView('scrclubCMSBundle:cms:list_image_mediaset.html.twig', array('media' => $media, 'addPostLink' => true));
 
         $response = new Response(json_encode($result));
         $response->headers->set('Content-Type', 'application/json');

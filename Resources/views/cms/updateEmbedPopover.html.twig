@@ -10,17 +10,21 @@
 
     <!-- choose thumnails -->
     <form id="embed-edit-form" action="{{ path('scrclub_cms_updateEmbedPopOver', {mediasetId:mediaset.id, id:document.id}) }}" method="post" {{ form_enctype(form) }} novalidate >
-    {{form_widget(form.name, {'attr': {'class': 'span5 text-area-mid'}})}}
         {{ form_widget(form._token) }}
 
         {{form_label(form.url)}}
     {{form_widget(form.url)}}
+
+        {{form_widget(form.name, {'attr': {'class': 'span5 text-area-mid'}})}}
+
 
         <!--
         <button type="submit" class="btn btn-info">Send</button>
         -->
 
         <script>
+
+            $("#modal-name").html("Embed document");
 
             $('#scrclub_cmsbundle_embeddeddocumenttype_name').wysihtml5({
                 "font-styles": true,

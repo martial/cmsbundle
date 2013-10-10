@@ -9,7 +9,9 @@ $(function () {
 
 })
 
-function createUploader(id) {
+function createUploader(id, statusElem) {
+
+    var statusElem = $("#mediaset-status-"+id);
 
     var uploader = new qq.FineUploader({
         debug                  :true,
@@ -27,7 +29,7 @@ function createUploader(id) {
             '<div class="qq-upload-drop-area btn span3">{dragZoneText}</div>' +
             '<div class="qq-upload-button btn span3" >{uploadButtonText}</div>' +
             '<div class="qq-upload-button btn span3"><a  href="' + Routing.generate('scrclub_cms_updateEmbedPopOver', {mediasetId:id }) + '" data-target="#embed-edit-modal" ><i class="icon-globe"></i> ' + translations['embed.files'] + '</a></div>' +
-            '<ul class="qq-upload-list span12 row-fluid" style="margin-top: 10px; text-align: center;"></ul>' +
+            '<ul class="qq-upload-list span12 row-fluid" style="margin-top: 10px; text-align: center; display:none;"></ul>' +
             '</div>',
         fileTemplate           :'<li class="alert span2"><a class="close qq-upload-cancel" data-dismiss="alert" href="#">&times;</a>' +
             '<div class="qq-progress-bar clearfix"></div>' +
@@ -50,11 +52,31 @@ function createUploader(id) {
             enableTooltip   :true
         },
         callbacks              :{
+
+            onUpload:function() {
+
+                statusElem.show(0);
+            },
+
+            onProgress:function (id, fileName, loaded, total) {
+
+                var pct = parseInt(loaded) / parseInt(total) * 100;
+
+                var pctElement = statusElem.find(".pct");
+                var fileNameElement = statusElem.find(".finename");
+
+                fileNameElement.html(fileName);
+                pctElement.html(parseInt(pct));
+            },
+
             onComplete:function (id, fileName, responseJSON) {
 
                 // append new view into mediaset
 
+                statusElem.hide(0);
+
                 $('#mediaset-all-' + responseJSON.mediaset_id).find('.media-scroll-container').append(responseJSON.media_html);
+
                 assignRemoveAction();
                 assignModalLinks();
                 setPlaceHolders();

@@ -32,7 +32,7 @@ class MediaSet
     /**
      * @var string
      *
-     * @ORM\Column(name="max", type="integer", options={"default" = 0})
+     * @ORM\Column(name="max", type="integer", options={"default" = 0}, nullable=true)
      */
     private $max;
 

@@ -21,8 +21,14 @@
 
     <div class="row-fluid page-header">
         <div class="featurette">
+
+            <div class="span9">
+            <input cols="1" style="height:50px" class="large-input " autofocus="autofocus"/>
+            </div>
+            <div class="span3">
             <a href="{{  path('scrclub_cms_addnode')}}" ><button class="btn btn-large pull-right" type="button"><i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}section{% endtrans %}</button></a>
-        </div>
+            </div>
+            </div>
     </div>
 
     <div id="alert-area"></div>
@@ -46,6 +52,10 @@
     var gg_id = "{{config.getGgAnalyticsid()}}";
     var gs_api = "{{config.getGsApikey()}}";
     var gs_token = "{{config.getGsSitetoken()}}";
+
+
+
+
 
 </script>
 {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/index.js' filter='yui_js'  output='js/compiled/cms.js' %}
