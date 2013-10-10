@@ -1,14 +1,15 @@
 
 
 
-{% stylesheets '@scrclubCMSBundle/Resources/public/css/cms/*' filter='yui_css' output='css/cms/main.css' %}
-<link rel="stylesheet" href="{{ asset_url }}" />
-{% endstylesheets %}
 
 {% stylesheets '@scrclubCMSBundle/Resources/public/css/bootstrap/*' output='css/cms/bstrap.css' %}
 <link rel="stylesheet" href="{{ asset_url }}" />
 {% endstylesheets %}
 
+
+{% stylesheets '@scrclubCMSBundle/Resources/public/css/cms/*' filter='yui_css' output='css/cms/main.css' %}
+<link rel="stylesheet" href="{{ asset_url }}" />
+{% endstylesheets %}
 
 
 <link rel="stylesheet" href="{{  asset('bundles/scrclubcms/css/wysiwig/wysiwyg-color.css') }}" />
