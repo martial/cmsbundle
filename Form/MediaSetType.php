@@ -12,7 +12,7 @@ class MediaSetType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('max', 'integer', array('data' => 0))
+            //->add('max', 'integer', array('data' => 0))
         ;
     }
 

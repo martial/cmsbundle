@@ -525,3 +525,18 @@ a.thumbnail.selected {
 
 
 }
+
+.large-input {
+
+    width: 100%;
+    box-shadow: none;
+    padding: 0;
+    background: 0;
+    border: 0;
+    color: #393939;
+    font-size: 40px;
+    font-weight: 700;
+    line-height: 50px;
+    text-transform: uppercase;
+    outline: none;
+}

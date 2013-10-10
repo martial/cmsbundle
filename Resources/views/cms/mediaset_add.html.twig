@@ -23,6 +23,8 @@
 <div class="container">
 
 
+
+
     <div class="featurette">
         <h2 class="featurette-heading">{{ 'mediasets'| trans }}
             <div class="muted featurette-sub-heading">--</div>
@@ -49,6 +51,15 @@
 
     <div class="row">
         <div id="mediaset-upload-{{mediaset.id}}" class="span12"></div>
+        <div id="mediaset-status-{{ mediaset.id }}" class="span12" style="padding-top:14px; display: none;">
+            <div style="display: inline;">
+                <img style="display: inline;" src="{{ asset("bundles/scrclubcms/img/cms/spinner.gif") }}">
+                <div style="display: inline;" class="finename"></div>
+                - <div style="display: inline;" class="pct">
+
+                </div> %
+            </div>
+        </div>
     </div>
     <hr>
 

@@ -9,7 +9,7 @@
             <ul class="nav nav-list bs-docs-sidenav affix-top"  id="leftmenu">
                 <li {% if app.request.attributes.get('_route') == 'scrclub_cms_config' %}class="active"{% endif %}><a href="{{path('scrclub_cms_config')}}"><i class="icon-chevron-right"></i> {{ 'your.site'| trans | capitalize }}</a></li>
                 <li {% if app.request.attributes.get('_route') == 'scrclub_cms_langs' %}class="active"{% endif %}><a href="{{path('scrclub_cms_langs')}}"><i class="icon-chevron-right"></i> {{ 'langs'| trans | capitalize }}</a></li>
-                <li {% if app.request.attributes.get('_route') == 'scrclub_cms_contenttypeconfig' %}class="active"{% endif %}><a href="{{path('scrclub_cms_contenttypeconfig')}}"><i class="icon-chevron-right"></i> {{ 'content_config'| trans | capitalize }}</a></li>
+                <li {% if app.request.attributes.get('_route') == 'scrclub_cms_contenttypeconfig' %}class="active"{% endif %}><a href="{{path('scrclub_cms_contenttypeconfig')}}"><i class="icon-chevron-right"></i> {{ 'ExtraContent'| trans | capitalize }}</a></li>
 
                 <li {% if app.request.attributes.get('_route') == 'scrclub_cms_users' %}class="active"{% endif %}><a href="{{path('scrclub_cms_users')}}"><i class="icon-chevron-right"></i> {{ 'users'| trans | capitalize }}</a></li>
                 <li {% if app.request.attributes.get('_route') == 'scrclub_cms_templates' %}class="active"{% endif %}><a href="{{path('scrclub_cms_templates')}}"><i class="icon-chevron-right"></i> {{ 'templates'| trans | capitalize }}</a></li>

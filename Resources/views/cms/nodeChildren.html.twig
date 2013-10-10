@@ -21,12 +21,12 @@
     {% endif %}
 
 
-    <li id="list_{{ node.id }}">
+    <li id="list_{{ node.id }}" class="list">
 
 
 
 
-        <div><a href="{{  navPath }}""><i class="{{ type == 'post' ? "icon-file-alt" : "icon-folder-close-alt" }}"></i> {{ node.name }}</a>
+        <div><a id="name" href="{{  navPath }}""><i class="{{ type == 'post' ? "icon-file-alt" : "icon-folder-close-alt" }}"></i> {{ node.name }}</a>
 
             <div id="active_box_button_{{ node.id }}" class="switch switch-mini pull-right switch-active" style="padding:0px;" data-on="success" data-off="danger">
                 <input type="checkbox" {% if node.active %}checked="checked" {% endif %} style="padding:0px" >
