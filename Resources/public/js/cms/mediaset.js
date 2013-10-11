@@ -140,6 +140,8 @@ function addMedia(el) {
 
 }
 
+// hey does that change somthing ??
+
 function assignRemoveAction() {
 
     // remove media relation
