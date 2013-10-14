@@ -227,6 +227,8 @@
         {% endfor %}
     </div>
 
+
+    <!--
     <div class="navbar">
         <div class="navbar-inner">
             <a class="brand" href="#">{{ 'dates'| trans }}</a>
@@ -267,6 +269,8 @@
 
 
     </div>
+
+    -->
 
     {% if form.textContent is not empty %}
 
@@ -309,8 +313,6 @@
     </div>
 
     {%  endif %}
-
-    {{ node.getExtraText("dates") }}
 
     <!------------- Template  --------------->
 
@@ -545,28 +547,33 @@
         {{ form_widget(form._token) }}
     </div>
 
+
+
     </form>
 
 
-    <!------------- Modal --------------->
+        <!------------- Modal --------------->
 
 
-    <div id="media-edit-modal" class="modal hide fade ">
+        <div id="media-edit-modal" class="modal hide fade ">
 
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h3 id="modal-name"></h3>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h3 id="modal-name"></h3>
+            </div>
+
+            <div class="modal-body"></div>
+
+            <div class="modal-footer">
+                <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
+                <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{% trans %}save.changes{% endtrans %}</button>
+            </div>
         </div>
 
-        <div class="modal-body"></div>
-
-        <div class="modal-footer">
-            <a href="#" data-dismiss="modal" aria-hidden="true" class="btn">Close</a>
-            <button id="media-form-submit" type="submit" class=" btn btn-primary pull-right">{% trans %}save.changes{% endtrans %}</button>
-        </div>
     </div>
 
-    </div>
+    <div class="span12" style="margin-bottom:20px"></div>
+
     <!-- /container -->
 
 
