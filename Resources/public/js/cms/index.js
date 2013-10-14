@@ -241,7 +241,6 @@ $(function () {
 
                     $( ".sortable" ).nestedSortable( "enable" );
 
-                    console.log("enable");
                 }
 
 
