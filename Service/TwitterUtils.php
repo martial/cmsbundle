@@ -9,6 +9,43 @@
 namespace scrclub\CMSBundle\Service;
 
 
+
+
+use TwitterOAuth\TwitterOAuth;
+
 class TwitterUtils {
+
+    public function getTweets ($user) {
+
+        $config = array(
+            'consumer_key' => '***REMOVED***',
+            'consumer_secret' => '***REMOVED***',
+            'oauth_token' => '***REMOVED***',
+            'oauth_token_secret' => '***REMOVED***',
+            'output_format' => 'object'
+        );
+
+        /**
+         * Instantiate TwitterOAuth class with set tokens
+         */
+        $tw = new TwitterOAuth($config);
+
+
+        /**
+         * Returns a collection of the most recent Tweets posted by the user
+         * https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+         */
+        $params = array(
+            'screen_name' => $user,
+            'count' => 1,
+            'exclude_replies' => true
+        );
+
+        /**
+         * Send a GET call with set parameters
+         */
+        return $tw->get('statuses/user_timeline', $params);
+
+    }
 
 } 
