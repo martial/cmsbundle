@@ -8,3 +8,75 @@ services:
         arguments: [%fos_user.model.user.class%]
         tags:
             - { name: form.type, alias: cms_user_registration }
+
+    twig_extension.stringutils:
+                class: scrclub\CMSBundle\Extensions\StringExtension
+                tags:
+                - { name: twig.extension }
+
+    debug.twig.extension:
+        class: Twig_Extensions_Extension_Debug
+        tags: [{ name: 'twig.extension' }]
+
+    twig_extension.cmsutils:
+        class: scrclub\CMSBundle\Extensions\CMSUtilsExtension
+        tags:
+        - { name: twig.extension }
+
+    twig_extension.inspect:
+        class: scrclub\CMSBundle\Extensions\InspectExtension
+        tags:
+        - { name: twig.extension }
+
+    twig_extension.inspect:
+        class: scrclub\CMSBundle\Extensions\MathExtension
+        tags:
+        - { name: twig.extension }
+
+    twig_extension.locale:
+            class: scrclub\CMSBundle\Extensions\LocaleExtension
+            tags:
+            - { name: twig.extension }
+
+    twig_extension.array:
+        class: scrclub\CMSBundle\Extensions\ArrayExtension
+        tags:
+        - { name: twig.extension }
+
+    twig_extension.date:
+        class: scrclub\CMSBundle\Extensions\DateExtension
+        tags:
+        - { name: twig.extension }
+
+    twig_extension.ggmaps:
+        class: scrclub\CMSBundle\Extensions\GoogleMapsExtension
+        tags:
+        - { name: twig.extension }
+
+    twig_extension.file:
+        class: scrclub\CMSBundle\Extensions\FileExtension
+        tags:
+        - { name: twig.extension }
+
+    twig_extension.embedutils:
+        class: scrclub\CMSBundle\Extensions\EmbedExtension
+        tags:
+        - { name: twig.extension }
+
+    twig_extension.mediautils:
+            class: scrclub\CMSBundle\Extensions\MediaExtension
+            tags:
+            - { name: twig.extension }
+
+
+    cms_bundle.googleanalytics:
+        class: scrclub\CMSBundle\Service\GoogleAnalyticsAPI
+
+    cms_bundle.fineupload:
+        class: scrclub\CMSBundle\Service\FineUploader
+
+    cms_bundle.embedutils:
+        class: scrclub\CMSBundle\Service\EmbeddedUtils
+
+    cms_bundle.twitter:
+        class: scrclub\CMSBundle\Service\TwitterUtils

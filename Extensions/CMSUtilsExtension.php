@@ -9,16 +9,23 @@
 
     class CMSUtilsExtension extends \Twig_Extension
     {
+
         /**
          * @return array
          */
         public function getFunctions()
         {
             return array(
+                'linkText' => new \Twig_Function_Method($this, 'linkText'),
                 'getTextContent' => new \Twig_Function_Method($this, 'getTextContent'),
+                'getCategories' => new \Twig_Function_Method($this, 'getCategories'),
 
             );
         }
+
+
+
+
 
         public function getTextContent(Node $node, $type) {
 
@@ -33,12 +40,35 @@
 
         }
 
+        public function getCategories ($nodes) {
+
+            $result = new ArrayCollection();
+
+            foreach ($nodes as $node) {
+
+                $categories = $node->getCategories();
+
+                foreach ($categories as $category) {
+
+                    if( !$result->contains($category)) {
+                        $result->add($category);
+                    }
+                }
+
+            }
+
+            return $result;
+
+        }
+
+
+
 
         /**
          * @return string
          */
         public function getName()
         {
-            return 'contains';
+            return 'cmsutils';
         }
     }
