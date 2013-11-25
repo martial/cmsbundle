@@ -48,4 +48,38 @@ class TwitterUtils {
 
     }
 
+    public function getSearch($key) {
+
+        $config = array(
+            'consumer_key' => '***REMOVED***',
+            'consumer_secret' => '***REMOVED***',
+            'oauth_token' => '***REMOVED***',
+            'oauth_token_secret' => '***REMOVED***',
+            'output_format' => 'object'
+        );
+
+        /**
+         * Instantiate TwitterOAuth class with set tokens
+         */
+        $tw = new TwitterOAuth($config);
+
+
+        /**
+         * Returns a collection of the most recent Tweets posted by the user
+         * https://dev.twitter.com/docs/api/1.1/get/statuses/user_timeline
+         */
+        $params = array(
+            'q' => urlencode($key),
+            'result_type' => "recent",
+            'count' => 100
+
+        );
+
+        /**
+         * Send a GET call with set parameters
+         */
+        return $tw->get('search/tweets', $params);
+
+    }
+
 } 
