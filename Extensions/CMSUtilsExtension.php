@@ -16,7 +16,6 @@
         public function getFunctions()
         {
             return array(
-                'linkText' => new \Twig_Function_Method($this, 'linkText'),
                 'getTextContent' => new \Twig_Function_Method($this, 'getTextContent'),
                 'getCategories' => new \Twig_Function_Method($this, 'getCategories'),
 
