@@ -2,6 +2,7 @@
 
 namespace scrclub\CMSBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -17,21 +18,13 @@ use Symfony\Component\Validator\Constraints as Assert;
 class ContentTypeConfig
 {
 
-    public function __construct() {}
+    public function __construct() {
 
-    /**
-     * @param string $description
-     */
-    public function setDescription($description) {
-        $this->description = $description;
+        $this->categories = new ArrayCollection();
+
     }
 
-    /**
-     * @return string
-     */
-    public function getDescription() {
-        return $this->description;
-    }
+
 
     /**
      * @param int $id
@@ -76,6 +69,55 @@ class ContentTypeConfig
     }
 
     /**
+     * @param string $cascade
+     */
+    public function setCascade($cascade) {
+        $this->cascade = $cascade;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCascade() {
+        return $this->cascade;
+    }
+
+    /**
+     * @param string $description
+     */
+    public function setDescription($description) {
+        $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescription() {
+        return $this->description;
+    }
+
+    public function addCategory(\scrclub\CMSBundle\Entity\Category $category)
+    {
+        // Ici, on utilise l'ArrayCollection vraiment comme un tableau, avec la syntaxe []
+        $this->categories[] = $category;
+    }
+
+
+    public function removeCategory(\scrclub\CMSBundle\Entity\Category $category)
+    {
+        // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
+        $this->categories->removeElement($category);
+    }
+
+    public function setCategories($categories) {
+        $this->categories = $categories;
+    }
+
+    public function getCategories() {
+        return $this->categories;
+    }
+
+    /**
      * @var integer
      *
      * @ORM\Column(name="id", type="integer")
@@ -103,6 +145,20 @@ class ContentTypeConfig
      *
      */
     protected $type;
+
+    /**
+     * @var bool
+     * @ORM\Column(name="cscd", type="boolean")
+     *
+     */
+    protected $cascade;
+
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="scrclub\CMSBundle\Entity\Category", cascade={"persist"})
+     */
+    private $categories;
 
 
 

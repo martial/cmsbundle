@@ -48,6 +48,82 @@
 
         }
 
+        public function preAddNodeAction ($type, $parent_id) {
+
+            $em = $this->getDoctrine()->getManager();
+
+            $lang_repo = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Langs');
+            $langs = $lang_repo->findAll();
+            $defaultLocale = $lang_repo->getDefaultLocale($langs);
+
+            if($type == "node") {
+                $node = new Node();
+                $node->setType('node');
+                $node_parent = NULL;
+            }
+
+            if($type == "post") {
+                $node = new Post();
+                $node->setType('post');
+
+                $noderepo = $em->getRepository('scrclub\CMSBundle\Entity\Node');
+                $node_parent = $noderepo->find($parent_id);
+                $node->setParent($node_parent);
+            }
+
+            $node->setTranslatableLocale($defaultLocale->getLocale());
+
+            $request = $this->getRequest();
+
+            $query = $em->getRepository('scrclubCMSBundle:Template')->createQueryBuilder('p')//->where('type', 'node')
+                ->orderBy('p.name', 'ASC')->getQuery();
+
+            $templates = $query->getResult();
+
+            $defaultTemplate = null;
+            $parent = $node->getParent();
+            if ( isset( $parent ) ){
+                $defaultTemplate = $parent->getTemplateDefaultChild();
+            };
+
+            $form = $this->createForm(new NodeType($lang_repo, $templates, $defaultTemplate), $node);
+
+            // update if needed
+            if ($request->getMethod() == 'POST') {
+
+                $form->bind($request);
+
+                if ($form->isValid()) {
+
+                    $node->setSlug('');
+                    $em->persist($node);
+                    $em->flush();
+
+                    $node->setFullSlug( $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node')->generateFullSlug($node));
+                    $em->persist($node);
+                    $em->flush();
+
+
+                    if ($node->getType() == "post")
+                        return $this->redirect($this->generateUrl('scrclub_cms_addpost', array('id' => $node->getId(), 'parent_id' => $parent->getId())));
+
+                    return $this->redirect($this->generateUrl('scrclub_cms_addnode', array('id' => $node->getId())));
+                    // success
+                    // return $this->redirect($this->generateUrl('scrclub_cms_addnode', array('id' => $node->getId())));
+                }
+            }
+
+
+            //return $this->redirect($this->generateUrl('scrclub_cms_addnode', array('id' => $node->getId())));
+            return $this->render('scrclubCMSBundle:cms:preaddnode.html.twig', array('node' => $node, 'form'=> $form->createView(), 'langs' => $langs,  'templates' => $templates, 'parent' => $node_parent));
+
+
+        }
+
+        public function preAddPostAction () {
+
+        }
+
 
         public function addNodeAction($id) {
 
@@ -93,6 +169,11 @@
             if ( isset( $parent ) ){
                 $defaultTemplate = $parent->getTemplateDefaultChild();
             };
+
+
+            $this->checkContentTypes($node);
+
+
 
             $form = $this->createForm(new NodeType($lang_repo, $templates, $defaultTemplate), $node);
 
@@ -299,11 +380,15 @@
 
             $noderepo->getMediaSetsRecursive($post);
 
+            $noderepo->getFieldsRecursive($post);
+
+            // content types
+
+            $this->checkContentTypes($post);
 
 
-
-
-            // text contents
+            // text contents, old..
+            // to be removed at some point
 
             if($config) {
 
@@ -402,7 +487,101 @@
         }
 
 
+        private function checkContentTypes (Node $node) {
 
+            foreach ($node->getContentTypeConfigs() as $contentConfig) {
+
+                $exists = false;
+
+                // here we need to check
+                // (a) do the contentConfig has category ?
+                // (b) if yes - check if the node has a category in common
+                // (c) if yes - check if exists as usual - if not skip because you'll not need it
+
+                $bIsCheckable = true;
+
+                $contentConfigCategories = $contentConfig->getCategories();
+                if(!$contentConfigCategories->count() == 0 ) {
+                    $bIsCheckable = false;
+                    foreach($contentConfigCategories as $cat) {
+                        if ($node->getCategories()->contains($cat))
+                            $bIsCheckable = true;
+                        // ok
+                    }
+                }
+
+                if($bIsCheckable) {
+
+                    foreach( $node->getTextContent() as $textContent ) {
+
+
+                        if (  $textContent->getType() ==  $contentConfig->getType() AND $textContent->getName() == $contentConfig->getName()) {
+                            $exists = true;
+                        }
+
+                    }
+
+                    if(!$exists) {
+                        if($contentConfig->getType() == "text") {
+                            $newTextContent = new TextContentType();
+                            $newTextContent->setName($contentConfig->getName());
+                            $newTextContent->setType($contentConfig->getType());
+                            $node->addTextContent($newTextContent);
+                        }
+                    }
+
+                }
+
+            }
+
+            // check for removes
+
+            // if there's no category in common, delete the wrong ones
+            foreach ($node->getContentTypeConfigs() as $contentConfig) {
+                $contentConfigCategories = $contentConfig->getCategories();
+                if(!$contentConfigCategories->count() == 0 ) {
+                    foreach($contentConfigCategories as $cat) {
+                        if (!$node->getCategories()->contains($cat)) {
+
+                            // post des not contains category in common !
+                            // remove incriminated ones !
+                            // kill !
+
+                            foreach( $node->getTextContent() as $textContent ) {
+                                if (  $textContent->getType() ==  $contentConfig->getType()) {
+                                    // bang
+                                    $node->removeTextContent($textContent);
+                                }
+                            }
+
+
+
+                        }
+                    }
+                }
+            }
+
+
+
+            // here just check if there's no name cohesion
+            foreach( $node->getTextContent() as $textContent ) {
+
+                $name = $textContent->getName();
+                $exists = false;
+                foreach ($node->getContentTypeConfigs() as $contentConfig) {
+                    if($name == $contentConfig->getName())$exists = true;
+                }
+
+
+                if(!$exists) {
+                    $node->removeTextContent($textContent);
+                }
+
+
+            }
+
+
+        }
 
 
 

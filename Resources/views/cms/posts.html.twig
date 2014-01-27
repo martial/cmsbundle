@@ -13,7 +13,6 @@
         {% if node.parent  %}{% include 'scrclubCMSBundle:cms:node_nav.html.twig' with {'node':node.parent, 'level':0 } %}{% endif %}
     </ul>
 
-   
 
     <div class="featurette">
         <h2 class="featurette-heading">{{ 'section'| trans | capitalize }} {{ nodeParent.name }}</h2>
@@ -51,7 +50,7 @@
                 <input cols="1" style="height:50px" class="large-input " autofocus="autofocus"/>
             </div>
             <div class="span3">
-                <a href="{{path('scrclub_cms_addpost', { 'parent_id': nodeParent.id })}}" ><button class="btn btn-large pull-right" type="button"><i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}post{% endtrans %}</button></a>
+                <a href="#" ><button data-parent-id = "{{ nodeParent.id }}" class="add-post btn btn-large pull-right" type="button"><i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}post{% endtrans %}</button></a>
             </div>
         </div>
 
@@ -68,6 +67,14 @@
 
 
 </div>
+
+    <div id="addNodeModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+        <div class="modal-body">
+
+        </div>
+
+    </div>
 <!-- /container -->
 
 
@@ -75,6 +82,21 @@
 <script>
 
     $(document).ready(function () {
+
+
+        $(".add-post").click(function (e) {
+
+            console.log($(this).attr("data-parent-id"));
+
+            $('#addNodeModal').modal({
+                remote:"{{path('scrclub_cms_preaddnode', {type:"post"})}}/" + $(this).attr("data-parent-id")
+            })
+
+            e.preventDefault();
+            return false;
+
+        })
+
 
 
 

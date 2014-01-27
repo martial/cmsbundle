@@ -54,8 +54,31 @@
             -->
             {% if node.type == 'node' %}
             <div class="btn-group pull-right" style="padding: 0; margin-top: -3px; padding-right: 10px;">
-                <a href="{{path('scrclub_cms_addpost', { 'parent_id': node.id })}}" ><button class="btn btn-mini pull-right" type="button"><i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}post{% endtrans %}</button></a>
+                <a href="#" ><button class="add-post btn btn-mini pull-right" data-parent-id = "{{ node.id }}" type="button"><i class="icon-plus"></i> {% trans %}add{% endtrans %} {% trans %}post{% endtrans %}</button></a>
             </div>
+
+            <script>
+
+                $(".add-post").click(function (e) {
+
+                    //$(".modal-body").empty();
+                   // $('#addNodeModal').removeData("modal");
+
+                    // load the url and show modal on success
+                    var url = "{{path('scrclub_cms_preaddnode', {type:"post"})}}/" + $(this).attr("data-parent-id");
+                    $("#addNodeModal .modal-body").load(url, function() {
+                        $("#addNodeModal").modal("show");
+                    })
+
+
+
+                    e.preventDefault();
+                    return false;
+
+                })
+
+            </script>
+
             {% endif %}
 
 

@@ -68,6 +68,39 @@ class NodeRepository extends NestedTreeRepository
 
     }
 
+    public function getFieldsRecursive (Node $node) {
+
+        $currentNode = $node;
+
+        // echo $currentNode->getMediasets()->isEmpty();
+
+        while( isset($currentNode)  ) {
+            $currentNode = $currentNode->getParent();
+
+            if(isset($currentNode)) {
+                $contentTypeConfigs = $currentNode->getContentTypeConfigs();
+
+                foreach($contentTypeConfigs as $contentTypeConfig ) {
+
+                    //echo  $contentTypeConfig->getName();
+
+                    if(!$node->getContentTypeConfigs()->contains($contentTypeConfig))
+                        $node->addContentTypeConfig($contentTypeConfig);
+
+                }
+            }
+
+            //echo $currentNode->getName();
+            //echo $currentNode->getMediasets()->isEmpty();
+        }
+
+        //echo $currentNode->getName();
+
+
+
+
+    }
+
 
 
 }

@@ -18,6 +18,13 @@
         }
 
     </script>
+    <style>
+
+        .wysi {
+            width: 95%;
+        }
+
+    </style>
 
     {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/edit-post.js' filter='yui_js'  output='js/compiled/edit-post.js' %}
     <script src="{{ asset_url }}"></script>
@@ -98,6 +105,9 @@
     <!------------- Translatable ahou --------------->
 
     {% set form_locales = form.translations.vars.locales %}
+
+
+
     {% set fields = form.translations.fields %}
 
 
@@ -148,7 +158,7 @@
                 <div class=" well control-group">
                     <div class="row-fluid">
 
-                        <div class="span9">
+                        <div class="span12">
 
                             {{ form_label( form.name , 'title' | lower | trans , {'attr': {'class': 'input-xxlarge' }})
                             }}
@@ -157,13 +167,19 @@
                             {{ form_label( form.header , 'header' | lower | trans  , {'attr': {'class': 'input-xxlarge' }}
                             )
                             }}
-                            {{ form_widget(form.header,  {'attr': {'class': 'input-xxlarge text-area-high' }})}}
+                            {{ form_widget(form.header,  {'attr': {'class': 'input-xxlarge text-area-high wysi' }})}}
 
 
                             {{ form_label( form.description , 'content' | lower | trans  , {'attr': {'class': 'input-xxlarge' }}
                             )
                             }}
-                            {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge text-area-high' }})}}
+                            {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge text-area-high wysi' }})}}
+
+                            {% for textContentForm in form.textContent %}
+
+                            <label>{{ textContentForm.vars.value.name }}</label>
+                            {{ form_widget(textContentForm.text, {'attr': {'class': 'input-xxlarge text-area-high wysi' }}) }}
+                            {% endfor %}
 
                         </div>
                     </div>
@@ -171,6 +187,8 @@
             </fieldset>
 
         </div>
+
+
 
         {% for locale in form_locales %}
 
@@ -182,10 +200,11 @@
                         <div class="row-fluid">
 
 
+                            <div class="span12">
                             {% if (form.translations.vars.default_locale[0]  != locale) %}
                                 {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
 
-                                    <div class="span9">
+
 
                                         {% for f in translationForm.children %}
 
@@ -194,18 +213,26 @@
 
                                             {% set className = "input-xxlarge" %}
                                             {% if f.name == "description" or f.name == "header" %}
-                                                {% set className = "input-xxlarge text-area-high" %}
+                                                {% set className = "input-xxlarge text-area-high wysi" %}
                                             {% endif %}
 
                                             {{ form_widget(f,  {'attr': {'class': className }})}}
 
                                         {% endfor %}
 
-                                    </div>
+
 
 
                                 {% endfor %}
 
+                                {% for textContentForm in form.textContent %}
+
+                                        {% for translationForm in textContentForm.translations if (translationForm.vars.name == locale)  %}
+                                            <label>{{ textContentForm.vars.value.name }}</label>
+                                            {{ form_widget(translationForm.text, {'attr': {'class': 'input-xxlarge text-area-high wysi' }}) }}
+                                        {% endfor %}
+                                {% endfor %}
+                            </div>
                             {% endif %}
 
                         </div>
@@ -213,16 +240,7 @@
                 </fieldset>
 
             </div>
-            <script type="text/javascript">
-                $(function () {
 
-                    $('#scrclub_cmsbundle_{{node.type}}type_translations_{{locale}}_description').wysihtml5({"html": true});
-
-                    $('#scrclub_cmsbundle_{{node.type}}type_translations_{{locale}}_header').wysihtml5({"html": true});
-
-                    //scrclub_cmsbundle_nodetype_translations_en_header
-                })
-            </script>
 
         {% endfor %}
     </div>
@@ -272,6 +290,7 @@
 
     -->
 
+    <!--
     {% if form.textContent is not empty %}
 
     <div class="navbar">
@@ -313,6 +332,7 @@
     </div>
 
     {%  endif %}
+    -->
 
     <!------------- Template  --------------->
 
@@ -374,11 +394,13 @@
                 <li class="active"><a href="#category-menu">{{ 'categories'| trans }}</a></li>
                 <li><a href="#mediaset-menu">{{ 'mediasets'| trans | capitalize }}</a></li>
                 <!--<li><a href="#geolocation" onclick="javascript: clickgeo();return false;">{{ 'Géolocalisation' }}</a>-->
+                <li><a href="#fields-menu">Fields</a></li>
                 </li>
             </ul>
         </div>
     </div>
     <div class="tab-content">
+
 
         <div class="tab-pane active" id="category-menu">
 
@@ -401,6 +423,24 @@
             </fieldset>
 
         </div>
+
+        <div class="tab-pane" id ="fields-menu" data-prototype="{{ form_widget(form.contentTypeConfigs.vars.prototype) | e }}">
+            <a id="add-contenttypeconfig" class=" btn btn-primary" style="margin-bottom:20px" href="#" >Add another field</a>
+
+
+            {% for contentTypeConfig in form.contentTypeConfigs %}
+                <fieldset>
+                    <div class=" well control-group">
+                        {{ form_errors(contentTypeConfig) }}
+                        {{ form_widget(contentTypeConfig) }}
+                        <div  id="fields-delete" class="delete-field btn btn-primary">Delete</div>
+                    </div>
+
+                </fieldset>
+            {% endfor %}
+
+        </div>
+
         <!--
         <div class="tab-pane" id="geolocation">
 
@@ -540,7 +580,6 @@
     {% endfor %}
 
 
-
     <div>
 
         <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
@@ -588,8 +627,18 @@
 
         $(function () {
 
-            $('#scrclub_cmsbundle_{{node.type}}type_description').wysihtml5({"html": true});
-            $('#scrclub_cmsbundle_{{node.type}}type_header').wysihtml5({"html": true});
+            //$('#scrclub_cmsbundle_{{node.type}}type_description').wysihtml5({"html": true});
+            //$('#scrclub_cmsbundle_{{node.type}}type_header').wysihtml5({"html": true});
+
+
+            $( ".wysi" ).each(function( index ) {
+
+                $(this).wysihtml5({"html": true});
+
+            });
+
+            $(".select2").select2({width:"resolve"});
+
 
             /*
             // google maps
@@ -604,6 +653,51 @@
             */
 
         })
+
+        // content type config
+
+        var contentTypeConfigCount = '{{ form.contentTypeConfigs | length }}';
+
+        jQuery('#add-contenttypeconfig').click(function(e) {
+            var emailList = jQuery('#fields-menu');
+
+            // parcourt le template prototype
+            var newWidget = emailList.attr('data-prototype');
+            // remplace les "__name__" utilisés dans l'id et le nom du prototype
+            // par un nombre unique pour chaque email
+            // le nom de l'attribut final ressemblera à name="contact[emails][2]"
+            newWidget = newWidget.replace(/__name__/g, contentTypeConfigCount);
+            contentTypeConfigCount++;
+
+            // créer une nouvelle liste d'éléments et l'ajoute à notre liste
+            //var newLi = jQuery('<fieldset><div class=" well control-group"></div></fieldset>').html(newWidget);
+            //newLi.appendTo(jQuery('#fields-menu'));
+
+            var input = $('<fieldset><div class=" well control-group">'+ newWidget +
+
+                    '<div  id="fields-delete" class="delete-field btn btn-primary">Delete</div>' +
+                    '</div></fieldset>').insertAfter('#add-contenttypeconfig');
+
+            assignDeleteFields();
+            $(".select2").select2({width:"resolve"});
+
+            e.preventDefault();
+            return false;
+        });
+
+        assignDeleteFields();
+        function assignDeleteFields () {
+
+
+            $(".delete-field ").click(function () {
+                $(this).parent().parent().remove();
+            })
+        }
+
+
+
+
+
 
         /*
         function clickgeo() {
@@ -622,6 +716,8 @@
 
         */
 
+
+        //------------------ dates
 
         assignDeleteDates();
 

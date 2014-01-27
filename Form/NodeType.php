@@ -34,8 +34,8 @@ class NodeType extends AbstractType
         $builder
         ->add('name', 'text', array('required' => true))
         ->add('slug', 'text', array('required' => false))
-        ->add('header', 'textarea')
-        ->add('description', 'textarea')
+        ->add('header', 'textarea', array('required' => false))
+        ->add('description', 'textarea', array('required' => false))
         ->add('active', 'checkbox')
         ->add('auto_content', 'checkbox')
         ->add('template', 'entity',  array(
@@ -95,6 +95,13 @@ class NodeType extends AbstractType
         ->add('textContent', 'collection', array(
                 'type' => new TextContentTypeType($this->langrepo),
             'allow_add' => true,
+            'by_reference' => false,
+        ))
+
+        ->add('contentTypeConfigs', 'collection', array(
+            'type' => new ContentTypeConfigType(),
+            'allow_add' => true,
+            'allow_delete' => true,
             'by_reference' => false,
         ))
 

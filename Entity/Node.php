@@ -43,6 +43,7 @@ class Node
         $this->mediaNodes   = new ArrayCollection();
         $this->categories   = new ArrayCollection();
         $this->textContent  = new ArrayCollection();
+        $this->contentTypeConfigs   = new ArrayCollection();
     }
 
     /**
@@ -270,6 +271,12 @@ class Node
      * @ORM\ManyToMany(targetEntity="TextContentType", cascade={"persist"})
      */
     private $textContent;
+
+    /**
+
+     * @ORM\ManyToMany(targetEntity="ContentTypeConfig", cascade={"persist"})
+     */
+    private $contentTypeConfigs;
 
 
 
@@ -631,7 +638,7 @@ class Node
         $this->mediaNodes[] = $mediaNode;
     }
 
-    public function removemediaNode(\scrclub\CMSBundle\Entity\MediaNode $mediaNode)
+    public function removeMediaNode(\scrclub\CMSBundle\Entity\MediaNode $mediaNode)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument
         $this->mediaNodes->removeElement($mediaNode);
@@ -711,6 +718,28 @@ class Node
         return $this->textContent;
 
     }
+
+    public function addContentTypeConfig(ContentTypeConfig $contentTypeConfig)
+    {
+        $this->contentTypeConfigs[] = $contentTypeConfig;
+    }
+
+
+    public function removeContentTypeConfig(ContentTypeConfig $contentTypeConfig)
+    {
+        $this->contentTypeConfigs->removeElement($contentTypeConfig);
+    }
+
+    public function setContentTypeConfigs($contentTypeConfigs) {
+        $this->contentTypeConfigs = $contentTypeConfigs;
+    }
+
+    public function getContentTypeConfigs() {
+        return $this->contentTypeConfigs;
+    }
+
+
+
 
 
 
@@ -814,7 +843,6 @@ class Node
     public function getExtraText($name) {
 
         foreach($this->getTextContent() as $text ) {
-
 
             if($text->getName() == $name)
                 return $text->getText();
