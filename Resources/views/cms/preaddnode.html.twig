@@ -1,0 +1,80 @@
+
+    {{ form_errors(form) }}
+    <div class="" id="{{ node.id }}">
+
+
+    {% if node.type == "post" %}
+        {% set titleType = "post" %}
+    {% elseif node.type == "node " %}
+        {% set titleType = "article dans " %}
+    {% endif %}
+
+    <div class="featurette">
+        <h2 class="featurette-heading">{{ 'add'| trans }} {{ titleType | trans }}
+            {% if parent %}<div class="muted featurette-sub-heading small">> {{ parent.name }}</div>{% endif %}
+        </h2>
+    </div>
+
+    <hr class="featurette-divider">
+
+    <!------------- Errors --------------->
+
+    {% if form.get('errors') is not empty %}
+        <div class="row-fluid page-header">
+            <div class="featurette">
+                <div class="alert alert-error">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Error!</strong> {{ form_errors(form) }}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+
+    <!------------- Global properties --------------->
+
+
+
+    {% if node.type =='node' %}
+        {% set formPath = path('scrclub_cms_preaddnode', {'type': node.type }) %}
+    {% elseif node.type =='post' %}
+        {% set formPath = path('scrclub_cms_preaddnode', { 'parent_id' : parent.id, 'type': node.type }) %}
+    {% endif %}
+
+    <form action="{{ formPath }}" method="post" {{ form_enctype(form) }} novalidate>
+
+
+    {{ form_label( form.name , 'title' | lower | trans , {'attr': {'class': '' }})}}
+    {{ form_widget(form.name,  {'attr': {'class': 'input-xlarge' }})}}
+
+
+    {{ form_label( form.categories , 'categories' | lower | trans , {'attr': {'class': '' }})}}
+    {{ form_widget(form.categories, { 'attr': {'class': 'input-xlarge populate placeholder category-select select2'}, 'empty_value': '' }) }}
+
+
+    <hr>
+
+    <div>
+
+        <button type="submit" class=" btn btn-primary pull-right" id="validate_section">{% trans %}save.changes{% endtrans %}</button>
+        {{ form_widget(form._token) }}
+    </div>
+
+
+
+    </form>
+
+    </div>
+
+    <!-- /container -->
+    <script src="{{ asset('bundles/scrclubcms/js/select/select2.js') }}"></script>
+    <script type="text/javascript">
+
+
+        $(function () {
+            $(".select2").select2({width:"resolve"});
+        })
+
+    </script>
+
+
+

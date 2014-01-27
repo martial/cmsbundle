@@ -52,6 +52,13 @@ scrclub_cms_addpost:
     defaults: { _controller: scrclubCMSBundle:Nodes:addPost, id:null }
     requirements:
                 _locale: en|fr|es
+
+scrclub_cms_preaddnode:
+    pattern:  /backend/{_locale}/preaddnode/{type}/{parent_id}
+    defaults: { _controller: scrclubCMSBundle:Nodes:preAddNode, parent_id:null }
+    requirements:
+                _locale: en|fr|es
+
 edit_langs:
     pattern:  /backend/{_locale}/edit_langs
     defaults: { _controller: scrclubCMSBundle:CMSConfig:index }
