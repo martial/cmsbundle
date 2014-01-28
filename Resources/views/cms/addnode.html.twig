@@ -167,18 +167,18 @@
                             {{ form_label( form.header , 'header' | lower | trans  , {'attr': {'class': 'input-xxlarge' }}
                             )
                             }}
-                            {{ form_widget(form.header,  {'attr': {'class': 'input-xxlarge text-area-high wysi' }})}}
+                            {{ form_widget(form.header,  {'attr': {'class': 'input-xxlarge  wysi' }})}}
 
 
                             {{ form_label( form.description , 'content' | lower | trans  , {'attr': {'class': 'input-xxlarge' }}
                             )
                             }}
-                            {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge text-area-high wysi' }})}}
+                            {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge  wysi' }})}}
 
                             {% for textContentForm in form.textContent %}
 
                             <label>{{ textContentForm.vars.value.name }}</label>
-                            {{ form_widget(textContentForm.text, {'attr': {'class': 'input-xxlarge text-area-high wysi' }}) }}
+                            {{ form_widget(textContentForm.text, {'attr': {'class': 'input-xxlarge h wysi' }}) }}
                             {% endfor %}
 
                         </div>
@@ -213,7 +213,7 @@
 
                                             {% set className = "input-xxlarge" %}
                                             {% if f.name == "description" or f.name == "header" %}
-                                                {% set className = "input-xxlarge text-area-high wysi" %}
+                                                {% set className = "input-xxlarge  wysi" %}
                                             {% endif %}
 
                                             {{ form_widget(f,  {'attr': {'class': className }})}}
@@ -229,7 +229,7 @@
 
                                         {% for translationForm in textContentForm.translations if (translationForm.vars.name == locale)  %}
                                             <label>{{ textContentForm.vars.value.name }}</label>
-                                            {{ form_widget(translationForm.text, {'attr': {'class': 'input-xxlarge text-area-high wysi' }}) }}
+                                            {{ form_widget(translationForm.text, {'attr': {'class': 'input-xxlarge  wysi' }}) }}
                                         {% endfor %}
                                 {% endfor %}
                             </div>
@@ -633,7 +633,21 @@
 
             $( ".wysi" ).each(function( index ) {
 
-                $(this).wysihtml5({"html": true});
+                //var editor = new wysihtml5.Editor("textarea-id");
+                var t = $(this);
+                var editor = $(this).wysihtml5({
+                    "html": true,
+                    "events": {
+                        "load": function() {
+                            t.nextAll('iframe:eq(0)').eq(0).wysihtml5_size_matters();
+
+                        },
+
+                    }
+
+                });
+
+
 
             });
 

@@ -8699,7 +8699,8 @@ wysihtml5.views.View = Base.extend(
         }
       });
 
-      this.editor.observe("destroy:composer", stopInterval);
+
+
     }
   });
 })(wysihtml5);
