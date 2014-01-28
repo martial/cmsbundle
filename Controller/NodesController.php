@@ -390,6 +390,8 @@
             // text contents, old..
             // to be removed at some point
 
+            /*
+
             if($config) {
 
                 foreach ($config->getContentTypeConfigs() as $contentConfig) {
@@ -410,6 +412,8 @@
                     }
                 }
             }
+
+            */
 
 
 
@@ -553,9 +557,6 @@
                                     $node->removeTextContent($textContent);
                                 }
                             }
-
-
-
                         }
                     }
                 }
