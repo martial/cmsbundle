@@ -659,6 +659,8 @@
         var contentTypeConfigCount = '{{ form.contentTypeConfigs | length }}';
 
         jQuery('#add-contenttypeconfig').click(function(e) {
+
+            e.preventDefault();
             var emailList = jQuery('#fields-menu');
 
             // parcourt le template prototype
@@ -681,7 +683,7 @@
             assignDeleteFields();
             $(".select2").select2({width:"resolve"});
 
-            e.preventDefault();
+
             return false;
         });
 

@@ -852,5 +852,24 @@ class Node
         return "";
     }
 
+    public function hasSubNodes() {
+        foreach( $this->getChildren() as $child) {
+            if ($child->getType() == "node")
+                return true;
+        }
+        return false;
+    }
+
+    public function hasCategory($categoryName) {
+
+        foreach ($this->getCategories() as $cat) {
+            if ($cat->getName() == $categoryName)
+            return true;
+        }
+
+        return false;
+
+    }
+
 
 }
