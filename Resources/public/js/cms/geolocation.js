@@ -1,16 +1,65 @@
 
 
-var geocoder;
+var geocoder = new google.maps.Geocoder();
 var map;
 var infowindow = new google.maps.InfoWindow();
 var marker;
 var input;
 
+function setPositionByFormattedAddress () {
+
+
+    //geocoder = new google.maps.Geocoder();
+
+    //map = new google.maps.Map(document.getElementById("map-canvas"));
+
+    var address = document.getElementById("address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+        } else {
+            alert("Geocode was not successful for the following reason: " + status);
+        }
+    });
+
+}
+
 function setPosition (latitude, longitude) {
 
+    //autoComplete();
+   // codeLatLng(latitude, longitude);
+
+    //console.log("set it ")
+
+    var address = document.getElementById("scrclub_cmsbundle_posttype_formatted_address").value;
+    geocoder.geocode( { 'address': address}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+            map.setCenter(results[0].geometry.location);
+
+            if (results[0].geometry.viewport) {
+                map.fitBounds(results[0].geometry.viewport);
+            } else {
+                map.setCenter(results[0].geometry.location);
+                map.setZoom(17);
+            }
 
 
-    codeLatLng(latitude, longitude);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: results[0].geometry.location
+            });
+
+            marker.setPosition(results[0].geometry.location);
+            marker.setVisible(true);
+        } else {
+            alert("Geocode was not successful for the following reason: " + status);
+        }
+    });
+
 }
 
 function success(position) {
@@ -29,7 +78,7 @@ function getPosition() {
 
 function getNewPosition(input) {
 
-    input = document.getElementById("searchTextField").value;
+    input = document.getElementById("scrclub_cmsbundle_posttype_formatted_address").value;
 
 
     newgeocoder.geocode({'address': input}, function(results, status) {
@@ -65,11 +114,11 @@ function initialize() {
 
 function autoComplete() {
 
-    input = (document.getElementById('searchTextField'));
+    input = (document.getElementById('scrclub_cmsbundle_posttype_formatted_address'));
 
     var autocomplete = new google.maps.places.Autocomplete(input);
 
-    $('#searchTextField').keydown(function (e) {
+    $('#scrclub_cmsbundle_posttype_formatted_address').keydown(function (e) {
         if (e.which == 13 )
             return false;
 
@@ -84,11 +133,16 @@ function autoComplete() {
     });
 
 
+
+
     google.maps.event.addListener(autocomplete, 'place_changed', function() {
         infowindow.close();
         marker.setVisible(false);
         input.className = '';
         var place = autocomplete.getPlace();
+
+        //console.log(place);
+
         if (!place.geometry) {
             input.className = 'notfound';
             return;
@@ -117,8 +171,10 @@ function autoComplete() {
        // console.log("get location");
         //console.log(place.geometry.location);
 
+        $("#scrclub_cmsbundle_posttype_latitude").val(place.geometry.location.lat());
+        $("#scrclub_cmsbundle_posttype_longitude").val( place.geometry.location.lng());
 
-        setPosition(place.geometry.location.lat(), place.geometry.location.lng());
+        //setPosition(place.geometry.location.lat(), place.geometry.location.lng());
 
         return false;
     });
@@ -139,16 +195,34 @@ function codeLatLng(latitude, longitude) {
             //console.log(results)
 
             if (results[1]) {
+
+                if (results[1].geometry.viewport) {
+                    map.fitBounds(results[1].geometry.viewport);
+                } else {
+                    map.setCenter(results[1].geometry.location);
+                    map.setZoom(17);
+                }
+                var marker = new google.maps.Marker({
+                    map: map
+                });
+
+                marker.setPosition(results[1].geometry.location);
+                marker.setVisible(true);
+
+                /*
                 map.setZoom(14);
                 marker = new google.maps.Marker({
                     position: latlng,
                     map: map
-                });
+                });*/
 
-                contentInfowindow = results[0].formatted_address;
-                infowindow.setContent(contentInfowindow);
-                infowindow.open(map, marker);
-                //console.log(results)
+                console.log(results)
+
+                //contentInfowindow = results[0].formatted_address;
+                //infowindow.setContent(contentInfowindow);
+                //infowindow.open(map, marker);
+                //console.log(results);
+               // $("#scrclub_cmsbundle_posttype_formatted_address").val(results[0]["formatted_address"]);
             } else {
                 alert('No results found');
             }

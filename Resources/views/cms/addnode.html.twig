@@ -185,7 +185,6 @@
                     </div>
                 </div>
             </fieldset>
-
         </div>
 
 
@@ -393,7 +392,7 @@
 
                 <li class="active"><a href="#category-menu">{{ 'categories'| trans }}</a></li>
                 <li><a href="#mediaset-menu">{{ 'mediasets'| trans | capitalize }}</a></li>
-                <!--<li><a href="#geolocation" onclick="javascript: clickgeo();return false;">{{ 'Géolocalisation' }}</a>-->
+                <li><a href="#geolocation" onclick="javascript: clickgeo();return false;">{{ 'Géolocalisation' }}</a>
                 <li><a href="#fields-menu">Fields</a></li>
                 </li>
             </ul>
@@ -441,7 +440,7 @@
 
         </div>
 
-        <!--
+
         <div class="tab-pane" id="geolocation">
 
 
@@ -459,16 +458,17 @@
 
                     <div id="panel" class="row-fluid">
 
+                        {{ form_widget(form.formatted_address) }}
 
-                        <input id="searchTextField" type="text" size="50" class="span3">
                         <input id="btn_geoloc" type="button" class="btn span3" value="{{ "search.location" | trans }}" onclick="getPosition()">
                     </div>
                     <div id="map-canvas" class="row-fluid"></div>
                     <br><br>
+                    Details :
                 </div>
             </fieldset>
         </div>
-         --------------->
+
     </div>
 
 
@@ -715,7 +715,7 @@
 
 
 
-        /*
+
         function clickgeo() {
 
             setTimeout(
@@ -730,7 +730,7 @@
 
         }
 
-        */
+
 
 
         //------------------ dates

@@ -321,6 +321,26 @@ class Node
     }
 
     /**
+     * @var string $name
+     * @ORM\Column(name="formatted_address", type="string", nullable=false, length=255)
+     */
+    protected $formatted_address;
+
+    /**
+     * @param mixed $formatted_address
+     */
+    public function setFormattedAddress($formatted_address) {
+        $this->formatted_address = $formatted_address;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFormattedAddress() {
+        return $this->formatted_address;
+    }
+
+    /**
      * Get id
      *
      * @return integer
