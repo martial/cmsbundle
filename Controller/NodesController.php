@@ -3,6 +3,7 @@
     namespace scrclub\CMSBundle\Controller;
 
     use scrclub\CMSBundle\Entity\Config;
+    use scrclub\CMSBundle\Entity\GMapData;
     use scrclub\CMSBundle\Entity\TextContentType;
     use scrclub\CMSBundle\Form\TextContentTypeType;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -136,6 +137,7 @@
 
             $node = new Node();
             $node->setType('node');
+            $node->setGMapData(new GMapData());
 
             $request = $this->getRequest();
             $locale = $request->getLocale();
@@ -344,7 +346,7 @@
 
             $post = new Post();
             $post->setType('post');
-
+            $post->setGMapData(new GMapData());
 
             // if post is new add automatically text contents
             $config = NULL;
@@ -580,6 +582,81 @@
 
 
             }
+
+
+        }
+
+        public function setGmapDataAction ($id) {
+
+            $node = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node')->find($id);
+
+
+            $gMapData = $node->getGMapData();
+            if(!$gMapData) {
+
+                $node->setGMapData(new GMapData());
+                $gMapData = $node->getGMapData();
+            }
+
+
+            $data = json_decode($_POST['data']);
+
+            foreach ($data->address_components as $comp) {
+
+                switch ($comp->types[0]) {
+
+                    case "street_number":
+                        break;
+
+                    case "route":
+                        break;
+
+                    // type arrondissement.. etc..
+                    case "sublocality":
+                        break;
+
+                    case "locality":
+                        $gMapData->setCity($comp->long_name);
+                        //$comp->setRegionShort($comp->short_name);
+                        break;
+
+                    // state
+                    case "administrative_area_level_2":
+                        $gMapData->setRegion($comp->long_name);
+                        $gMapData->setRegionShort($comp->short_name);
+                        break;
+
+                    // region
+                    case "administrative_area_level_1":
+                        $gMapData->setState($comp->long_name);
+                        $gMapData->setStateShort($comp->short_name);
+                        break;
+
+                    case "country":
+                        $gMapData->setCountry($comp->long_name);
+                        $gMapData->setCountryShort($comp->short_name);
+                        break;
+
+                    case "postal_code":
+                        break;
+
+
+                }
+
+
+            }
+
+            $node->setFormattedAddress($data->formatted_address);
+            $node->setLatitude($data->latitude);
+            $node->setLongitude($data->longitude);
+
+            // update
+            $em = $this->getDoctrine()->getManager();
+            $repo = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node');
+            $em->persist($node);
+            $em->flush();
+
+            return new Response(var_dump($data));
 
 
         }

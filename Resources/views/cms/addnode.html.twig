@@ -451,6 +451,11 @@
                     {{ form_widget(form.latitude) }}
                     {{ form_widget(form.longitude) }}
 
+                    <script>
+
+                    var gmapUrl = "{{ path("scrclub_cms_gmapupdate", {"id" : node.id}) }}";
+
+                    </script>
                     <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false&libraries=places"></script>
                     {% javascripts '@scrclubCMSBundle/Resources/public/js/cms/geolocation.js' filter='yui_js'  output='js/compiled/geolocation.js' %}
                     <script src="{{ asset_url }}"></script>
@@ -464,7 +469,15 @@
                     </div>
                     <div id="map-canvas" class="row-fluid"></div>
                     <br><br>
-                    Details :
+                    {{ node.gMapData.country }}
+                    {{ node.gMapData.countryShort }}
+                    {{ node.gMapData.state }}
+                    {{ node.gMapData.stateShort }}
+                    {{ node.gMapData.region }}
+                    {{ node.gMapData.regionShort }}
+                    {{ node.gMapData.city }}
+
+
                 </div>
             </fieldset>
         </div>

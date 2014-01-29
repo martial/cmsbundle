@@ -26,6 +26,12 @@ scrclub_cms_addnode:
     requirements:
                 _locale: en|fr|es
 
+scrclub_cms_gmapupdate:
+    pattern:  /backend/{_locale}/gmap/{id}
+    defaults: { _controller: scrclubCMSBundle:Nodes:setGmapData, id:null }
+    requirements:
+                _locale: en|fr|es
+
 scrclub_cms_editnodetree:
     pattern:  /backend/{_locale}/update_tree
     defaults: { _controller: scrclubCMSBundle:Nodes:updateTree }
