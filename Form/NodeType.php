@@ -107,6 +107,7 @@ class NodeType extends AbstractType
 
         ->add('latitude', 'hidden', array('required' => true))
         ->add('longitude', 'hidden', array('required' => true))
+        ->add('formatted_address', 'text', array('required' => false))
         ->add('translations', 'a2lix_translations', array(
             'locales' => $this->langrepo->getLocales($langs),
        ));
