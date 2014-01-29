@@ -322,7 +322,7 @@ class Node
 
     /**
      * @var string $name
-     * @ORM\Column(name="formatted_address", type="string", nullable=false, length=255)
+     * @ORM\Column(name="formatted_address", type="string", nullable=true, length=255)
      */
     protected $formatted_address;
 
