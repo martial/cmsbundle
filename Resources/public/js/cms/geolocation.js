@@ -47,6 +47,8 @@ function setPosition (latitude, longitude) {
                 map.setZoom(17);
             }
 
+            console.log(results[0]);
+
 
             var marker = new google.maps.Marker({
                 map: map,
@@ -157,6 +159,23 @@ function autoComplete() {
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
 
+        // add lat and long to field
+
+        place["latitude"] = place.geometry.location.lat();
+        place["longitude"] = place.geometry.location.lng();
+
+        var st = JSON.stringify(place);
+        $.post(gmapUrl,{
+            data:st
+
+        },function(data){
+
+           // console.log(data);
+
+
+        });
+
+
         var address = '';
         if (place.address_components) {
             address = [
@@ -216,7 +235,8 @@ function codeLatLng(latitude, longitude) {
                     map: map
                 });*/
 
-                console.log(results)
+
+
 
                 //contentInfowindow = results[0].formatted_address;
                 //infowindow.setContent(contentInfowindow);
@@ -237,4 +257,9 @@ function codeLatLng(latitude, longitude) {
 
 
 }
+//administrative_area_level_1
+//administrative_area_level_2
+// locality
+//street_address
 
+//point_of_interest

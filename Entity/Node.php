@@ -278,7 +278,11 @@ class Node
      */
     private $contentTypeConfigs;
 
-
+    /**
+     * @ORM\OneToOne(targetEntity="GMapData", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(name="gmapdata_id", referencedColumnName="id",nullable=true)
+     */
+    private $gMapData;
 
 
     /**
@@ -852,6 +856,22 @@ class Node
     public function setAutocontent($autocontent) {
         $this->autocontent = $autocontent;
     }
+
+    /**
+     * @param mixed $gMapData
+     */
+    public function setGMapData($gMapData) {
+        $this->gMapData = $gMapData;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGMapData() {
+        return $this->gMapData;
+    }
+
+
 
     /**
      * @return int
