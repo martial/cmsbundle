@@ -606,9 +606,11 @@
                 switch ($comp->types[0]) {
 
                     case "street_number":
+
                         break;
 
                     case "route":
+
                         break;
 
                     // type arrondissement.. etc..
