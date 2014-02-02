@@ -114,6 +114,11 @@ class Node
     private $date;
 
     /**
+     * @ORM\Column(type="datetime", nullable=true)
+     */
+    private $dateExpiration;
+
+    /**
      * @param mixed $date
      */
     public function setDate($date) {
@@ -126,6 +131,21 @@ class Node
     public function getDate() {
         return $this->date;
     }
+
+    /**
+     * @param mixed $dateExpiration
+     */
+    public function setDateExpiration($dateExpiration) {
+        $this->dateExpiration = $dateExpiration;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDateExpiration() {
+        return $this->dateExpiration;
+    }
+
 
 
     /**

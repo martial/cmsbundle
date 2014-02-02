@@ -68,8 +68,6 @@
 
     <!------------- Global properties --------------->
 
-
-
     {% if node.type =='node' %}
         {% set formPath = path('scrclub_cms_addnode', {'id': node.id }) %}
     {% elseif node.type =='post' %}
@@ -87,8 +85,11 @@
                 {{ form_widget(form.active, { 'attr': {'id': 'active_box'} }) }}
             </div>
 
-            <div class="span2">
+            <div class="span3">
                 {{ form_widget(form.date) }}
+            </div>
+            <div class="span2">
+                {{ form_widget(form.dateExpiration) }}
             </div>
 
             <!--
