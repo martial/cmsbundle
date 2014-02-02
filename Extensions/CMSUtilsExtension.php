@@ -18,6 +18,7 @@
             return array(
                 'getTextContent' => new \Twig_Function_Method($this, 'getTextContent'),
                 'getCategories' => new \Twig_Function_Method($this, 'getCategories'),
+                'filterByGMapRegion' => new \Twig_Function_Method($this, 'filterByGMapRegion'),
 
             );
         }
@@ -55,6 +56,39 @@
                 }
 
             }
+
+            return $result;
+
+        }
+
+        public function filterByGMapRegion ($nodes) {
+
+
+            $result = array();
+            foreach($nodes as $node ) {
+
+                $gMapData = $node->getGMapData();
+                if($gMapData) {
+
+
+                $region = $gMapData->getRegionShort();
+
+                   // echo $region;
+
+                if (!array_key_exists($region, $result)) {
+
+                    $result[$region] = array();
+
+                }
+
+                array_push( $result[$region], $node);
+
+                }
+
+            }
+
+
+            ksort($result);
 
             return $result;
 

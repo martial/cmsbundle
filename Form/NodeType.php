@@ -83,6 +83,11 @@ class NodeType extends AbstractType
                 'widget' => 'single_text',
                 'format' => 'yyyy-MM-dd',
         ))
+        ->add('dateExpiration', 'date', array(
+            'widget' => 'single_text',
+            'format' => 'yyyy-MM-dd',
+        ))
+
 
         ->add('dates', 'collection', array(
             'type'         => new DateType($this->langrepo),
