@@ -164,13 +164,15 @@ function autoComplete() {
         place["latitude"] = place.geometry.location.lat();
         place["longitude"] = place.geometry.location.lng();
 
+       // console.log(place);
+
         var st = JSON.stringify(place);
         $.post(gmapUrl,{
             data:st
 
         },function(data){
 
-            console.log(data);
+          //  console.log(data);
 
 
         });

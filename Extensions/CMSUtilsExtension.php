@@ -17,6 +17,7 @@
         {
             return array(
                 'getTextContent' => new \Twig_Function_Method($this, 'getTextContent'),
+                'getBooleanContent' => new \Twig_Function_Method($this, 'getBooleanContent'),
                 'getCategories' => new \Twig_Function_Method($this, 'getCategories'),
                 'filterByGMapRegion' => new \Twig_Function_Method($this, 'filterByGMapRegion'),
 
@@ -30,6 +31,19 @@
         public function getTextContent(Node $node, $type) {
 
             foreach($node->getTextContent() as $text ) {
+
+                if($text->getType() == $type)
+                    return $text->getText();
+
+            }
+
+            return "";
+
+        }
+
+        public function getBooleanContent(Node $node, $type) {
+
+            foreach($node->getBooleanContent() as $text ) {
 
                 if($text->getType() == $type)
                     return $text->getText();

@@ -43,6 +43,7 @@ class Node
         $this->mediaNodes   = new ArrayCollection();
         $this->categories   = new ArrayCollection();
         $this->textContent  = new ArrayCollection();
+        $this->booleanContent = new ArrayCollection();
         $this->contentTypeConfigs   = new ArrayCollection();
     }
 
@@ -291,6 +292,14 @@ class Node
      * @ORM\ManyToMany(targetEntity="TextContentType", cascade={"persist"})
      */
     private $textContent;
+
+    /**
+
+     * @ORM\ManyToMany(targetEntity="BooleanContentType", cascade={"persist"})
+     */
+    private $booleanContent;
+
+
 
     /**
 
@@ -742,6 +751,25 @@ class Node
     }
 
 
+    public function addBooleanContent(BooleanContentType $booleanContent)
+    {
+        $this->booleanContent[] = $booleanContent;
+    }
+
+
+    public function removeBooleanContent(BooleanContentType $booleanContent)
+    {
+        $this->booleanContent->removeElement($booleanContent);
+    }
+
+    public function setBooleanContent($booleanContent) {
+        $this->booleanContent = booleanContent;
+    }
+
+    public function getBooleanContent() {
+        return $this->booleanContent;
+
+    }
 
     public function addTextContent(TextContentType $textContent)
     {
@@ -906,6 +934,18 @@ class Node
 
             if($text->getName() == $name)
                 return $text->getText();
+
+        }
+
+        return "";
+    }
+
+    public function getExtraBool($name) {
+
+        foreach($this->getBooleanContent() as $bool ) {
+
+            if($bool->getName() == $name)
+                return $bool->getValue();
 
         }
 

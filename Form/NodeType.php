@@ -2,6 +2,7 @@
 
 namespace scrclub\CMSBundle\Form;
 
+use scrclub\CMSBundle\Entity\BooleanContentType;
 use scrclub\CMSBundle\Entity\ContentType;
 use scrclub\CMSBundle\Entity\TextContentType;
 
@@ -102,6 +103,12 @@ class NodeType extends AbstractType
             'allow_add' => true,
             'by_reference' => false,
         ))
+
+            ->add('booleanContent', 'collection', array(
+                'type' => new BooleanContentTypeType($this->langrepo),
+                'allow_add' => true,
+                'by_reference' => false,
+            ))
 
         ->add('contentTypeConfigs', 'collection', array(
             'type' => new ContentTypeConfigType(),
