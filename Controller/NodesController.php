@@ -2,6 +2,7 @@
 
     namespace scrclub\CMSBundle\Controller;
 
+    use scrclub\CMSBundle\Entity\BooleanContentType;
     use scrclub\CMSBundle\Entity\Config;
     use scrclub\CMSBundle\Entity\GMapData;
     use scrclub\CMSBundle\Entity\TextContentType;
@@ -497,7 +498,7 @@
 
             foreach ($node->getContentTypeConfigs() as $contentConfig) {
 
-                $exists = false;
+
 
                 // here we need to check
                 // (a) do the contentConfig has category ?
@@ -518,6 +519,7 @@
 
                 if($bIsCheckable) {
 
+                    $exists = false;
                     foreach( $node->getTextContent() as $textContent ) {
 
 
@@ -534,7 +536,35 @@
                             $newTextContent->setType($contentConfig->getType());
                             $node->addTextContent($newTextContent);
                         }
+
+
+
                     }
+
+
+                    $exists = false;
+                    foreach( $node->getBooleanContent() as $booleanContent ) {
+
+
+                        if (  $booleanContent->getType() ==  $contentConfig->getType() AND $booleanContent->getName() == $contentConfig->getName()) {
+                            $exists = true;
+                        }
+
+                    }
+
+                    if(!$exists) {
+                        if($contentConfig->getType() == "bool") {
+                            $newBoolContent = new BooleanContentType();
+                            $newBoolContent->setName($contentConfig->getName());
+                            $newBoolContent->setType($contentConfig->getType());
+                            $node->addBooleanContent($newBoolContent);
+                        }
+
+
+
+                    }
+
+
 
                 }
 
@@ -578,6 +608,22 @@
 
                 if(!$exists) {
                     $node->removeTextContent($textContent);
+                }
+
+
+            }
+
+            foreach( $node->getBooleanContent() as $booleanContent ) {
+
+                $name = $booleanContent->getName();
+                $exists = false;
+                foreach ($node->getContentTypeConfigs() as $contentConfig) {
+                    if($name == $contentConfig->getName())$exists = true;
+                }
+
+
+                if(!$exists) {
+                    $node->removeBooleanContent($booleanContent);
                 }
 
 

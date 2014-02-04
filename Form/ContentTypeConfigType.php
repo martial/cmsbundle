@@ -21,7 +21,8 @@ class ContentTypeConfigType extends AbstractType
             ->add('name', 'text')
             ->add('type', 'choice', array(
             'choices'   => array('text' => 'TextField',
-                                 'int' => 'Integer Field'
+                                 'int' => 'Integer Field',
+                                'bool' => 'Boolean'
             ),
             'empty_value' => false,
             'required'  => false,

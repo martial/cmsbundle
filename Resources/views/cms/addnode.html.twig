@@ -85,6 +85,7 @@
                 {{ form_widget(form.active, { 'attr': {'id': 'active_box'} }) }}
             </div>
 
+
             <div class="span3">
                 {{ form_widget(form.date) }}
             </div>
@@ -244,6 +245,24 @@
 
         {% endfor %}
     </div>
+
+    <div class="row-fluid page-header" style="border-top: 1px solid #eee; padding-top: 16px;">
+        <div class="featurette  span10">
+
+
+             {% for bool in form.booleanContent %}
+                <div class="span1">
+                <div style=" padding-bottom: 10px; ">{{ bool.vars.value.name | upper}}</div>
+                <div id="active_box_button" class="switch switch-small span1">
+                    {{ form_widget(bool.value, {'attr': {'id': 'active_box' }}) }}
+                </div>
+                    </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
 
 
     <!--
