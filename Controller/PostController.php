@@ -28,13 +28,15 @@ class PostController extends Controller
         $repo = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node');
         $em = $this->getDoctrine()->getManager();
 
-        $node = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node')->find($parent_id);
+        $node = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node')->findOneById($parent_id);
 
         if (!$node) {
             throw $this->createNotFoundException('Unable to find Node entity.');
         }
 
         $result = $node->getChildren();
+
+
 
         $rootTree = $repo->getRootNodes();
 

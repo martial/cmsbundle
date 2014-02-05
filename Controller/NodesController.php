@@ -225,9 +225,11 @@
 
         }
 
-        public function updateTreeAction() {
+        public function updateTreeAction($depth) {
 
             $request = $this->get('request');
+
+            $coucou ="yo";
 
             if ($request->getMethod() == 'POST') {
 
@@ -239,7 +241,7 @@
 
                 foreach ($tree['data'] as $branch) {
 
-                    if ($branch['item_id'] != 'null') {
+                    if ($branch['item_id'] != 'null' AND $branch["depth"] >= $depth) {
 
                         $node       = $repo->findOneById($branch['item_id']);
                         $nodeParent = $repo->findOneById($branch['parent_id']);
@@ -248,12 +250,14 @@
 
                             if ($nodeParent) $node->setParent($nodeParent);
                                 else
-                                $node->setParent(null);
+                            $node->setParent(null);
 
                             $node->setLft($branch['left']);
                             $node->setRgt($branch['right']);
                             $node->setSlug(NULL);
                             $em->persist($node);
+
+                            $coucou ="yes";
 
                         }
                     }
@@ -265,7 +269,7 @@
 
             $this->regenerateFullSlugs();
 
-            return new Response('');
+            return new Response($coucou);
 
         }
 

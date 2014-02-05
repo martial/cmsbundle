@@ -33,8 +33,8 @@ scrclub_cms_gmapupdate:
                 _locale: en|fr|es
 
 scrclub_cms_editnodetree:
-    pattern:  /backend/{_locale}/update_tree
-    defaults: { _controller: scrclubCMSBundle:Nodes:updateTree }
+    pattern:  /backend/{_locale}/update_tree/{depth}
+    defaults: { _controller: scrclubCMSBundle:Nodes:updateTree, depth:0 }
     options:
                 expose: true
 

@@ -116,12 +116,18 @@
             update              :   function (event, ui) {
 
                                     var arraied = $('.sortable').nestedSortable('toArray', {startDepthCount:0});
+
+
+
                                         $.ajax({
                                             type :'post',
                                             cache:false,
-                                            url  :'{{ path('scrclub_cms_editnodetree') }}',
+                                            url  :'{{ path('scrclub_cms_editnodetree') }}/1',
                                             data :{data:arraied},
+
+
                                             success: function(data){
+                                                console.log(data);
                                             }
                                         });
 
