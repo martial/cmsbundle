@@ -61,7 +61,9 @@
         <hr>
         <select id="roles" name="role" class="input-large">
         {% for role in roles %}
+        {% if app.user.hasRole(role.role)  %}
         <option value="{{role.role}}">{{role.role | trans  }}</option>
+        {% endif %}
         {% endfor %}
         </select>
 

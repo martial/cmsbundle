@@ -49,8 +49,8 @@ title: Titre
 url: url
 
 force.article: Forcer premier article
-layouts: Maquette visuelle
-template.settings: Configuration front end
+layouts: Vue
+template.settings: Configuration des vues
 mediaset: Set de medias
 validate.post.media.notice: Vous devez valider l'article une première fois pour ajouter des médias !
 welcome: Bienvenue
@@ -91,4 +91,4 @@ template.explication: La gestion de templates est réservée aux développeurs d
 google.explication: Vous pouvez renseigner vos identifiants google analytics afin d'avoir un apercu de vos statistiques.
 google.api.help: L'API Key se trouve dans votre page d'accueil Google Analytics, le chiffre après la lettre 'p' dans l'URL.
 
-layoutsDefaultChild: Template defaut pour children
+layoutsDefaultChild: Vue par défaut pour articles

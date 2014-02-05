@@ -92,6 +92,7 @@ class UserController extends Controller
         $userRoles = array(new Role('ROLE_ADMIN'));
         $roles = $roleHierarchy->getReachableRoles($userRoles);
 
+
         $form  = $this->createForm(new UserType($roles), $user);
 
 
