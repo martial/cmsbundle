@@ -277,6 +277,7 @@ class Node
 
     /**
      * @ORM\ManyToMany(targetEntity="scrclub\CMSBundle\Entity\Category", cascade={"persist"})
+     * @ORM\OrderBy({"name" = "ASC"})
      */
     private $categories;
 

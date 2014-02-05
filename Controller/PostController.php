@@ -34,12 +34,7 @@ class PostController extends Controller
             throw $this->createNotFoundException('Unable to find Node entity.');
         }
 
-
-        $query = $repo->getChildrenQueryBuilder($node, true);
-        //$query->andWhere("node.type = 'post'");
-        $result = $query->getQuery()->getResult();
-
-
+        $result = $node->getChildren();
 
         $rootTree = $repo->getRootNodes();
 

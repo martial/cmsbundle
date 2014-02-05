@@ -11,13 +11,11 @@
 
 
     {% if node.type == 'post' %}
-    {% set addPath = path('scrclub_cms_addpost', { 'id': node.id, 'parent_id': node.parent.id  }) %}
-    {% set navPath = addPath %}
+        {% set addPath = path('scrclub_cms_addpost', { 'id': node.id, 'parent_id': node.parent.id  }) %}
+        {% set navPath = addPath %}
     {% else %}
-    {% set addPath =  path('scrclub_cms_addnode', { 'id': node.id }) %}
-    {% set navPath = path('scrclub_cms_post', { 'parent_id': node.id })  %}
-
-
+        {% set addPath =  path('scrclub_cms_addnode', { 'id': node.id }) %}
+        {% set navPath = path('scrclub_cms_post', { 'parent_id': node.id })  %}
     {% endif %}
 
 
