@@ -86,7 +86,7 @@
 
         $(".add-post").click(function (e) {
 
-            console.log($(this).attr("data-parent-id"));
+            //console.log($(this).attr("data-parent-id"));
 
             $('#addNodeModal').modal({
                 remote:"{{path('scrclub_cms_preaddnode', {type:"post"})}}/" + $(this).attr("data-parent-id")

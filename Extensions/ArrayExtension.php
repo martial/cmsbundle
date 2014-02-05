@@ -16,6 +16,7 @@
             return array(
                 'in_array' => new \Twig_Function_Method($this, 'in_array'),
                 'contains' => new \Twig_Function_Method($this, 'contains'),
+                'sortByKeyValue' => new \Twig_Function_Method($this, 'sortByKeyValue'),
 
             );
         }
@@ -45,6 +46,19 @@
         {
             return in_array($needle, (Array)$array);
 
+        }
+
+        function sortByKeyValue($data, $sortKey, $sort_flags=SORT_ASC)
+        {
+            if (empty($data) or empty($sortKey)) return $data;
+
+            $ordered = array();
+            foreach ($data as $key => $value)
+                $ordered[$value[$sortKey]] = $value;
+
+            ksort($ordered, $sort_flags);
+
+            return array_values($ordered);
         }
 
         
