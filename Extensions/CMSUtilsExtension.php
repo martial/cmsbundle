@@ -71,7 +71,23 @@
 
             }
 
+            $result = $result->toArray();
+            $this->sortByName($result);
+
             return $result;
+
+        }
+
+        public function sortByName (&$nodes) {
+            return usort( $nodes, array($this,'nameSort') );
+
+        }
+
+        private static  function nameSort( $a, $b ) {
+
+            return strcmp($a->getName(), $b->getName());
+
+
 
         }
 
