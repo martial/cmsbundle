@@ -754,6 +754,8 @@ class Node
         return $this->dates;
     }
 
+
+
     public function addDateContent(DateContentType $dateContent)
     {
         $this->dateContent[] = $dateContent;
@@ -773,6 +775,9 @@ class Node
         return $this->dateContent;
 
     }
+
+
+
 
     public function addBooleanContent(BooleanContentType $booleanContent)
     {

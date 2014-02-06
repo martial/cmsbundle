@@ -580,7 +580,7 @@
                     }
 
                     if(!$exists) {
-                        if($contentConfig->getType() == "bool") {
+                        if($contentConfig->getType() == "date") {
                             $newDateContent = new DateContentType();
                             $newDateContent->setName($contentConfig->getName());
                             $newDateContent->setType($contentConfig->getType());
@@ -651,6 +651,8 @@
 
 
             }
+
+
 
             foreach( $node->getDateContent() as $dateContent ) {
 
