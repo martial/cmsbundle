@@ -980,6 +980,18 @@ class Node
         return "";
     }
 
+    public function getExtraDate($name) {
+
+        foreach($this->getDateContent() as $date ) {
+
+            if($date->getName() == $name)
+                return $date->getDate();
+
+        }
+
+        return "";
+    }
+
     public function hasSubNodes() {
         foreach( $this->getChildren() as $child) {
             if ($child->getType() == "node")

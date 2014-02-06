@@ -625,7 +625,7 @@
                 $name = $textContent->getName();
                 $exists = false;
                 foreach ($node->getContentTypeConfigs() as $contentConfig) {
-                    if($name == $contentConfig->getName())$exists = true;
+                    if($name == $contentConfig->getName()  AND $textContent->getType() == $contentConfig->getType()  )$exists = true;
                 }
 
 
@@ -641,7 +641,7 @@
                 $name = $booleanContent->getName();
                 $exists = false;
                 foreach ($node->getContentTypeConfigs() as $contentConfig) {
-                    if($name == $contentConfig->getName())$exists = true;
+                    if($name == $contentConfig->getName() AND $booleanContent->getType() == $contentConfig->getType() )$exists = true;
                 }
 
 
@@ -659,7 +659,9 @@
                 $name = $dateContent->getName();
                 $exists = false;
                 foreach ($node->getContentTypeConfigs() as $contentConfig) {
-                    if($name == $contentConfig->getName())$exists = true;
+                    if($name == $contentConfig->getName() AND $dateContent->getType() == $contentConfig->getType())$exists = true;
+
+
                 }
 
 
