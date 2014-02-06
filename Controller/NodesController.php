@@ -4,6 +4,7 @@
 
     use scrclub\CMSBundle\Entity\BooleanContentType;
     use scrclub\CMSBundle\Entity\Config;
+    use scrclub\CMSBundle\Entity\DateContentType;
     use scrclub\CMSBundle\Entity\GMapData;
     use scrclub\CMSBundle\Entity\TextContentType;
     use scrclub\CMSBundle\Form\TextContentTypeType;
@@ -568,7 +569,25 @@
 
                     }
 
+                    $exists = false;
+                    foreach( $node->getDateContent() as $dateContent ) {
 
+
+                        if (  $dateContent->getType() ==  $contentConfig->getType() AND $dateContent->getName() == $contentConfig->getName()) {
+                            $exists = true;
+                        }
+
+                    }
+
+                    if(!$exists) {
+                        if($contentConfig->getType() == "bool") {
+                            $newDateContent = new DateContentType();
+                            $newDateContent->setName($contentConfig->getName());
+                            $newDateContent->setType($contentConfig->getType());
+                            $node->addDateContent($newDateContent);
+                        }
+
+                    }
 
                 }
 
@@ -628,6 +647,22 @@
 
                 if(!$exists) {
                     $node->removeBooleanContent($booleanContent);
+                }
+
+
+            }
+
+            foreach( $node->getDateContent() as $dateContent ) {
+
+                $name = $dateContent->getName();
+                $exists = false;
+                foreach ($node->getContentTypeConfigs() as $contentConfig) {
+                    if($name == $contentConfig->getName())$exists = true;
+                }
+
+
+                if(!$exists) {
+                    $node->removeDateContent($dateContent);
                 }
 
 

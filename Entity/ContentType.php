@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  * @ORM\InheritanceType("JOINED")
  * @Gedmo\TranslationEntity(class="scrclub\CMSBundle\Entity\Translation\ContentTypeTranslation")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"textContentType" = "TextContentType", "booleanContentType"="BooleanContentType" })
+ * @ORM\DiscriminatorMap({"textContentType" = "TextContentType", "booleanContentType"="BooleanContentType", "dateContentType"="DateContentType" })
  */
 
 class ContentType

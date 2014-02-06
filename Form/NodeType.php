@@ -104,11 +104,17 @@ class NodeType extends AbstractType
             'by_reference' => false,
         ))
 
-            ->add('booleanContent', 'collection', array(
-                'type' => new BooleanContentTypeType($this->langrepo),
-                'allow_add' => true,
-                'by_reference' => false,
-            ))
+        ->add('booleanContent', 'collection', array(
+            'type' => new BooleanContentTypeType($this->langrepo),
+            'allow_add' => true,
+            'by_reference' => false,
+        ))
+
+        ->add('dateContent', 'collection', array(
+            'type' => new DateContentTypeType($this->langrepo),
+            'allow_add' => true,
+            'by_reference' => false,
+        ))
 
         ->add('contentTypeConfigs', 'collection', array(
             'type' => new ContentTypeConfigType(),
