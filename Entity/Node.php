@@ -44,6 +44,7 @@ class Node
         $this->categories   = new ArrayCollection();
         $this->textContent  = new ArrayCollection();
         $this->booleanContent = new ArrayCollection();
+        $this->dateContent  = new ArrayCollection();
         $this->contentTypeConfigs   = new ArrayCollection();
     }
 
@@ -295,12 +296,14 @@ class Node
     private $textContent;
 
     /**
-
      * @ORM\ManyToMany(targetEntity="BooleanContentType", cascade={"persist"})
      */
     private $booleanContent;
 
-
+    /**
+     * @ORM\ManyToMany(targetEntity="DateContentType", cascade={"persist"})
+     */
+    private $dateContent;
 
     /**
 
@@ -751,6 +754,25 @@ class Node
         return $this->dates;
     }
 
+    public function addDateContent(DateContentType $dateContent)
+    {
+        $this->dateContent[] = $dateContent;
+    }
+
+
+    public function removeDateContent(DateContentType $dateContent)
+    {
+        $this->dateContent->removeElement($dateContent);
+    }
+
+    public function setDateContent($dateContent) {
+        $this->dateContent = $dateContent;
+    }
+
+    public function getDateContent() {
+        return $this->dateContent;
+
+    }
 
     public function addBooleanContent(BooleanContentType $booleanContent)
     {

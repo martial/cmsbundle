@@ -248,6 +248,7 @@
         {% endfor %}
     </div>
 
+    {%  if form.booleanContent | length > 0  %}
     <div class="row-fluid page-header" style="border-top: 1px solid #eee; padding-top: 16px;">
         <div class="featurette  span10">
 
@@ -262,6 +263,22 @@
             {% endfor %}
         </div>
     </div>
+    {% endif %}
+
+    {%  if form.dateContent | length > 0  %}
+    <div class="row-fluid page-header" style="border-top: 1px solid #eee; padding-top: 16px;">
+        <div class="featurette  span10">
+
+
+            {% for date in form.dateContent %}
+                <div class="span1">
+                    <div style=" padding-bottom: 10px; ">{{ date.vars.value.name }}</div>
+                        {{ form_widget(date.date, {'attr': {'id': 'active_box' }}) }}
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 
 
 
@@ -445,7 +462,7 @@
 
         </div>
 
-        {% if app.user.hasRole("ROLE_ADMIN")  %}
+
         <div class="tab-pane" id ="fields-menu" data-prototype="{{ form_widget(form.contentTypeConfigs.vars.prototype) | e }}">
             <a id="add-contenttypeconfig" class=" btn btn-primary" style="margin-bottom:20px" href="#" >Add another field</a>
 
@@ -462,7 +479,7 @@
             {% endfor %}
 
         </div>
-        {% endif %}
+
 
 
         <div class="tab-pane" id="geolocation">
