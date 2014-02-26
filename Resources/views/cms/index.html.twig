@@ -55,13 +55,17 @@
 
 <script>
 
+    var visible = false;
+
     $(".show-hidden").click(function (e) {
 
 
         //$(".hidden-node").css("display", "block");
         $(".hidden-node").toggle();
 
+        visible = !visible;
 
+        $( ".sortable" ).nestedSortable( (visible) ? "disable" : "enable" );
 
         e.preventDefault();
         return false;

@@ -75,6 +75,12 @@
             }
 
             $node->setTranslatableLocale($defaultLocale->getLocale());
+            //$this->checkContentTypes($node);
+
+
+
+
+
 
             $request = $this->getRequest();
 
@@ -98,9 +104,14 @@
 
                 if ($form->isValid()) {
 
+
                     $node->setSlug('');
                     $em->persist($node);
                     $em->flush();
+
+                    if($node_parent) {
+                        $noderepo->moveUp($node, $node_parent->getChildren()->count());
+                    }
 
                     $node->setFullSlug( $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Node')->generateFullSlug($node));
                     $em->persist($node);
@@ -346,6 +357,9 @@
 
             // get langs
 
+            //$translatableListener = $this->get('stof_doctrine_extensions.listener.translatable');
+            //$translatableListener->setTranslatableLocale($translatableListener->getDefaultLocale());
+
             $em = $this->getDoctrine()->getManager();
             $lang_repo = $this->getDoctrine()->getRepository('scrclub\CMSBundle\Entity\Langs');
             $langs = $lang_repo->findAll();
@@ -393,6 +407,10 @@
             // content types
 
             $this->checkContentTypes($post);
+
+            foreach($post->getTextContent() as $textContent) {
+                $textContent->setTranslatableLocale($defaultLocale->getLocale());
+            }
 
 
             // text contents, old..
@@ -499,7 +517,7 @@
         }
 
 
-        private function checkContentTypes (Node $node) {
+        private function checkContentTypes (Node &$node) {
 
             foreach ($node->getContentTypeConfigs() as $contentConfig) {
 
@@ -537,6 +555,7 @@
                     if(!$exists) {
                         if($contentConfig->getType() == "text") {
                             $newTextContent = new TextContentType();
+
                             $newTextContent->setName($contentConfig->getName());
                             $newTextContent->setType($contentConfig->getType());
                             $node->addTextContent($newTextContent);
