@@ -23,6 +23,8 @@ class TextContentTypeType extends AbstractType
 
         $langs = $this->langrepo->findAll();
 
+        //var_dump( $this->langrepo->getLocales($langs));
+
         $builder->add("text", "textarea")
         ->add('translations', 'a2lix_translations', array(
         'locales' => $this->langrepo->getLocales($langs),

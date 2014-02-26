@@ -254,7 +254,7 @@
 
 
              {% for bool in form.booleanContent %}
-                <div class="span1">
+                <div class="span2">
                 <div style=" padding-bottom: 10px; ">{{ bool.vars.value.name | upper}}</div>
                 <div id="active_box_button" class="switch switch-small span1">
                     {{ form_widget(bool.value, {'attr': {'id': 'active_box' }}) }}

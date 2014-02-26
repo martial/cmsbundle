@@ -23,6 +23,7 @@ class TextContentType extends ContentType
     public function __construct()
     {
         $this->setType("text");
+        $this->text = "";
 
     }
 
@@ -39,17 +40,31 @@ class TextContentType extends ContentType
     /**
      * @var string
      * @Gedmo\Translatable
-     * @ORM\Column(name="text", type="text", nullable=true)
+     * @ORM\Column(name="text", type="text", nullable=false)
      */
 
-    private $text;
+    private $text = "";
+
+    /**
+     * @Gedmo\Locale
+     * Used locale to override Translation listener`s locale
+     * this is not a mapped field of entity metadata, just a simple property
+     */
+    protected $locale;
 
 
     /**
      * @param string $text
      */
     public function setText($text) {
-        $this->text = $text;
+
+        if($text == null) {
+            $this->text = " ";
+        } else {
+            $this->text = $text;
+        }
+
+
     }
 
     /**
@@ -57,6 +72,13 @@ class TextContentType extends ContentType
      */
     public function getText() {
         return $this->text;
+    }
+
+
+
+    public function setTranslatableLocale($locale)
+    {
+        $this->locale = $locale;
     }
 
 
