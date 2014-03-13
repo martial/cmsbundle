@@ -11,6 +11,7 @@ namespace scrclub\CMSBundle\Service;
 
 
 
+use TwitterOAuth\Exception\TwitterException;
 use TwitterOAuth\TwitterOAuth;
 
 class TwitterUtils {
@@ -28,7 +29,10 @@ class TwitterUtils {
         /**
          * Instantiate TwitterOAuth class with set tokens
          */
+
+        try {
         $tw = new TwitterOAuth($config);
+
 
 
         /**
@@ -46,6 +50,10 @@ class TwitterUtils {
          */
         return $tw->get('statuses/user_timeline', $params);
 
+        } catch (TwitterException $e) {
+            return array();
+        }
+
     }
 
     public function getSearch($key) {
@@ -61,6 +69,8 @@ class TwitterUtils {
         /**
          * Instantiate TwitterOAuth class with set tokens
          */
+
+        try {
         $tw = new TwitterOAuth($config);
 
 
@@ -79,6 +89,10 @@ class TwitterUtils {
          * Send a GET call with set parameters
          */
         return $tw->get('search/tweets', $params);
+
+        } catch (TwitterException $e) {
+            return array();
+        }
 
     }
 
