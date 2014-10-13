@@ -130,8 +130,8 @@
 
                 {% set icon = '' %}
 
-                {% if (form.translations.vars.default_locale[0] != locale) %}
 
+                {% if (form.translations.vars.default_locale[0] != locale) %}
 
                     {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
 
@@ -207,8 +207,6 @@
                             {% if (form.translations.vars.default_locale[0]  != locale) %}
                                 {% for translationForm in form.translations if (translationForm.vars.name == locale) %}
 
-
-
                                         {% for f in translationForm.children %}
 
                                             {{ form_label( f , f.name | lower | trans  , {'attr': {'class': 'input-xxlarge' }})
@@ -222,9 +220,6 @@
                                             {{ form_widget(f,  {'attr': {'class': className }})}}
 
                                         {% endfor %}
-
-
-
 
                                 {% endfor %}
 
@@ -273,7 +268,7 @@
             {% for date in form.dateContent %}
                 <div class="span3">
                     <div style=" padding-bottom: 10px; ">{{ date.vars.value.name }}</div>
-                        {{ form_widget(date.date, {'attr': {'id': 'active_box' }}) }}
+                        {{ form_widget(date.date, {'attr': {'id': 'active_box', 'class':"datepicker", 'type':"text" }}) }}
                 </div>
             {% endfor %}
         </div>
@@ -602,7 +597,7 @@
 
                                     {% for media in mediaset.medias %}
 
-                                        {% include 'scrclubCMSBundle:cms:list_image_mediaset.html.twig' with {'media':media, 'mediaset':mediaset, 'addPostLink':true} %}
+                                        {% include 'scrclubCMSBundle:cms:list_image_mediaset.html.twig' with {'media':media, 'mediaset':mediaset, 'addPostLink':true, 'node':node} %}
 
                                     {% endfor %}
 
@@ -681,6 +676,9 @@
 
         $(function () {
 
+            $(".datepicker").attr("type", "text");
+            $(".datepicker").datepicker({format:"yyyy-mm-dd"});
+
             //$('#scrclub_cmsbundle_{{node.type}}type_description').wysihtml5({"html": true});
             //$('#scrclub_cmsbundle_{{node.type}}type_header').wysihtml5({"html": true});
 
@@ -695,7 +693,7 @@
                         "load": function() {
                             t.nextAll('iframe:eq(0)').eq(0).wysihtml5_size_matters();
 
-                        },
+                        }
 
                     }
 

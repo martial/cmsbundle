@@ -10,9 +10,9 @@
     {% endif %}
 
     <div class="featurette">
-        <h2 class="featurette-heading">{{ 'add'| trans }} {{ titleType | trans }}
-            {% if parent %}<div class="muted featurette-sub-heading small">> {{ parent.name }}</div>{% endif %}
-        </h2>
+        <div class="featurette-heading" style="font-size: 24px">{{ 'add'| trans }} {{ titleType | trans }}
+            {% if parent %}<span class="muted" style="font-size: 24px"> — {{ parent.name }}</span>{% endif %}
+        </div>
     </div>
 
     <hr class="featurette-divider">

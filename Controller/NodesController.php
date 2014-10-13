@@ -47,6 +47,7 @@
                 $config = $configs[0];
             }
 
+
             return $this->render('scrclubCMSBundle:cms:index.html.twig', array("type" => "node", "tree" => $result, "config" => $config));
 
         }

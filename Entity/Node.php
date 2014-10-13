@@ -709,6 +709,20 @@ class Node
         return $this->mediaNodes;
     }
 
+    public function getAllMedias() {
+
+        $result = new ArrayCollection();
+        foreach($this->mediaNodes as $mediaNode) {
+
+            $result->add($mediaNode->getMedia());
+
+        }
+
+        return $result;
+
+
+    }
+
 
 
     public function addCategory(\scrclub\CMSBundle\Entity\Category $category)

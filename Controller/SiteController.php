@@ -4,6 +4,7 @@
 
     use Doctrine\ORM\Query;
     use scrclub\CMSBundle\Entity\Node;
+    use Symfony\Component\HttpFoundation\Cookie;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -116,5 +117,43 @@
             return "";
 
         }
+
+        public function setCountryCookie(&$responseHeaders) {
+
+            $request = $this->get('request');
+            $country = $request->cookies->get('auto_locale');
+
+            if(!isset($country) || empty($country) && $country != "off") {
+                $geoip = $this->get("cms_bundle.freegeoip");
+                $locale = $geoip->isInFrance() ? "fr" : "en";
+
+                $cookie = new Cookie('auto_locale', $locale, time() + 3600 * 24 * 7);
+                $responseHeaders->setCookie($cookie);
+
+                // $this->setTranslatableLocale("en");
+                $this->get('request')->setLocale($locale);
+                $this->get('request')->getSession()->set('_locale', $locale);
+                $this->get('request')->setDefaultLocale($locale);
+                $this->get('stof_doctrine_extensions.listener.translatable')->setTranslatableLocale($locale);
+
+
+
+            } else if($country != "off") {
+
+                // $this->setTranslatableLocale("en");
+                $this->get('request')->setLocale($country);
+                $this->get('request')->getSession()->set('_locale', $country);
+                $this->get('request')->setDefaultLocale($country);
+                $this->get('stof_doctrine_extensions.listener.translatable')->setTranslatableLocale($country);
+
+            }
+
+
+
+            return $responseHeaders;
+
+        }
+
+
 
     }

@@ -26,6 +26,8 @@ class DateContentTypeType extends AbstractType
         $builder->add('date', 'date', array(
         'widget' => 'single_text',
         'format' => 'yyyy-MM-dd',
+        'input' => 'datetime',
+        'attr'=> array('type'=>'text')
         ));
 
     }

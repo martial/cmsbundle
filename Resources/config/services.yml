@@ -80,3 +80,6 @@ services:
 
     cms_bundle.twitter:
         class: scrclub\CMSBundle\Service\TwitterUtils
+
+    cms_bundle.freegeoip:
+        class: scrclub\CMSBundle\Service\FreeGeoIp
