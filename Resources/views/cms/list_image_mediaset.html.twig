@@ -3,7 +3,7 @@
 <li class="span2 media-{{media.id}}" id="media-{{media.id}}">
 
 
-    <div class="thumbnail thumbnail-mediaset " href="#">
+    <div class="thumbnail thumbnail-mediaset {% if nodeContainsMedia(node, media)%}selected{% endif %}" href="#">
 
         {% set updatePath = path('scrclub_cms_updateMediaPopOver', {id:media.id}) %}
         {% if (media.type =='image' )%}

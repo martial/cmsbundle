@@ -23,6 +23,7 @@ class DateContentType extends ContentType
     public function __construct()
     {
         $this->setType("date");
+        $this->date = new \DateTime();
 
     }
 

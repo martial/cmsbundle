@@ -16,6 +16,7 @@
         public function getFunctions()
         {
             return array(
+
                 'getRandomImage' => new \Twig_Function_Method($this, 'getRandomImage'),
             );
         }

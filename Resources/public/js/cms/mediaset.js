@@ -99,6 +99,7 @@ function assignNodeToMedia() {
 
             //console.log("click");
             event.preventDefault();
+            $(this).parent().parent().addClass("selected");
             addMedia($(this));
 
 
@@ -141,7 +142,6 @@ function addMedia(el) {
 }
 
 // hey does that change somthing ??
-
 function assignRemoveAction() {
 
     // remove media relation
@@ -163,6 +163,10 @@ function assignRemoveAction() {
             $($(this).parents().get()[1]).hide(300, function () {
                 $(this).remove();
             });
+
+            var mediaId = $($(this).parents().get()[1]).attr('data-mediaid');
+
+            $(".media-"+mediaId).find(".thumbnail").removeClass("selected");
 
         });
 

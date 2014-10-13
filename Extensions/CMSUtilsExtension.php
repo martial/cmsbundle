@@ -16,6 +16,7 @@
         public function getFunctions()
         {
             return array(
+                'nodeContainsMedia' => new \Twig_Function_Method($this, 'nodeContainsMedia'),
                 'getTextContent' => new \Twig_Function_Method($this, 'getTextContent'),
                 'getBooleanContent' => new \Twig_Function_Method($this, 'getBooleanContent'),
                 'getCategories' => new \Twig_Function_Method($this, 'getCategories'),
@@ -27,6 +28,12 @@
 
 
 
+        public function nodeContainsMedia(Node $node, $media ) {
+
+
+            return $node->getAllMedias()->contains($media);
+
+        }
 
         public function getTextContent(Node $node, $type) {
 
