@@ -5,6 +5,7 @@
     use Doctrine\ORM\Query;
     use scrclub\CMSBundle\Entity\Node;
     use Symfony\Component\HttpFoundation\Cookie;
+    use Symfony\Component\HttpFoundation\RedirectResponse;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
@@ -118,12 +119,42 @@
 
         }
 
+        public function hasLocaleChanged($locale) {
+
+            /*
+            //
+            $cookie = new Cookie('auto_locale', "off", time() + 3600 * 24 * 7);
+            $responseHeaders->setCookie($cookie);
+
+
+
+            return new RedirectResponse()
+
+            */
+        }
+
         public function setCountryCookie(&$responseHeaders) {
 
             $request = $this->get('request');
-            $country = $request->cookies->get('auto_locale');
+            $locale = $request->cookies->get('auto_locale');
 
-            if(!isset($country) || empty($country) && $country != "off") {
+            // check if locale has changed !
+            // if yes - we sure are off
+
+            $hasChanged = false;
+
+            $prevLocale = $this->get("session")->get('prev-locale');
+            if ($prevLocale != "" and $prevLocale != $this->get('request')->getLocale() ) {
+
+                $cookie = new Cookie('auto_locale', "off", time() + 3600 * 24 * 7);
+                $responseHeaders->setCookie($cookie);
+
+                $hasChanged = true;
+            }
+
+
+
+            if(!isset($locale) || empty($locale) && $locale != "off") {
                 $geoip = $this->get("cms_bundle.freegeoip");
                 $locale = $geoip->isInFrance() ? "fr" : "en";
 
@@ -138,17 +169,17 @@
 
 
 
-            } else if($country != "off") {
+            } else if($locale != "off" and !$hasChanged) {
 
-                // $this->setTranslatableLocale("en");
-                $this->get('request')->setLocale($country);
-                $this->get('request')->getSession()->set('_locale', $country);
-                $this->get('request')->setDefaultLocale($country);
-                $this->get('stof_doctrine_extensions.listener.translatable')->setTranslatableLocale($country);
-
+               // $this->setTranslatableLocale("en");
+                $this->get('request')->setLocale($locale);
+                $this->get('request')->getSession()->set('_locale', $locale);
+                $this->get('request')->setDefaultLocale($locale);
+                $this->get('stof_doctrine_extensions.listener.translatable')->setTranslatableLocale($locale);
             }
 
-
+            // here we set locale
+            $this->get("session")->set('prev-locale', $locale);
 
             return $responseHeaders;
 
