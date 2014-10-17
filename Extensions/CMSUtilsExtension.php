@@ -61,7 +61,7 @@
 
         }
 
-        public function getCategories ($nodes) {
+        public function getCategories ($nodes, $sortByName = true) {
 
             $result = new ArrayCollection();
 
@@ -79,7 +79,9 @@
             }
 
             $result = $result->toArray();
-            $this->sortByName($result);
+            
+            if($sortByName)
+                $this->sortByName($result);
 
             return $result;
 

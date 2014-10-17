@@ -218,6 +218,8 @@
                     // update categories ?
 
 
+
+
                     foreach ( $node->getCategories() as $category ) {
 
                         $category->addNode($node);
@@ -225,6 +227,10 @@
                         $em->flush();
 
                     }
+
+                    // and reverse
+
+
 
 
 
@@ -459,9 +465,6 @@
                     $em = $this->getDoctrine()->getManager();
                     $post->setSlug('');
                     $post->setType('post');
-
-
-
                     $em->persist($post);
 
                     // -------------------------------------------------- manage categories
@@ -488,6 +491,22 @@
                             $em->persist($category);
                         }
                     }
+
+                    // clean nodes for real
+                    foreach( $submittedCategories as $category ) {
+
+                        foreach($category->getNodes() as $node) {
+
+                            if(!$node->getCategories()->contains($category)) {
+                                $category->removeNode($node);
+                                $em->persist($category);
+                            }
+
+                        }
+
+                    }
+
+
 
                     $em->flush();
 
