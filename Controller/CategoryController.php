@@ -81,6 +81,17 @@
 
                 if ($form->isValid()) {
                     $em = $this->getDoctrine()->getManager();
+
+
+                    foreach($category->getNodes() as $node) {
+
+                        if(!$node->getCategories()->contains($category))
+                            $category->removeNode($node);
+
+                    }
+
+
+
                     $em->persist($category);
                     $em->flush();
 

@@ -152,6 +152,9 @@
                 $hasChanged = true;
             }
 
+            // also we need to ensure to redirect if there's no cookie yet and wrong locale
+
+
 
 
             if(!isset($locale) || empty($locale) && $locale != "off") {
