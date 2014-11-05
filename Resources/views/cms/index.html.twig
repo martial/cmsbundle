@@ -38,7 +38,7 @@
     </div>
 
     <div id="alert-area"></div>
-    {% include 'scrclubCMSBundle:cms:nodeChildren.html.twig' with {'tree':tree, 'level':0 } %}
+    {% include 'scrclubCMSBundle:cms:nodeChildren.html.twig' with {'tree':tree, 'level':0, 'no-nest':true } %}
     <hr>
 
 </div>
@@ -65,7 +65,7 @@
 
         visible = !visible;
 
-        $( ".sortable" ).nestedSortable( (visible) ? "disable" : "enable" );
+        //$( ".sortable" ).nestedSortable( (visible) ? "disable" : "enable" );
 
         e.preventDefault();
         return false;

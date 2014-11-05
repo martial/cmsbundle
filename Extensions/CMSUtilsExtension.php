@@ -4,6 +4,7 @@
 
     use Doctrine\Common\Collections\ArrayCollection;
     use Doctrine\Common\Collections\Collection;
+    use Doctrine\Common\Util\Debug;
     use scrclub\CMSBundle\Entity\Node;
 
 
@@ -21,11 +22,17 @@
                 'getBooleanContent' => new \Twig_Function_Method($this, 'getBooleanContent'),
                 'getCategories' => new \Twig_Function_Method($this, 'getCategories'),
                 'filterByGMapRegion' => new \Twig_Function_Method($this, 'filterByGMapRegion'),
+                'debug' => new \Twig_Function_Method($this, 'debug')
 
             );
         }
 
 
+        public function debug($var)
+        {
+            Debug::dump($var);
+            return; // breakpoint
+        }
 
 
         public function nodeContainsMedia(Node $node, $media ) {
@@ -79,7 +86,9 @@
             }
 
             $result = $result->toArray();
-            
+
+
+
             if($sortByName)
                 $this->sortByName($result);
 

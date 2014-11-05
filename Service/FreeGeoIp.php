@@ -22,16 +22,25 @@
                 $ip = "92.157.117.248";
             }
 
-            $location = file_get_contents('http://freegeoip.net/json/'.$ip);
-            $result = json_decode($location);
+            ini_set('default_socket_timeout', 5);
+            $location = @file_get_contents('http://freegeoip.net/json/'.$ip);
 
-            return $result;
+            if($location === FALSE) {
+
+            return NULL;
+
+            } else {
+                $result = json_decode($location);
+                return $result;
+            }
 
         }
 
         public function isInFrance() {
 
             $location = $this->getLocation();
+            if($location == NULL) return true;
+
             if($location->country_code == "FR") return true;
 
             return false;

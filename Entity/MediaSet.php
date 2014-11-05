@@ -112,11 +112,12 @@ class MediaSet
         $this->medias[] = $medias;
     }
 
-    /**
+    /*
      * Remove categories
      *
      * @param scrClub\CMSBundle\Entity\MediaSet $categories
      */
+
     public function removeMedia(\scrclub\CMSBundle\Entity\Media $media)
     {
         // Ici on utilise une méthode de l'ArrayCollection, pour supprimer la catégorie en argument

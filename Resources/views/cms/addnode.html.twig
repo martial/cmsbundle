@@ -116,7 +116,7 @@
 
 
     <div class="tabbable">
-        <ul class="nav nav-tabs" id="langTab">
+        <ul class="nav nav-tabs" style ="margin-bottom: 0px;" id="langTab">
 
             <!-- default locale -->
 
@@ -179,12 +179,45 @@
                             }}
                             {{ form_widget(form.description,  {'attr': {'class': 'input-xxlarge  wysi' }})}}
 
-                            {% for textContentForm in form.textContent %}
+                            {% for contentType in contentTypes %}
 
-                            <label>{{ textContentForm.vars.value.name }}</label>
-                            {{ form_widget(textContentForm.text, {'attr': {'class': 'input-xxlarge h wysi' }}) }}
+                                {% for textContentForm in form.textContent %}
+                                       {% if textContentForm.vars.value.id == contentType.id %}
+                                        <label>{{ textContentForm.vars.value.name }}</label>
+                                        {{ form_widget(textContentForm.text, {'attr': {'class': 'input-xxlarge h wysi' }}) }}
+                                    {% endif %}
+                                {% endfor %}
+
+                                {% for mediaContentForm in form.mediaContent %}
+
+                                    {% if mediaContentForm.vars.value.id == contentType.id %}
+
+                                        <label>{{ mediaContentForm.vars.value.name }}</label>
+                                        <button  type="button" data-attr-id="{{ mediaContentForm.vars.value.id }}" class="btn btn-primary dropzone" /></button>
+
+                                        <div class="row">
+                                            <div class="span12">
+                                                <ol class="sortable clearfix ui-sortable medialist medialist-{{ mediaContentForm.vars.value.id }}" data-attr-id="{{ mediaContentForm.vars.value.id }}" style="margin-right: 44px; margin-top:8px">
+                                                    {% for media in mediaContentForm.vars.value.medias  %}
+                                                        <li class="list" style="padding-left: 30px;" id="list_{{ media.id }}" ><div>
+                                                                {{ media.name }}
+                                                                <div class="btn-group pull-right" style="padding: 0; margin-top: -3px; padding-right: 10px;">
+                                                                    <button class="btn btn-mini  ">Action</button>
+                                                                    <button class="btn btn-mini  dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                                                    <ul class="dropdown-menu">
+                                                                        <li><a target="_blank" href="{{asset(media.getWebPath())}}"><i class="icon-zoom-in"></i> - See</a></li>
+                                                                        <li><a class="delete_node remove-media-type" data-attr-id="{{ media.id }}" href="#"><i class="icon-trash"></i> - Delete</a></li>
+                                                                    </ul>
+                                                                </div>
+                                                            </div>
+                                                        </li>
+                                                    {% endfor %}
+                                                </ol>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
                             {% endfor %}
-
                         </div>
                     </div>
                 </div>
@@ -193,9 +226,8 @@
 
 
 
+
         {% for locale in form_locales %}
-
-
             <div class="tab-pane x {% if (form.translations.vars.default_locale[0]  == locale) %} active {% endif %}" id="{{ locale }}">
 
                 <fieldset>
@@ -230,16 +262,60 @@
                                             {{ form_widget(translationForm.text, {'attr': {'class': 'input-xxlarge  wysi' }}) }}
                                         {% endfor %}
                                 {% endfor %}
+
+
+
+                                {% for contentType in contentTypes %}
+
+                                    {% for textContentForm in form.textContent %}
+                                        {% if textContentForm.vars.value.id == contentType.id %}
+                                            {% for translationForm in textContentForm.translations if (translationForm.vars.name == locale)  %}
+                                            <label>{{ textContentForm.vars.value.name }}</label>
+                                            {{ form_widget(textContentForm.text, {'attr': {'class': 'input-xxlarge h wysi' }}) }}
+                                                {% endfor %}
+                                        {% endif %}
+                                    {% endfor %}
+
+                                    {% for mediaContentForm in form.mediaContent %}
+
+                                        {% if mediaContentForm.vars.value.id == contentType.id %}
+
+                                            <label>{{ mediaContentForm.vars.value.name }}</label>
+                                            <button  type="button" data-attr-id="{{ mediaContentForm.vars.value.id }}" class="btn btn-primary dropzone" /></button>
+
+                                            <div class="row">
+                                                <div class="span12">
+                                                    <ol class="sortable clearfix ui-sortable medialist medialist-{{ mediaContentForm.vars.value.id }}" data-attr-id="{{ mediaContentForm.vars.value.id }}" style="margin-right: 44px; margin-top:8px">
+                                                        {% for media in mediaContentForm.vars.value.medias  %}
+                                                            <li class="list" style="padding-left: 30px;" id="list_{{ media.id }}" ><div>
+                                                                    {{ media.name }}
+                                                                    <div class="btn-group pull-right" style="padding: 0; margin-top: -3px; padding-right: 10px;">
+                                                                        <button class="btn btn-mini  ">Action</button>
+                                                                        <button class="btn btn-mini  dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>
+                                                                        <ul class="dropdown-menu">
+                                                                            <li><a target="_blank" href="{{asset(media.getWebPath())}}"><i class="icon-zoom-in"></i> - See</a></li>
+                                                                            <li><a class="delete_node remove-media-type" data-attr-id="{{ media.id }}" href="#"><i class="icon-trash"></i> - Delete</a></li>
+                                                                        </ul>
+                                                                    </div>
+                                                                </div>
+                                                            </li>
+                                                        {% endfor %}
+                                                    </ol>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    {% endfor %}
+
+                                {% endfor %}
+
+
                             </div>
                             {% endif %}
 
                         </div>
                     </div>
                 </fieldset>
-
             </div>
-
-
         {% endfor %}
     </div>
 
@@ -400,15 +476,6 @@
                     </div>
                 {% endif %}
 
-
-                <!--
-                <div class="span3">
-                    <label>&nbsp;</label>
-                    <button type="submit" class="btn btn-primary">Preview</button>
-                </div>
-                -->
-
-
             </div>
         </div>
 
@@ -467,7 +534,7 @@
                     <div class=" well control-group">
                         {{ form_errors(contentTypeConfig) }}
                         {{ form_widget(contentTypeConfig) }}
-                        <div  id="fields-delete" class="delete-field btn btn-primary">Delete</div>
+                        <div  id="fields-delete" style="margin-top:20px" class="delete-field btn btn-primary">Delete</div>
                     </div>
 
                 </fieldset>
@@ -676,6 +743,50 @@
 
         $(function () {
 
+
+            $(".dropzone").each(function () {
+
+                var url = "{{ path("scrclub_cms_mediacontentupload") }}/"+$(this).attr("data-attr-id");
+
+                var fontDrop = new Dropzone(this, { url: url});
+                fontDrop.previewTemplate = "";
+                fontDrop.createImageThumbnails = false;
+                fontDrop.previewsContainer = false;
+
+                var list = $(this).find(".medialist");
+
+                fontDrop.on("success", function(file, responseJSON) {
+
+
+
+                    var node = '<li class="list" style="padding-left: 30px;"><div>'+
+                            responseJSON["media_name"] +
+                    '<div class="btn-group pull-right" style="padding: 0; margin-top: -3px; padding-right: 10px;">'+
+                        '<button class="btn btn-mini  ">Action</button>'+
+                        '<button class="btn btn-mini  dropdown-toggle" data-toggle="dropdown"><span class="caret"></span></button>'+
+                        '<ul class="dropdown-menu">'+
+                            '<li><a href="'+assetPath+responseJSON["webpath"]+'"><i class="icon-zoom-in"></i> - See</a></li>'+
+                            '<li><a class="delete_node" href="#"><i class="icon-trash"></i> - Delete</a></li>'+
+                        '</ul>'+
+                        '</div>'+
+                        '</div>'+
+                    '</li>';
+
+                    $(".medialist-"+responseJSON["mediacontenttype_id"]).append(node);
+
+
+                    assignSorteable();
+                    assignDeleteFields();
+
+                });
+
+
+            })
+
+
+            assignSorteable();
+
+
             $(".datepicker").attr("type", "text");
             $(".datepicker").datepicker({format:"yyyy-mm-dd"});
 
@@ -706,17 +817,7 @@
             $(".select2").select2({width:"resolve"});
 
 
-            /*
-            // google maps
-            initialize();
-            {% if node.latitude and node.longitude %}
-            setPosition({{ node.latitude}}, {{ node.longitude }});
-            {% else %}
-            getPosition();
-            {% endif %}
-            $("#googlemaps_input").select2({placeholder: "maps"});
 
-            */
 
         })
 
@@ -737,13 +838,11 @@
             newWidget = newWidget.replace(/__name__/g, contentTypeConfigCount);
             contentTypeConfigCount++;
 
-            // créer une nouvelle liste d'éléments et l'ajoute à notre liste
-            //var newLi = jQuery('<fieldset><div class=" well control-group"></div></fieldset>').html(newWidget);
-            //newLi.appendTo(jQuery('#fields-menu'));
+
 
             var input = $('<fieldset><div class=" well control-group">'+ newWidget +
 
-                    '<div  id="fields-delete" class="delete-field btn btn-primary">Delete</div>' +
+                    '<div  id="fields-delete" style="margin-top: 20px" class="delete-field btn btn-primary">Delete</div>' +
                     '</div></fieldset>').insertAfter('#add-contenttypeconfig');
 
             assignDeleteFields();
@@ -760,11 +859,74 @@
             $(".delete-field ").click(function () {
                 $(this).parent().parent().remove();
             })
+
+
+
+            $('.remove-media-type').each(function () {
+
+                $(this).click(function (e) {
+
+                    var mediaId = $(this).attr('data-attr-id');
+
+
+                    $.ajax({
+                        url    :Routing.generate('scrclub_cms_deletemedia', {id:mediaId }),
+                        success:function (data) {
+
+                            $('#list_' + mediaId).remove();
+
+                        }
+
+                    });
+
+                    e.preventDefault();
+                    return false;
+
+                });
+
+            });
+
         }
 
 
 
+        function assignSorteable () {
 
+            $('.sortable').nestedSortable({
+
+                handle              :   'div',
+                helper              :   'clone',
+                items               :   'li',
+                //rootID              :   {{ nodeParent.id }},
+                opacity             :   1,
+                tolerance           :   'pointer',
+                placeholder         :   "placeholder",
+                forcePlaceholderSize:   true,
+                protectRoot         : true,
+
+                update              :   function (event, ui) {
+
+                    var arraied = $('.sortable').nestedSortable('toArray', {startDepthCount:0});
+
+                     $.ajax({
+                     type :'post',
+                     cache:false,
+                     url  :'{{ path('scrclub_cms_updateMediaTypeOrder') }}',
+                     data :{data:arraied},
+
+
+                     success: function(data){
+                        console.log(data);
+                     }
+                     });
+
+
+
+                }
+
+            });
+
+        }
 
 
 

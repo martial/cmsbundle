@@ -20,6 +20,8 @@ class DateType extends AbstractType
 
 
         $builder
+
+
             ->add('dateStart', 'date', array(   'widget' => 'single_text',
                                                 'label' => "date.start",
                                                 'format' => 'yyyy-MM-dd',

@@ -83,3 +83,7 @@ services:
 
     cms_bundle.freegeoip:
         class: scrclub\CMSBundle\Service\FreeGeoIp
+
+
+    cms_bundle.nodeutils:
+        class: scrclub\CMSBundle\Service\NodeUtils

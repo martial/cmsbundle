@@ -160,6 +160,29 @@ class ContentTypeConfig
      */
     private $categories;
 
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="level", type="integer", options={"default" = 0})
+     */
+    protected $order;
+
+    /**
+     * @param int $order
+     */
+    public function setOrder($order) {
+        $this->order = $order;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrder() {
+        return $this->order;
+    }
+
+
+
 
 
 

@@ -61,6 +61,14 @@
         protected $mediaSets;
 
 
+        /**
+         * @var string
+         *
+         * @ORM\Column(name="level", type="integer", options={"default" = 0})
+         */
+        private $level;
+
+
         public function setName($name) {
             $this->name = $name;
         }
@@ -145,6 +153,22 @@
         public function getType() {
             return $this->type;
         }
+
+        /**
+         * @param string $level
+         */
+        public function setLevel($level) {
+            $this->level = $level;
+        }
+
+        /**
+         * @return string
+         */
+        public function getLevel() {
+            return $this->level;
+        }
+
+
 
 
     }

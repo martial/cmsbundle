@@ -80,7 +80,18 @@ $(document).ready(function () {
         opacity             :1,
         tolerance           :'pointer',
         placeholder         :'placeholder',
+        disableNesting: 'no-nest',
+        isTree: true,
         forcePlaceholderSize:true,
+        isAllowed: function (placeholder, placeholderParent, currentItem) {
+
+            if(typeof placeholderParent !== 'undefined' && placeholderParent != null) {
+                if(placeholderParent.hasClass("hidden-node"))
+                return false;
+
+            }
+            return true;
+        },
 
         update:function (event, ui) {
 
