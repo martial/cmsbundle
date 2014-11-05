@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  * @ORM\InheritanceType("JOINED")
  * @Gedmo\TranslationEntity(class="scrclub\CMSBundle\Entity\Translation\ContentTypeTranslation")
  * @ORM\DiscriminatorColumn(name="discr", type="string")
- * @ORM\DiscriminatorMap({"textContentType" = "TextContentType", "booleanContentType"="BooleanContentType", "dateContentType"="DateContentType" })
+ * @ORM\DiscriminatorMap({"textContentType" = "TextContentType", "booleanContentType"="BooleanContentType", "dateContentType"="DateContentType", "mediaContentType"="MediaContentType" })
  */
 
 class ContentType
@@ -32,6 +32,7 @@ class ContentType
     {
 
         $this->translations = new ArrayCollection();
+        $this->order = 0;
 
     }
 
@@ -43,6 +44,15 @@ class ContentType
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     protected $id;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="level", type="integer", options={"default" = 0})
+     */
+    protected $order;
+
+
 
 
     /**
@@ -135,6 +145,20 @@ class ContentType
      */
     public function getName() {
         return $this->name;
+    }
+
+    /**
+     * @param int $order
+     */
+    public function setOrder($order) {
+        $this->order = $order;
+    }
+
+    /**
+     * @return int
+     */
+    public function getOrder() {
+        return $this->order;
     }
 
     /**

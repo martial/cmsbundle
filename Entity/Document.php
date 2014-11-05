@@ -44,6 +44,7 @@
         protected $file;
 
 
+
         public function getAbsolutePath() {
             return null === $this->path ? null : $this->getUploadRootDir() . '/' . $this->path;
         }
@@ -153,6 +154,9 @@
         public function getFileSize() {
             return $this->fileSize;
         }
+
+
+
 
         public function __toString() {
 

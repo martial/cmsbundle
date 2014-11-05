@@ -2,10 +2,13 @@
 
     namespace scrclub\CMSBundle\Controller;
 
+    use Doctrine\Common\Collections\ArrayCollection;
     use scrclub\CMSBundle\Entity\BooleanContentType;
     use scrclub\CMSBundle\Entity\Config;
     use scrclub\CMSBundle\Entity\DateContentType;
     use scrclub\CMSBundle\Entity\GMapData;
+    use scrclub\CMSBundle\Entity\Media;
+    use scrclub\CMSBundle\Entity\MediaContentType;
     use scrclub\CMSBundle\Entity\TextContentType;
     use scrclub\CMSBundle\Form\TextContentTypeType;
     use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -188,6 +191,7 @@
 
 
             $this->checkContentTypes($node);
+            $contentTypes = $this->setContentTypeOrder($node);
 
 
 
@@ -229,18 +233,12 @@
                     }
 
                     // and reverse
-
-
-
-
-
-
                    // return $this->redirect($this->generateUrl('scrclub_cms_addnode', array('id' => $node->getId())));
                 }
             }
 
 
-            return $this->render('scrclubCMSBundle:cms:addnode.html.twig', array('node' => $node, 'form'=> $form->createView(), 'langs' => $langs, 'locale' => $locale, 'templates' => $templates));
+            return $this->render('scrclubCMSBundle:cms:addnode.html.twig', array('node' => $node, 'form'=> $form->createView(), 'langs' => $langs, 'locale' => $locale, 'templates' => $templates, 'contentTypes' => $contentTypes));
 
         }
 
@@ -411,9 +409,12 @@
 
             $noderepo->getFieldsRecursive($post);
 
+
+
             // content types
 
             $this->checkContentTypes($post);
+            $contentTypes = $this->setContentTypeOrder($post);
 
             foreach($post->getTextContent() as $textContent) {
                 $textContent->setTranslatableLocale($defaultLocale->getLocale());
@@ -531,8 +532,68 @@
                                                                                  'langs' => $langs,
                                                                                  'locale' => $locale,
                                                                                  'parent_id' => $parent_id,
-                                                                                 'tree' => $result
+                                                                                 'tree' => $result,
+                                                                                    'contentTypes' => $contentTypes
                                                                                 ));
+
+        }
+
+
+        private function setContentTypeOrder (Node &$node) {
+
+            $result = new ArrayCollection();
+
+            foreach ($node->getContentTypeConfigs() as $contentConfig) {
+
+                $name = $contentConfig->getName();
+                $type = $contentConfig->getType();
+
+                foreach( $node->getTextContent() as $content ) {
+                    if($name == $content->getName() AND $type == $content->getType()) {
+                        $content->setOrder($contentConfig->getOrder());
+                        $result->add($content);
+                    }
+                }
+
+                foreach( $node->getMediaContent() as $content ) {
+                    if($name == $content->getName() AND $type == $content->getType()) {
+                        $content->setOrder($contentConfig->getOrder());
+                        $result->add($content);
+                    }
+                }
+
+
+                foreach( $node->getBooleanContent() as $content ) {
+                    if($name == $content->getName() AND $type == $content->getType()) {
+                        $content->setOrder($contentConfig->getOrder());
+                        $result->add($content);
+                    }
+
+                }
+
+                foreach( $node->getDateContent() as $content ) {
+                    if($name == $content->getName() AND $type == $content->getType()) {
+                        $content->setOrder($contentConfig->getOrder());
+                        $result->add($content);
+                    }
+
+                }
+
+            }
+
+            // and then sort by order
+            $iterator = $result->getIterator();
+
+        // define ordering closure, using preferred comparison method/field
+            $iterator->uasort(function ($first, $second) {
+                return (int) $first->getOrder() > (int) $second->getOrder() ? 1 : -1;
+            });
+
+            return $iterator;
+
+
+
+
 
         }
 
@@ -628,6 +689,36 @@
 
                     }
 
+
+                    $exists = false;
+                    foreach( $node->getMediaContent() as $mediaContent ) {
+
+
+                        if (  $mediaContent->getType() ==  $contentConfig->getType() AND $mediaContent->getName() == $contentConfig->getName()) {
+                            $exists = true;
+                        }
+
+                    }
+
+                    if(!$exists) {
+                        if($contentConfig->getType() == "media") {
+
+                            $newBoolContent = new MediaContentType();
+                            $newBoolContent->setName($contentConfig->getName());
+                            $newBoolContent->setDescription("hello");
+                            $newBoolContent->setType($contentConfig->getType());
+                            $node->addMediaContent($newBoolContent);
+
+                            $em = $this->getDoctrine()->getManager();
+
+                            $em->persist($newBoolContent);
+                            $em->flush();
+                        }
+
+
+
+                    }
+
                 }
 
             }
@@ -710,6 +801,26 @@
 
 
             }
+
+            foreach( $node->getMediaContent() as $mediaContent ) {
+
+                $name = $mediaContent->getName();
+                $exists = false;
+                foreach ($node->getContentTypeConfigs() as $contentConfig) {
+                    if($name == $contentConfig->getName() AND $mediaContent->getType() == $contentConfig->getType())$exists = true;
+
+                }
+
+
+                if(!$exists) {
+                    $node->removeMediaContent($mediaContent);
+                }
+
+
+            }
+
+
+
 
 
         }

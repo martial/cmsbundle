@@ -45,6 +45,7 @@ class TextContentType extends ContentType
 
     private $text = "";
 
+
     /**
      * @Gedmo\Locale
      * Used locale to override Translation listener`s locale

@@ -35,17 +35,18 @@ class Node
     public function __construct()
     {
 
-        $this->date                = new \Datetime;
-        $this->dates     =   new ArrayCollection();
-       // $this->date         = $date->format('Y-m-d H:i:s');
-        $this->translations = new ArrayCollection();
-        $this->mediasets    = new ArrayCollection();
-        $this->mediaNodes   = new ArrayCollection();
-        $this->categories   = new ArrayCollection();
-        $this->textContent  = new ArrayCollection();
-        $this->booleanContent = new ArrayCollection();
-        $this->dateContent  = new ArrayCollection();
+        $this->date                 = new \Datetime;
+        $this->dates                = new ArrayCollection();
+        $this->translations         = new ArrayCollection();
+        $this->mediasets            = new ArrayCollection();
+        $this->mediaNodes           = new ArrayCollection();
+        $this->categories           = new ArrayCollection();
+        $this->textContent          = new ArrayCollection();
+        $this->booleanContent       = new ArrayCollection();
+        $this->dateContent          = new ArrayCollection();
+        $this->mediaContent         = new ArrayCollection();
         $this->contentTypeConfigs   = new ArrayCollection();
+        $this->contentTypes         = new ArrayCollection();
     }
 
     /**
@@ -304,6 +305,11 @@ class Node
      * @ORM\ManyToMany(targetEntity="DateContentType", cascade={"persist"})
      */
     private $dateContent;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="MediaContentType", cascade={"persist"})
+     */
+    private $mediaContent;
 
     /**
 
@@ -713,9 +719,7 @@ class Node
 
         $result = new ArrayCollection();
         foreach($this->mediaNodes as $mediaNode) {
-
             $result->add($mediaNode->getMedia());
-
         }
 
         return $result;
@@ -787,6 +791,26 @@ class Node
 
     public function getDateContent() {
         return $this->dateContent;
+
+    }
+
+    public function addMediaContent(MediaContentType $mediaContent)
+    {
+        $this->mediaContent[] = $mediaContent;
+    }
+
+
+    public function removeMediaContent(MediaContentType $mediaContent)
+    {
+        $this->mediaContent->removeElement($mediaContent);
+    }
+
+    public function setMediaContent($mediaContent) {
+        $this->mediaContent = $mediaContent;
+    }
+
+    public function getMediaContent() {
+        return $this->mediaContent;
 
     }
 
@@ -1023,6 +1047,22 @@ class Node
 
         return false;
 
+    }
+
+    public $contentTypes;
+
+    /**
+     * @param \Doctrine\Common\Collections\ArrayCollection $contentTypes
+     */
+    public function setContentTypes($contentTypes) {
+        $this->contentTypes = $contentTypes;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\ArrayCollection
+     */
+    public function getContentTypes() {
+        return $this->contentTypes;
     }
 
 

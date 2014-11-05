@@ -22,11 +22,14 @@ class ContentTypeConfigType extends AbstractType
             ->add('type', 'choice', array(
             'choices'   => array('text' => 'TextField',
                                  'date' => 'Date Field',
-                                'bool' => 'Boolean'
+                                 'bool' => 'Boolean',
+                                  'media' =>'Media'
             ),
             'empty_value' => false,
             'required'  => false,
             ))
+            ->add('order')
+
             ->add('cascade', 'checkbox')
             ->add('categories', 'entity',  array(
                 'class' => 'scrclubCMSBundle:Category',

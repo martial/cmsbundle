@@ -14,7 +14,10 @@ class ContentConfigType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
 
-        $builder->add('name')->add("description")->add('type', 'choice', array(
+        $builder
+            ->add('name')
+            ->add("description")
+            ->add('type', 'choice', array(
             'choices' => array('text' => 'Bloc texte')
         ));;
 

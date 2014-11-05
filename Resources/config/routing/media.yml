@@ -22,6 +22,12 @@ scrclub_cms_updateMediaOrder:
     options:
             expose: true
 
+scrclub_cms_updateMediaTypeOrder:
+    pattern:  /backend/updateMediaTypeOrder
+    defaults: { _controller: scrclubCMSBundle:Document:setOrder}
+    options:
+            expose: true
+
 scrclub_cms_getMediaNodeAjax:
     pattern:  /backend/getMediaNodeAjax/{mediaNodeId}
     defaults: { _controller: scrclubCMSBundle:Media:getMediaNodeAjax, mediaNodeId:null}
@@ -51,8 +57,20 @@ scrclub_cms_updateMediaPopOver:
     pattern:  /backend/updateMediaPop/{id}
     defaults: { _controller: scrclubCMSBundle:Media:update, id:null  }
 
+scrclub_cms_deletemedia:
+    pattern:  /backend/deletemedia/{id}
+    defaults: { _controller: scrclubCMSBundle:Media:delete, id:null }
+    options:
+            expose: true
+
 scrclub_cms_deletedocument:
     pattern:  /backend/deletedocument/{id}
     defaults: { _controller: scrclubCMSBundle:Document:delete, id:null }
+    options:
+            expose: true
+
+scrclub_cms_mediacontentupload:
+    pattern:  /backend/mediacontentupload/{mediaContentTypeId}
+    defaults: { _controller: scrclubCMSBundle:Document:multiUploadMediaType, mediaContentTypeId:null  }
     options:
             expose: true

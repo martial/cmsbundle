@@ -116,6 +116,12 @@ class NodeType extends AbstractType
             'by_reference' => false,
         ))
 
+        ->add('mediaContent', 'collection', array(
+            'type' => new MediaContentTypeType($this->langrepo),
+            'allow_add' => true,
+            'by_reference' => false,
+        ))
+
         ->add('contentTypeConfigs', 'collection', array(
             'type' => new ContentTypeConfigType(),
             'allow_add' => true,

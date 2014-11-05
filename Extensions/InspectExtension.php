@@ -1,6 +1,7 @@
 <?php
 
     namespace scrclub\CMSBundle\Extensions;
+    use Doctrine\Common\Util\Debug;
 
     /**
      * Inspect Twig templates with a debugger.
@@ -25,7 +26,7 @@
          */
         public function inspect($var)
         {
-            echo var_dump($var);
+            Debug::dump($var);
             return; // breakpoint
         }
 
